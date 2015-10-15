@@ -15,5 +15,10 @@ public class Main extends Application {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public static void test(){
+		
+		System.out.println("Hello World");
+	}
 
 }
