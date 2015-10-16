@@ -15,5 +15,10 @@ public class Main extends Application {
 		System.out.println("Hank just added this");
 
 	}
+	
+	public static void test(){
+		
+		System.out.println("Hello World");
+	}
 
 }
