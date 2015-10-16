@@ -1,8 +1,11 @@
 package graphics;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -19,8 +22,19 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+		GridPane grid = new GridPane();
+		addGraphicOutput(grid);
 		
-		
+		Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		stage.setScene(scene);
+		//make escape close window
+		stage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
+			if(e.getCode() == KeyCode.ESCAPE)
+				System.exit(0);
+		});
+//		stage.setFullScreen(true);
+		stage.setFullScreenExitHint("");
 		
 		stage.show();
 
