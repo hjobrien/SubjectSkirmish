@@ -1,0 +1,10 @@
+Notes 
+
+main class 
+-runs gui
+
+tile class
+-superclass Tile
+  -subclasses grassTile, waterTile, fireTile
+
+
