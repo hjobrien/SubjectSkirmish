@@ -22,5 +22,9 @@ public class Main extends Application {
 		
 		System.out.println("Hello World");
 	}
+	
+	private void foo() {
+		System.out.println("stuff");
+	}
 
 }
