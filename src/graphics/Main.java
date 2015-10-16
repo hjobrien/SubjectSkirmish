@@ -13,6 +13,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		System.out.println("Hank just added this");
+		System.out.println("and this");
 
 	}
 	
