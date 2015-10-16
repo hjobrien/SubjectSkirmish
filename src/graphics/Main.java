@@ -29,6 +29,7 @@ public class Main extends Application {
 	
 	public void name() {
 		System.out.println("");
+		System.out.println("also");
 	}
 
 }
