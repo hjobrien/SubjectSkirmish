@@ -26,5 +26,9 @@ public class Main extends Application {
 	private void foo() {
 		System.out.println("stuff");
 	}
+	
+	public void name() {
+		System.out.println("");
+	}
 
 }
