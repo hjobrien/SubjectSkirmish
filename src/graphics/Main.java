@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	//is this standard for all screens or just for our macbooks?
 	private static final int SCREEN_WIDTH = 1440;
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = 900;
@@ -49,7 +50,14 @@ public class Main extends Application {
 		g.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		g.scale(50,50);
 		g.setLineWidth(0.05);
-		g.strokeLine(0, 0, 1, 1);
+		//messing around with the drawing constructors
+		g.strokeLine(2, 3, 2, 4);
+		g.strokeLine(2, 3, 3, 3);
+		g.strokeLine(3, 3, 3, 4);
+		g.strokeLine(2, 4, 3, 4);
+		g.strokeLine(0, 0, 0, 0);
+		
+		//adds the already-drawn-on canvas to the screen
 		grid.add(canvas, 0, 2);
 	}
 
