@@ -1,6 +1,5 @@
 package graphics;
 
-import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javafx.application.Application;
@@ -14,10 +13,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	//is this standard for all screens or just for our macbooks?
 	private static final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private static final int BORDER_WIDTH = 0;
-	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
 
 	public static void main(String[] args) {
