@@ -2,7 +2,7 @@ package tile;
 
 import graphics.Event;
 
-public interface Tile{
-	
+public interface Stepable {
+
 	public Event onStep();
 }

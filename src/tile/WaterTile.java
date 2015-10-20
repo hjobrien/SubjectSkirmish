@@ -1,16 +1,17 @@
 package tile;
 
-public class WaterTile extends Tile {
+import graphics.Event;
+
+public class WaterTile implements Tile {
 
 	public static double chanceOfEncounter = 0.5;
-	public static boolean stepable = false;
 	
 	public WaterTile() {
-		super(chanceOfEncounter, stepable);
 	}
 
 	@Override
-	public void onStep() {
+	public Event onStep() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

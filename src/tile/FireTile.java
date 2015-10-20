@@ -1,16 +1,19 @@
 package tile;
 
-public class FireTile extends Tile {
+import graphics.Event;
+
+public class FireTile implements Tile {
 
 	public static double chanceOfEncounter = 1.0;
 	public static boolean stepable = false;
 	
 	public FireTile() {
-		super(chanceOfEncounter, stepable);
+
 	}
 
 	@Override
-	public void onStep() {
+	public Event onStep() {
+		return null;
 		// TODO Auto-generated method stub
 
 	}

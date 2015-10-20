@@ -1,16 +1,17 @@
 package tile;
 
-public class GrassTile extends Tile{
+import graphics.Event;
+
+public class GrassTile implements Tile{
 	
 	public static double chanceOfEncounter = 0.25;
 	public static boolean stepable = true;
 	
 	public GrassTile() {
-		super(chanceOfEncounter, stepable);
 	}
 
-	@Override
-	public void onStep() {
+	public Event onStep() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
