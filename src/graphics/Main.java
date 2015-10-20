@@ -40,25 +40,25 @@ public class Main extends Application {
 		});
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
-		g.strokeRect(-5, -5, 10, 10);
+		int x = 0;
+		int y = 0;
+		int changeX = 2;
+		int changeY = 2;
+		//Sets rectangle in the middle of the screen
+		g.strokeRect(x - changeX / 2, y - changeY / 2, changeX / 2, changeY / 2);
+		//doesnt really work
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
-			int x = -5;
-			int y = -5;
 			if(e.getCode() == KeyCode.LEFT){
-				g.strokeRect(x,y,15,10);
-				x+=5;
+				g.strokeRect(x - 2 ,y,2,2);
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-				g.strokeRect(x-5,y,10,10);
-				x-=5;
+				g.strokeRect(x + 2,y,2,2);
 			}
 			if(e.getCode() == KeyCode.UP){
-				g.strokeRect(x,y,10,15);
-				y+=5;
+				g.strokeRect(x,y + 2,2,2);
 			}
 			if(e.getCode() == KeyCode.DOWN){
-				g.strokeRect(x,y-5,10,10);
-				y-=5;
+				g.strokeRect(x,y-2,2,2);
 			}
 		});
 		grid.add(canvas, 0, 2);
