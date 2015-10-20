@@ -25,7 +25,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		GridPane grid = new GridPane();
-		addGraphicOutput(grid);
+		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
+		GraphicsContext g = canvas.getGraphicsContext2D();
+		
+		addGraphicOutput(grid, g);
 		
 		Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -37,14 +40,34 @@ public class Main extends Application {
 		});
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
-		
+		g.strokeRect(-5, -5, 10, 10);
+		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
+			int x = -5;
+			int y = -5;
+			if(e.getCode() == KeyCode.LEFT){
+				g.strokeRect(x,y,15,10);
+				x+=5;
+			}
+			if(e.getCode() == KeyCode.RIGHT){
+				g.strokeRect(x-5,y,10,10);
+				x-=5;
+			}
+			if(e.getCode() == KeyCode.UP){
+				g.strokeRect(x,y,10,15);
+				y+=5;
+			}
+			if(e.getCode() == KeyCode.DOWN){
+				g.strokeRect(x,y-5,10,10);
+				y-=5;
+			}
+		});
+		grid.add(canvas, 0, 2);
 		stage.show();
 
 	}
 	
-	public void addGraphicOutput(GridPane grid){
-		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
-		GraphicsContext g = canvas.getGraphicsContext2D();
+	public void addGraphicOutput(GridPane grid, GraphicsContext g){
+
 		
 		//puts 0,0 in center of display
 		//are you sure this is the center? because it doesn't seem centered
@@ -70,14 +93,16 @@ public class Main extends Application {
 		*/
 		
 		//draws four squares around the point passed in
-		fourSquares(0, 0, g);
-		fourSquares(-3, -3, g);
-		fourSquares(3, 3, g);		
-		fourSquares(-3, 3, g);
-		fourSquares(3, -3, g);
+//		fourSquares(0, 0, g);
+//		fourSquares(-3, -3, g);
+//		fourSquares(3, 3, g);		
+//		fourSquares(-3, 3, g);
+//		fourSquares(3, -3, g);
 		
 		//adds the already-drawn-on canvas to the screen
-		grid.add(canvas, 0, 2);
+		
+
+
 	}
 
 	private void fourSquares(int startX, int startY, GraphicsContext g) {
