@@ -15,15 +15,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	//is this standard for all screens or just for our macbooks?
-	private static int screenWidth = 1440;
+	private static final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private static final int BORDER_WIDTH = 0;
-	private static int screenHeight = 900;
+	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private static final int BORDER_HEIGHT = 0;
 
 	public static void main(String[] args) {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		screenWidth = (int) screenSize.getWidth();
-		screenHeight = (int) screenSize.getHeight();
 		launch(args);
 	}
 	
@@ -32,7 +29,7 @@ public class Main extends Application {
 		GridPane grid = new GridPane();
 		addGraphicOutput(grid);
 		
-		Scene scene = new Scene(grid, screenWidth, screenHeight);
+		Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		stage.setScene(scene);
 		//make escape close window
@@ -48,14 +45,14 @@ public class Main extends Application {
 	}
 	
 	public void addGraphicOutput(GridPane grid){
-		Canvas canvas = new Canvas(screenWidth - BORDER_WIDTH, screenHeight - BORDER_HEIGHT);
+		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
 		//puts 0,0 in center of display
 		//are you sure this is the center? because it doesn't seem centered
 		g.scale(1,-1);
-		g.translate(0, (-1) * screenHeight);
-		g.translate(screenWidth / 2, screenHeight / 2);
+		g.translate(0, (-1) * SCREEN_HEIGHT);
+		g.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		g.scale(50,50);
 		g.setLineWidth(0.05);
 		
