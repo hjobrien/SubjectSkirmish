@@ -70,7 +70,6 @@ public class Main extends Application {
 
 		
 		//puts 0,0 in center of display
-		//are you sure this is the center? because it doesn't seem centered
 		g.scale(1,-1);
 		g.translate(0, (-1) * SCREEN_HEIGHT);
 		g.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
