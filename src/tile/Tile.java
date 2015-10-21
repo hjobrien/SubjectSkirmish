@@ -2,7 +2,8 @@ package tile;
 
 import graphics.Event;
 
-public interface Tile{
+public abstract class Tile{
+	private boolean isOnScreenEdge;
 	
-	public Event onStep();
+	public abstract Event onStep();
 }

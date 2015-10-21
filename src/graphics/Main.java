@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import player.Player;
 
@@ -25,10 +26,10 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		Player player = new Player(0,0);
 		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
+		Player player = new Player(0,0,Color.RED,g);
 		
 		addGraphicOutput(grid, g);
 		
@@ -57,7 +58,7 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.DOWN){
 				moved = player.advance(0,-1);
 			}
-			player.draw(g);
+			player.draw();
 		});
 		grid.add(canvas, 0, 2);
 		stage.show();

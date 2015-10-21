@@ -2,7 +2,7 @@ package tile;
 
 import graphics.Event;
 
-public class WaterTile implements Tile {
+public class WaterTile extends Tile {
 
 	public static double chanceOfEncounter = 0.5;
 	

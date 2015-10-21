@@ -2,7 +2,7 @@ package tile;
 
 import graphics.Event;
 
-public class FireTile implements Tile {
+public class FireTile extends Tile {
 
 	public static double chanceOfEncounter = 1.0;
 	public static boolean stepable = false;
