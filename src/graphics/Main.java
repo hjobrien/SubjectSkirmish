@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import player.Player;
 
 public class Main extends Application {
 
@@ -24,6 +25,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+		Player player = new Player(0,0);
 		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
@@ -40,26 +42,22 @@ public class Main extends Application {
 		});
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
-		int x = 0;
-		int y = 0;
-		int changeX = 2;
-		int changeY = 2;
-		//Sets rectangle in the middle of the screen
-		g.strokeRect(x - changeX / 2, y - changeY / 2, changeX / 2, changeY / 2);
-		//doesnt really work
+		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
+			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
-				g.strokeRect(x - 2 ,y,2,2);
+				moved = player.advance(-1,0);
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-				g.strokeRect(x + 2,y,2,2);
+				moved = player.advance(1,0);
 			}
 			if(e.getCode() == KeyCode.UP){
-				g.strokeRect(x,y + 2,2,2);
+				moved = player.advance(0,1);
 			}
 			if(e.getCode() == KeyCode.DOWN){
-				g.strokeRect(x,y-2,2,2);
+				moved = player.advance(0,-1);
 			}
+			player.draw(g);
 		});
 		grid.add(canvas, 0, 2);
 		stage.show();
