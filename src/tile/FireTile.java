@@ -1,14 +1,16 @@
 package tile;
 
 import graphics.Event;
+import javafx.scene.paint.Color;
 
 public class FireTile extends Tile {
 
 	public static double chanceOfEncounter = 1.0;
-	public static boolean stepable = false;
-	
-	public FireTile() {
+	private static Color defaultColor = Color.RED;
 
+	
+	public FireTile(int x, int y) {
+		super(x,y, defaultColor);
 	}
 
 	@Override
@@ -17,5 +19,6 @@ public class FireTile extends Tile {
 		// TODO Auto-generated method stub
 
 	}
+
 
 }
