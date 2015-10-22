@@ -16,6 +16,9 @@ public abstract class Tile{
 		//should be a more screen-encompassing formula
 		//on my screen the values are -13 and 12 for x, -7 and 7 for y
 		//and i verified that these formulas produce those outputs
+		//another semi-benefit of this is that the grid could now be 
+		//bigger than is actually needed, as long as the border 
+		//restricts the player. 
 		if (x == - (SCREEN_WIDTH / 100) - 1 || x == (SCREEN_WIDTH / 50) - (SCREEN_WIDTH / 100) - 1 || y == -1 * (SCREEN_HEIGHT / 100) + 1 || y == SCREEN_HEIGHT / 50 - 2 - (SCREEN_HEIGHT / 100) + 1){
 			isOnScreenEdge = true;
 			this.c = Color.PURPLE;
