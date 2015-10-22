@@ -26,7 +26,11 @@ public class Main extends Application {
 	private int[] location = new int[1]; //x and y coordinate 
 	private Board board;
 	
-	public static final int TILE_SIZE = 1;
+	//I tried changing this and nothing happened. Does it do
+	//anything at the moment?
+	//---update, i changed the moving so now tile size affects the player,
+	//but it still doesnt affect the tiles
+	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
 
 
@@ -40,13 +44,12 @@ public class Main extends Application {
 		ArrayList<ArrayList<Tile>> board = new ArrayList<ArrayList<Tile>>();
 		Random rand = new Random();
 		
-		//in the process of fixing the dimensions so only the necessary 
-		//number of tiles are made to facilitate isOnEdge method
 		//should be the perfect number of tiles now (26 x 15), but 
 		//might be different for other computers
 		for(int i = 0; i < SCREEN_HEIGHT / 50 - 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
 			for(int j = 0; j < SCREEN_WIDTH / 50 + 1; j++){
+				//such beautiful polymorphism
 				Tile tempTile = null;
 				int x = rand.nextInt(4);
 				if(x == 0){
@@ -91,16 +94,16 @@ public class Main extends Application {
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
-				moved = player.advance(-1,0);
+				moved = player.advance(-TILE_SIZE,0);
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-				moved = player.advance(1,0);
+				moved = player.advance(TILE_SIZE,0);
 			}
 			if(e.getCode() == KeyCode.UP){
-				moved = player.advance(0,1);
+				moved = player.advance(0,TILE_SIZE);
 			}
 			if(e.getCode() == KeyCode.DOWN){
-				moved = player.advance(0,-1);
+				moved = player.advance(0,-TILE_SIZE);
 			}
 			location = player.getLocation();
 			update(player,g);
@@ -111,7 +114,6 @@ public class Main extends Application {
 	}
 	
 	public void addGraphicOutput(GridPane grid, GraphicsContext g){
-
 		
 		//puts 0,0 in center of display
 		g.scale(1,-1);
@@ -126,7 +128,8 @@ public class Main extends Application {
 		//draw player
 		double size = Player.SIZE;
 		
-		//I logically optimized this
+		//optimized this
+		//--Liam
 		g.clearRect(location[0]-TILE_SIZE,location[1]-TILE_SIZE, TILE_SIZE * 3,TILE_SIZE * 3);
 
 		for(ArrayList<Tile> row : board.getBoard()){

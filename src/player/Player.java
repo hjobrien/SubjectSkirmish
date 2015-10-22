@@ -3,7 +3,7 @@ package player;
 import javafx.scene.paint.Color;
 
 public class Player {
-	public static final double SIZE = 0.8;
+	public static final double SIZE = 0.8; // 0 < SIZE < TILE_SIZE
 	private int x;
 	private int y;
 	private Color color;
