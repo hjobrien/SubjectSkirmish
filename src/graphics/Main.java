@@ -15,10 +15,7 @@ import javafx.scene.paint.Color;
 //import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import player.Player;
-import tile.FireTile;
-import tile.GrassTile;
-import tile.Tile;
-import tile.WaterTile;
+import tile.*;
 
 public class Main extends Application {
 
@@ -51,15 +48,18 @@ public class Main extends Application {
 			ArrayList<Tile> temp = new ArrayList<Tile>();
 			for(int j = 0; j < SCREEN_WIDTH / 50 + 1; j++){
 				Tile tempTile = null;
-				int x = rand.nextInt(3);
+				int x = rand.nextInt(4);
 				if(x == 0){
-					tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+					tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
 				}
 				if(x == 1){
-					tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+					tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
 				}
 				if(x == 2){
-					tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+					tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
+				}
+				if (x == 3){
+					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
 				}
 				temp.add(tempTile);
 			}

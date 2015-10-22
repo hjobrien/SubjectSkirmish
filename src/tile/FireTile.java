@@ -8,9 +8,9 @@ public class FireTile extends Tile {
 	public static double chanceOfEncounter = 1.0;
 	private static Color defaultColor = Color.RED;
 	
-	
-	public FireTile(int x, int y) {
-		super(x,y, defaultColor);
+	//sw = screen width, sh = screen height
+	public FireTile(int x,int y, int sw, int sh) {
+		super(x, y, defaultColor, sw, sh);
 	}
 
 	@Override
