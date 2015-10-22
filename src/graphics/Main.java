@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+//import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import player.Player;
 import tile.FireTile;
@@ -42,19 +42,24 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		ArrayList<ArrayList<Tile>> board = new ArrayList<ArrayList<Tile>>();
 		Random rand = new Random();
-		for(int i = -SCREEN_HEIGHT/20; i < SCREEN_WIDTH/20; i++){
+		
+		//in the process of fixing the dimensions so only the necessary 
+		//number of tiles are made to facilitate isOnEdge method
+		//should be the perfect number of tiles now (26 x 15), but 
+		//might be different for other computers
+		for(int i = 0; i < SCREEN_HEIGHT / 50 - 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
-			for(int j = -SCREEN_WIDTH/20; j < SCREEN_HEIGHT/20; j++){
+			for(int j = 0; j < SCREEN_WIDTH / 50 + 1; j++){
 				Tile tempTile = null;
 				int x = rand.nextInt(3);
 				if(x == 0){
-					tempTile = new FireTile(i,j);
+					tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
 				}
 				if(x == 1){
-					tempTile = new GrassTile(i,j);
+					tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
 				}
 				if(x == 2){
-					tempTile = new WaterTile(i,j);
+					tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
 				}
 				temp.add(tempTile);
 			}
@@ -120,7 +125,9 @@ public class Main extends Application {
 	public void update(Player player, GraphicsContext g){
 		//draw player
 		double size = Player.SIZE;
-		g.clearRect(location[0]-3*size,location[1]-3*size,size*5,size*5);
+		
+		//I logically optimized this
+		g.clearRect(location[0]-TILE_SIZE,location[1]-TILE_SIZE, TILE_SIZE * 3,TILE_SIZE * 3);
 
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){

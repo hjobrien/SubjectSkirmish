@@ -4,12 +4,16 @@ import graphics.Event;
 import javafx.scene.paint.Color;
 
 public abstract class Tile{
-//	private boolean isOnScreenEdge;
+	private boolean isOnScreenEdge = false;
 	private int x,y;
 	private Color c;
 	
 	public Tile(int x, int y, Color c){
 		this.c = c;
+		if (x == -13 || x == 12 || y == 7 || y == -7){
+			isOnScreenEdge = true;
+			c = Color.PURPLE;
+		}
 		this.x = x;
 		this.y = y;
 	}
