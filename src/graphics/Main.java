@@ -3,7 +3,6 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -34,8 +33,7 @@ public class Main extends Application {
 	public static final Color PLAYER_COLOR = Color.BLACK;
 
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {	
 		launch(args);
 	}
 	

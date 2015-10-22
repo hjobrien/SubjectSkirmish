@@ -13,6 +13,7 @@ public abstract class Tile{
 	public Tile(int x, int y, Color c, int SCREEN_WIDTH, int SCREEN_HEIGHT){
 		this.c = c;
 		
+		//should be a more screen-encompassing formula
 		//on my screen the values are -13 and 12 for x, -7 and 7 for y
 		//and i verified that these formulas produce those outputs
 		//another semi-benefit of this is that the grid could now be 

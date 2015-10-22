@@ -9,6 +9,7 @@ public class FireTile extends Tile {
 	private static Color defaultColor = Color.RED;
 	
 	//sw = screen width, sh = screen height
+
 	public FireTile(int x,int y, int sw, int sh) {
 		super(x, y, defaultColor, sw, sh);
 	}
