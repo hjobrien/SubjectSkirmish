@@ -18,10 +18,7 @@ public abstract class Tile{
 		//and i verified that these formulas produce those outputs
 		if (x == - (SCREEN_WIDTH / 100) - 1 || x == (SCREEN_WIDTH / 50) - (SCREEN_WIDTH / 100) - 1 || y == -1 * (SCREEN_HEIGHT / 100) + 1 || y == SCREEN_HEIGHT / 50 - 2 - (SCREEN_HEIGHT / 100) + 1){
 			isOnScreenEdge = true;
-			//i tried marking these with a different color but it didnt
-			//work because the type of tile overrides it. any ideas
-			//how to fix that?
-			//--Liam
+			this.c = Color.PURPLE;
 		} else {
 			isOnScreenEdge = false;
 		}
