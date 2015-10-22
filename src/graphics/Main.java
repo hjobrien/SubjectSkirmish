@@ -22,7 +22,7 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private int[] location = new int[1]; //x and y coordinate 
+	private int[] location = new int[]{0,0}; //x and y coordinate 
 	private Board board;
 	
 	//I tried changing this and nothing happened. Does it do
@@ -49,7 +49,7 @@ public class Main extends Application {
 			for(int j = 0; j < SCREEN_WIDTH / 50 + 1; j++){
 				//such beautiful polymorphism
 				Tile tempTile = null;
-				int x = rand.nextInt(4);
+				int x = rand.nextInt(3);
 				if(x == 0){
 					tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
 				}
@@ -59,9 +59,9 @@ public class Main extends Application {
 				if(x == 2){
 					tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
 				}
-				if (x == 3){
-					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
-				}
+//				if (x == 3){
+//					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
+//				}
 				temp.add(tempTile);
 			}
 			board.add(temp);
@@ -72,11 +72,11 @@ public class Main extends Application {
 		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
-		Player player = new Player(0,0,Color.GREY);
+		Player player = new Player(0,0,PLAYER_COLOR);
+//		scaleGraphics(grid, g);
+		update(player, g);
 		
-//		update(player, g);
-		
-		addGraphicOutput(grid, g);
+		scaleGraphics(grid, g);
 		
 		Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -111,7 +111,7 @@ public class Main extends Application {
 
 	}
 	
-	public void addGraphicOutput(GridPane grid, GraphicsContext g){
+	public void scaleGraphics(GridPane grid, GraphicsContext g){
 		
 		//puts 0,0 in center of display
 		g.scale(1,-1);
@@ -126,8 +126,6 @@ public class Main extends Application {
 		//draw player
 		double size = Player.SIZE;
 		
-		//optimized this
-		//--Liam
 		g.clearRect(location[0]-TILE_SIZE,location[1]-TILE_SIZE, TILE_SIZE * 3,TILE_SIZE * 3);
 
 		for(ArrayList<Tile> row : board.getBoard()){
@@ -142,9 +140,6 @@ public class Main extends Application {
 		
 	}
 	
-//	public void initBoard(){
-//		fo
-//	}
 
 
 
