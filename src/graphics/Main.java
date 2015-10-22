@@ -100,7 +100,7 @@ public class Main extends Application {
 			location = player.getLocation();
 			update(player,g);
 		});
-		grid.add(canvas, 0, 2);
+		grid.add(canvas, 0, 2); //why 2?
 		stage.show();
 
 	}
