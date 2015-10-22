@@ -16,9 +16,8 @@ public class NormalTile extends Tile implements Stepable {
 	public static double chanceOfEncounter = 0.0;
 	public static Color defaultColor = Color.DARKGREY;
 	
-	//sw = screen width, sh = screen height
-	public NormalTile(int x,int y, int sw, int sh) {
-		super(x, y, defaultColor, sw, sh);
+	public NormalTile(int x,int y) {
+		super(x, y, defaultColor);
 	}
 
 	@Override

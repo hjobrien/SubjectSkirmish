@@ -49,19 +49,23 @@ public class Main extends Application {
 			for(int j = 0; j < SCREEN_WIDTH / 50 + 1; j++){
 				//such beautiful polymorphism
 				Tile tempTile = null;
-				int x = rand.nextInt(3);
-				if(x == 0){
-					tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
+				if (isOnScreenEdge(j - (SCREEN_WIDTH / 100) - 1, i - (SCREEN_HEIGHT / 100) + 1)){
+					tempTile = new BorderTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+				} else {
+					int x = rand.nextInt(3);
+					if(x == 0){
+						tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+					}
+					if(x == 1){
+						tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+					}
+					if(x == 2){
+						tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+					}
+	//				if (x == 3){
+	//					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
+	//				}
 				}
-				if(x == 1){
-					tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
-				}
-				if(x == 2){
-					tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
-				}
-//				if (x == 3){
-//					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
-//				}
 				temp.add(tempTile);
 			}
 			board.add(temp);
@@ -109,6 +113,19 @@ public class Main extends Application {
 		grid.add(canvas, 0, 2); //why 2?
 		stage.show();
 
+	}
+	
+	public boolean isOnScreenEdge(int x, int y){
+		//should be a more screen-encompassing formula
+		//on my screen the values are -13 and 12 for x, -7 and 7 for y
+		//and i verified that these formulas produce those outputs
+		//another semi-benefit of this is that the grid could now be 
+		//bigger than is actually needed, as long as the border 
+		//restricts the player. 
+		if (x == - (SCREEN_WIDTH / 100) - 1 || x == (SCREEN_WIDTH / 50) - (SCREEN_WIDTH / 100) - 1 || y == -1 * (SCREEN_HEIGHT / 100) + 1 || y == SCREEN_HEIGHT / 50 - 2 - (SCREEN_HEIGHT / 100) + 1){
+			return true;
+		} 
+		return false;
 	}
 	
 	public void scaleGraphics(GridPane grid, GraphicsContext g){

@@ -9,9 +9,8 @@ public class WaterTile extends Tile {
 	private static Color defaultColor = Color.BLUE;
 	
 	
-	//sw = screen width, sh = screen height
-	public WaterTile(int x,int y, int sw, int sh) {
-		super(x, y, defaultColor, sw, sh);
+	public WaterTile(int x,int y) {
+		super(x, y, defaultColor);
 	}
 
 	@Override
