@@ -3,7 +3,7 @@ package tile;
 import graphics.Event;
 import javafx.scene.paint.Color;
 
-public class BorderTile extends Tile {
+public class BorderTile extends Tile implements Stepable{
 	
 	private static final Color c = Color.PURPLE;
 

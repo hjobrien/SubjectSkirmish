@@ -3,7 +3,7 @@ package tile;
 import graphics.Event;
 import javafx.scene.paint.Color;
 
-public class WaterTile extends Tile {
+public class WaterTile extends Tile implements Stepable{
 
 	public static double chanceOfEncounter = 0.5;
 	private static Color defaultColor = Color.BLUE;

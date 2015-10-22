@@ -1,8 +1,5 @@
 package tile;
 
-import java.awt.Toolkit;
-
-import graphics.Event;
 import javafx.scene.paint.Color;
 
 public abstract class Tile{
@@ -25,9 +22,5 @@ public abstract class Tile{
 
 	public Color getColor() {
 		return c;
-	}
-
-	public abstract Event onStep();
-	
-	
+	}	
 }

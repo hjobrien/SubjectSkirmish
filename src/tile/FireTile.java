@@ -13,12 +13,5 @@ public class FireTile extends Tile {
 		super(x, y, defaultColor);
 	}
 
-	@Override
-	public Event onStep() {
-		return null;
-		// TODO Auto-generated method stub
-
-	}
-
 
 }
