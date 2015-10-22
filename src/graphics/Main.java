@@ -24,7 +24,7 @@ public class Main extends Application {
 	private static final int BORDER_HEIGHT = 0;
 	private int[] location = new int[]{0,0}; //x and y coordinate 
 	private Board board;
-	
+
 	//I tried changing this and nothing happened. Does it do
 	//anything at the moment?
 	//---update, i changed the moving so now tile size affects the player,
@@ -54,7 +54,7 @@ public class Main extends Application {
 				} else {
 					int x = rand.nextInt(3);
 					if(x == 0){
-						tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+						tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
 					}
 					if(x == 1){
 						tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
@@ -96,16 +96,28 @@ public class Main extends Application {
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
-				moved = player.advance(-TILE_SIZE,0);
+//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20-TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20).toString());
+				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1-1).get(location[1] + (SCREEN_HEIGHT / 100) + 1) instanceof Stepable){
+					moved = player.advance(-TILE_SIZE,0);
+				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-				moved = player.advance(TILE_SIZE,0);
+//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20+TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20).toString());
+				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1+1).get(location[1] + (SCREEN_HEIGHT / 100) + 1) instanceof Stepable){
+					moved = player.advance(TILE_SIZE,0);
+				}
 			}
 			if(e.getCode() == KeyCode.UP){
-				moved = player.advance(0,TILE_SIZE);
+//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20).get(location[1]+SCREEN_HEIGHT/20+TILE_SIZE).toString());
+				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1).get(location[1] + (SCREEN_HEIGHT / 100) + 1+1) instanceof Stepable){
+					moved = player.advance(0,TILE_SIZE);
+				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
-				moved = player.advance(0,-TILE_SIZE);
+//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20-TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20-TILE_SIZE).toString());
+				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1).get(location[1] + (SCREEN_HEIGHT / 100) + 1-1) instanceof Stepable){
+					moved = player.advance(0,-TILE_SIZE);
+				}
 			}
 			location = player.getLocation();
 			update(player,g);
@@ -153,7 +165,7 @@ public class Main extends Application {
 		}
 
 		g.setFill(player.getColor());
-		g.fillRect(location[0] + (1-size)/2, location[1] + (1-size)/2, size, size);
+		g.fillRect(location[0] + (TILE_SIZE-size)/2, location[1] + (TILE_SIZE-size)/2, size, size);
 		
 	}
 	
