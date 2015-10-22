@@ -54,7 +54,7 @@ public class Main extends Application {
 				} else {
 					int x = rand.nextInt(3);
 					if(x == 0){
-						tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+						tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
 					}
 					if(x == 1){
 						tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
@@ -97,25 +97,25 @@ public class Main extends Application {
 			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
 //				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20-TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20).toString());
-				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1-1).get(location[1] + (SCREEN_HEIGHT / 100) + 1) instanceof Stepable){
+				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1).get(location[0] + (SCREEN_WIDTH / 100) - 1-1) instanceof Stepable){
 					moved = player.advance(-TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
 //				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20+TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20).toString());
-				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1+1).get(location[1] + (SCREEN_HEIGHT / 100) + 1) instanceof Stepable){
+				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1).get(location[0] + (SCREEN_WIDTH / 100) - 1+1) instanceof Stepable){
 					moved = player.advance(TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
 //				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20).get(location[1]+SCREEN_HEIGHT/20+TILE_SIZE).toString());
-				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1).get(location[1] + (SCREEN_HEIGHT / 100) + 1+1) instanceof Stepable){
+				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1+1).get(location[0] + (SCREEN_WIDTH / 100) - 1) instanceof Stepable){
 					moved = player.advance(0,TILE_SIZE);
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
 //				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20-TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20-TILE_SIZE).toString());
-				if((this.board.getBoard()).get(location[0] + (SCREEN_WIDTH / 100) - 1).get(location[1] + (SCREEN_HEIGHT / 100) + 1-1) instanceof Stepable){
+				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1-1).get(location[0] + (SCREEN_WIDTH / 100) - 1) instanceof Stepable){
 					moved = player.advance(0,-TILE_SIZE);
 				}
 			}
