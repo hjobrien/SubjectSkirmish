@@ -8,17 +8,19 @@ public class Player {
 	private int x;
 	private int y;
 	private Color color;
+	private Board board;
 	
-	public Player(int startX, int startY, Color color){
+	public Player(int startX, int startY, Color color, Board board){
 		this.x = startX;
 		this.y = startY;
 		this.color = color;
+		this.board = board;
 	}
 	
-	public void advance(int deltaX, int deltaY, Board board, int[] location){
+	public void advance(int deltaX, int deltaY){
 		x += deltaX;
 		y += deltaY;
-		board.getBoard().get(location[0]).get(location[1]).onStep();
+		board.getBoard().get(x).get(y).onStep();
 	}
 
 	

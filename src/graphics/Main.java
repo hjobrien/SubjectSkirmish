@@ -3,10 +3,12 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -14,7 +16,12 @@ import javafx.scene.paint.Color;
 //import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import player.Player;
-import tile.*;
+import tile.BorderTile;
+import tile.FireTile;
+import tile.GrassTile;
+import tile.Stepable;
+import tile.Tile;
+import tile.WaterTile;
 
 public class Main extends Application {
 
@@ -76,7 +83,7 @@ public class Main extends Application {
 		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
-		Player player = new Player(location[0],location[1],PLAYER_COLOR);
+		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
 		scaleGraphics(grid, g);
 		update(player, g);
 				
@@ -96,30 +103,35 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.LEFT){
 //				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
-					player.advance(-TILE_SIZE,0, this.board, location);
+					player.advance(-TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
 //				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
-					player.advance(TILE_SIZE,0, this.board, location);
+					player.advance(TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
 //				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
-					player.advance(0,-TILE_SIZE, this.board, location);
+					player.advance(0,-TILE_SIZE);
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
 //				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
-					player.advance(0,TILE_SIZE, this.board, location);
+					player.advance(0,TILE_SIZE);
 				}
 			}
 			location = player.getLocation();
 			update(player,g);
 		});
+		
+		TextArea textArea = new TextArea("Testing\nthis is another line\nand another one");
+		textArea.getStylesheets().add("GUI Style.css");
+		grid.add(textArea, 0, 1);
+		
 		grid.add(canvas, 0, 0); //why 2?
 		stage.show();
 
