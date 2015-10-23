@@ -22,7 +22,7 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private int[] location = new int[]{7,7}; //x and y coordinate 
+	private int[] location = new int[]{(SCREEN_WIDTH / 50) / 2,((SCREEN_HEIGHT / 50) - 3) / 2}; //x and y coordinate 
 	private Board board;
 
 	//I tried changing this and nothing happened. Does it do
@@ -97,24 +97,28 @@ public class Main extends Application {
 //				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
 					moved = player.advance(-TILE_SIZE,0);
+					this.board.getBoard().get(location[0]).get(location[1]).onStep();
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
 //				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
 					moved = player.advance(TILE_SIZE,0);
+					this.board.getBoard().get(location[0]).get(location[1]).onStep();
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
 //				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
 					moved = player.advance(0,-TILE_SIZE);
+					this.board.getBoard().get(location[0]).get(location[1]).onStep();
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
 //				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
 					moved = player.advance(0,TILE_SIZE);
+					this.board.getBoard().get(location[0]).get(location[1]).onStep();
 				}
 			}
 			location = player.getLocation();
