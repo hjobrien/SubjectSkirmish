@@ -22,7 +22,7 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private int[] location = new int[]{1,1}; //x and y coordinate 
+	private int[] location = new int[]{7,7}; //x and y coordinate 
 	private Board board;
 
 	//I tried changing this and nothing happened. Does it do
@@ -52,14 +52,14 @@ public class Main extends Application {
 				if (isOnScreenEdge(i, j)){
 					tempTile = new BorderTile(i,j);
 				} else {
-					int x = rand.nextInt(3);
+					int x = rand.nextInt(5);
 					if(x == 0){
-						tempTile = new NormalTile(i,j);
+						tempTile = new FireTile(i,j);
 					}
-					if(x == 1){
+					if(x == 1 || x == 2){
 						tempTile = new GrassTile(i,j);
 					}
-					if(x == 2){
+					if(x >= 3){
 						tempTile = new WaterTile(i,j);
 					}
 	//				if (x == 3){
