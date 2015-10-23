@@ -1,6 +1,6 @@
 package tile;
 
-import graphics.Event;
+import event.Event;
 import javafx.scene.paint.Color;
 
 public class GrassTile extends Tile implements Stepable{

@@ -1,6 +1,6 @@
 package tile;
 
-import graphics.Event;
+import event.Event;
 
 public interface Stepable {
 

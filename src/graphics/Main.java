@@ -96,25 +96,25 @@ public class Main extends Application {
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
-				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
+//				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
 					moved = player.advance(-TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
+//				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
 					moved = player.advance(TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
-				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
+//				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
 					moved = player.advance(0,-TILE_SIZE);
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
-				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
+//				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
 					moved = player.advance(0,TILE_SIZE);
 				}
@@ -122,7 +122,7 @@ public class Main extends Application {
 			location = player.getLocation();
 			update(player,g);
 		});
-		grid.add(canvas, 0, 2); //why 2?
+		grid.add(canvas, 0, 0); //why 2?
 		stage.show();
 
 	}
