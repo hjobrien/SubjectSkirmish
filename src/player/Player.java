@@ -1,5 +1,6 @@
 package player;
 
+import graphics.Board;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -14,11 +15,10 @@ public class Player {
 		this.color = color;
 	}
 	
-	public boolean advance(int deltaX, int deltaY){
+	public void advance(int deltaX, int deltaY, Board board, int[] location){
 		x += deltaX;
 		y += deltaY;
-		
-		return true;
+		board.getBoard().get(location[0]).get(location[1]).onStep();
 	}
 
 	

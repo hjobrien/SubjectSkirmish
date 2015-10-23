@@ -96,29 +96,25 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.LEFT){
 //				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
-					moved = player.advance(-TILE_SIZE,0);
-					this.board.getBoard().get(location[0]).get(location[1]).onStep();
+					player.advance(-TILE_SIZE,0, this.board, location);
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
 //				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
-					moved = player.advance(TILE_SIZE,0);
-					this.board.getBoard().get(location[0]).get(location[1]).onStep();
+					player.advance(TILE_SIZE,0, this.board, location);
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
 //				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
-					moved = player.advance(0,-TILE_SIZE);
-					this.board.getBoard().get(location[0]).get(location[1]).onStep();
+					player.advance(0,-TILE_SIZE, this.board, location);
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
 //				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
-					moved = player.advance(0,TILE_SIZE);
-					this.board.getBoard().get(location[0]).get(location[1]).onStep();
+					player.advance(0,TILE_SIZE, this.board, location);
 				}
 			}
 			location = player.getLocation();
