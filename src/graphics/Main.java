@@ -77,14 +77,12 @@ public class Main extends Application {
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		Player player = new Player(location[0],location[1],PLAYER_COLOR);
-//		scaleGraphics(grid, g);
-		update(player, g);
-		
 		scaleGraphics(grid, g);
-		
-		Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
+		update(player, g);
+				
+		Scene boardScene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		stage.setScene(scene);
+		stage.setScene(boardScene);
 		//make escape close window
 		stage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
 			if(e.getCode() == KeyCode.ESCAPE)
