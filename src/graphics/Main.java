@@ -22,7 +22,7 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private int[] location = new int[]{0,0}; //x and y coordinate 
+	private int[] location = new int[]{1,1}; //x and y coordinate 
 	private Board board;
 
 	//I tried changing this and nothing happened. Does it do
@@ -44,23 +44,23 @@ public class Main extends Application {
 		
 		//should be the perfect number of tiles now (26 x 15), but 
 		//might be different for other computers
-		for(int i = 0; i < SCREEN_HEIGHT / 50 - 1; i++){
+		for(int i = 0; i < SCREEN_WIDTH / 50 + 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
-			for(int j = 0; j < SCREEN_WIDTH / 50 + 1; j++){
+			for(int j = 0; j < SCREEN_HEIGHT / 50 - 2; j++){
 				//such beautiful polymorphism
 				Tile tempTile = null;
-				if (isOnScreenEdge(j - (SCREEN_WIDTH / 100) - 1, i - (SCREEN_HEIGHT / 100) + 1)){
-					tempTile = new BorderTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+				if (isOnScreenEdge(i, j)){
+					tempTile = new BorderTile(i,j);
 				} else {
 					int x = rand.nextInt(3);
 					if(x == 0){
-						tempTile = new FireTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+						tempTile = new NormalTile(i,j);
 					}
 					if(x == 1){
-						tempTile = new GrassTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+						tempTile = new GrassTile(i,j);
 					}
 					if(x == 2){
-						tempTile = new WaterTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1);
+						tempTile = new WaterTile(i,j);
 					}
 	//				if (x == 3){
 	//					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -76,7 +76,7 @@ public class Main extends Application {
 		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
-		Player player = new Player(0,0,PLAYER_COLOR);
+		Player player = new Player(location[0],location[1],PLAYER_COLOR);
 //		scaleGraphics(grid, g);
 		update(player, g);
 		
@@ -96,27 +96,27 @@ public class Main extends Application {
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
-//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20-TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20).toString());
-				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1).get(location[0] + (SCREEN_WIDTH / 100) - 1-1) instanceof Stepable){
+				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
+				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
 					moved = player.advance(-TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20+TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20).toString());
-				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1).get(location[0] + (SCREEN_WIDTH / 100) - 1+1) instanceof Stepable){
+				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
+				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
 					moved = player.advance(TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
-//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20).get(location[1]+SCREEN_HEIGHT/20+TILE_SIZE).toString());
-				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1+1).get(location[0] + (SCREEN_WIDTH / 100) - 1) instanceof Stepable){
-					moved = player.advance(0,TILE_SIZE);
+				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
+				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
+					moved = player.advance(0,-TILE_SIZE);
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
-//				System.out.println((this.board.getBoard()).get(location[0]+SCREEN_WIDTH/20-TILE_SIZE).get(location[1]+SCREEN_HEIGHT/20-TILE_SIZE).toString());
-				if((this.board.getBoard()).get(location[1] + (SCREEN_HEIGHT / 100) + 1-1).get(location[0] + (SCREEN_WIDTH / 100) - 1) instanceof Stepable){
-					moved = player.advance(0,-TILE_SIZE);
+				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
+				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
+					moved = player.advance(0,TILE_SIZE);
 				}
 			}
 			location = player.getLocation();
@@ -134,7 +134,7 @@ public class Main extends Application {
 		//another semi-benefit of this is that the grid could now be 
 		//bigger than is actually needed, as long as the border 
 		//restricts the player. 
-		if (x == - (SCREEN_WIDTH / 100) - 1 || x == (SCREEN_WIDTH / 50) - (SCREEN_WIDTH / 100) - 1 || y == -1 * (SCREEN_HEIGHT / 100) + 1 || y == SCREEN_HEIGHT / 50 - 2 - (SCREEN_HEIGHT / 100) + 1){
+		if (x == 0 || x == (SCREEN_WIDTH / 50)|| y == 0|| y == (SCREEN_HEIGHT / 50) - 3){
 			return true;
 		} 
 		return false;
@@ -143,9 +143,9 @@ public class Main extends Application {
 	public void scaleGraphics(GridPane grid, GraphicsContext g){
 		
 		//puts 0,0 in center of display
-		g.scale(1,-1);
-		g.translate(0, (-1) * SCREEN_HEIGHT);
-		g.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+//		g.scale(1,-1);
+//		g.translate(0, (-1) * SCREEN_HEIGHT);
+//		g.translate(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		g.scale(50,50);
 		g.setLineWidth(0.05);
 
@@ -155,6 +155,7 @@ public class Main extends Application {
 		//draw player
 		double size = Player.SIZE;
 		
+		//clears old player
 		g.clearRect(location[0]-TILE_SIZE,location[1]-TILE_SIZE, TILE_SIZE * 3,TILE_SIZE * 3);
 
 		for(ArrayList<Tile> row : board.getBoard()){

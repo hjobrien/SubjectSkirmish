@@ -27,4 +27,10 @@ public class NormalTile extends Tile implements Stepable {
 
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "x:" + super.getX() + "y:" + super.getY() + " Normal";
+	}
+
 }

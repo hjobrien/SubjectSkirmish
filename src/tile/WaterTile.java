@@ -19,4 +19,10 @@ public class WaterTile extends Tile implements Stepable{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "x:" + super.getX() + "y:" + super.getY() + " Water";
+	}
 }

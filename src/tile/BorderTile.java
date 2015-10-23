@@ -1,6 +1,5 @@
 package tile;
 
-import graphics.Event;
 import javafx.scene.paint.Color;
 
 public class BorderTile extends Tile {
@@ -9,6 +8,12 @@ public class BorderTile extends Tile {
 
 	public BorderTile(int x, int y) {
 		super(x, y, c);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "x:" + super.getX() + "y:" + super.getY() + " Border";
 	}
 
 }

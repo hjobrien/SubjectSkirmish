@@ -3,7 +3,8 @@ package tile;
 import javafx.scene.paint.Color;
 
 public abstract class Tile{
-	private int x,y;
+	private int x;
+	private int y;
 	private Color c;
 	
 	public Tile(int x, int y, Color c){
@@ -22,5 +23,7 @@ public abstract class Tile{
 
 	public Color getColor() {
 		return c;
-	}	
+	}
+	
+	public abstract String toString();
 }
