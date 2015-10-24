@@ -29,7 +29,13 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private int[] location = new int[]{(SCREEN_WIDTH / 50) / 2,((SCREEN_HEIGHT / 50) - 3) / 2}; //x and y coordinate 
+	
+	//commonly used formulas that can easily be changed now
+	//Still needs to be optimized for all screens
+	private static final int X_MAX = (SCREEN_WIDTH / 50);
+	private static final int Y_MAX = (SCREEN_HEIGHT / 50) - 3;
+	
+	private int[] location = new int[]{X_MAX / 2,Y_MAX / 2}; //x and y coordinate 
 	private Board board;
 
 	//I tried changing this and nothing happened. Does it do
@@ -51,14 +57,14 @@ public class Main extends Application {
 		
 		//should be the perfect number of tiles now (26 x 15), but 
 		//might be different for other computers
-		for(int i = 0; i < SCREEN_WIDTH / 50 + 1; i++){
+		for(int i = 0; i < X_MAX + 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
-			for(int j = 0; j < SCREEN_HEIGHT / 50 - 2; j++){
+			for(int j = 0; j < Y_MAX + 1; j++){
 				//such beautiful polymorphism
 				Tile tempTile = null;
 				if (isOnScreenEdge(i, j)){
 					tempTile = new BorderTile(i,j);
-				} else if (i == (SCREEN_WIDTH / 50) / 2 && j == (SCREEN_HEIGHT / 50 - 3) / 2){
+				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
 					//automatically makes the tile that the player starts on a grass tile
 					tempTile = new GrassTile(i, j);
 				} else {
@@ -70,9 +76,7 @@ public class Main extends Application {
 					} else { 
 						tempTile = new WaterTile(i,j);
 					}
-	//				if (x == 3){
-	//					tempTile = new NormalTile(j - (SCREEN_WIDTH / 100) - 1,i - (SCREEN_HEIGHT / 100) + 1, SCREEN_WIDTH, SCREEN_HEIGHT);
-	//				}
+					//normal tiles can also be used
 				}
 				temp.add(tempTile);
 			}
@@ -139,13 +143,11 @@ public class Main extends Application {
 	}
 	
 	public boolean isOnScreenEdge(int x, int y){
-		//should be a more screen-encompassing formula
-		//on my screen the values are -13 and 12 for x, -7 and 7 for y
-		//and i verified that these formulas produce those outputs
-		//another semi-benefit of this is that the grid could now be 
+		
+		//a benefit of this is that the grid could now be 
 		//bigger than is actually needed, as long as the border 
 		//restricts the player. 
-		if (x == 0 || x == (SCREEN_WIDTH / 50)|| y == 0|| y == (SCREEN_HEIGHT / 50) - 3){
+		if (x == 0 || x == X_MAX|| y == 0|| y == Y_MAX){
 			return true;
 		} 
 		return false;

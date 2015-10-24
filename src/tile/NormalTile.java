@@ -1,6 +1,11 @@
 package tile;
 
+import java.util.Random;
+
 import event.Event;
+import event.FindItem;
+import event.SpawnGrassMonster;
+import event.SpawnNormalMonster;
 import javafx.scene.paint.Color;
 
 public class NormalTile extends Tile implements Stepable {
@@ -13,8 +18,10 @@ public class NormalTile extends Tile implements Stepable {
 	 * a normal tile that wouldnt have any chance of encounter
 	 * --Liam
 	 */
-	public static double chanceOfEncounter = 0.0;
-	public static Color defaultColor = Color.DARKGREY;
+	
+	private static double chanceOfItemEncounter = 0.0;
+	private static double chanceOfCreatureEncounter = 0.0;
+	private static Color defaultColor = Color.DARKGREY;
 	
 	public NormalTile(int x,int y) {
 		super(x, y, defaultColor);
@@ -22,9 +29,14 @@ public class NormalTile extends Tile implements Stepable {
 
 	@Override
 	public Event onStep() {
+		Random r = new Random();
+		double chance = r.nextDouble();
+		if (chance <= chanceOfItemEncounter){
+			return new FindItem();
+		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
+			return new SpawnNormalMonster();
+		}
 		return null;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

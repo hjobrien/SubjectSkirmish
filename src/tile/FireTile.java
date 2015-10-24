@@ -1,6 +1,5 @@
 package tile;
 
-import event.Event;
 import javafx.scene.paint.Color;
 
 public class FireTile extends Tile {

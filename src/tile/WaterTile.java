@@ -1,10 +1,15 @@
 package tile;
 
+import java.util.Random;
+
 import event.Event;
+import event.FindItem;
+import event.SpawnWaterMonster;
 import javafx.scene.paint.Color;
 
 public class WaterTile extends Tile implements Stepable{
 
+	private static double chanceOfItemEncounter = 0.0;
 	public static double chanceOfCreatureEncounter = 0.5;
 	private static Color defaultColor = Color.BLUE;
 	
@@ -15,9 +20,14 @@ public class WaterTile extends Tile implements Stepable{
 
 	@Override
 	public Event onStep() {
+		Random r = new Random();
+		double chance = r.nextDouble();
+		if (chance <= chanceOfItemEncounter){
+			return new FindItem();
+		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
+			return new SpawnWaterMonster();
+		}
 		return null;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
