@@ -58,15 +58,16 @@ public class Main extends Application {
 				Tile tempTile = null;
 				if (isOnScreenEdge(i, j)){
 					tempTile = new BorderTile(i,j);
+				} else if (i == (SCREEN_WIDTH / 50) / 2 && j == (SCREEN_HEIGHT / 50 - 3) / 2){
+					//automatically makes the tile that the player starts on a grass tile
+					tempTile = new GrassTile(i, j);
 				} else {
-					int x = rand.nextInt(5);
-					if(x == 0){
+					int x = rand.nextInt(6);
+					if(x < 1){
 						tempTile = new FireTile(i,j);
-					}
-					if(x == 1 || x == 2){
+					} else if (x < 4){
 						tempTile = new GrassTile(i,j);
-					}
-					if(x >= 3){
+					} else { 
 						tempTile = new WaterTile(i,j);
 					}
 	//				if (x == 3){
