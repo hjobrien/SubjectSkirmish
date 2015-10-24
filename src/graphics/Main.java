@@ -133,7 +133,7 @@ public class Main extends Application {
 		textArea.getStylesheets().add("GUI Style.css");
 		grid.add(textArea, 0, 1);
 		
-		grid.add(canvas, 0, 0); //why 2?
+		grid.add(canvas, 0, 0); 
 		stage.show();
 
 	}
