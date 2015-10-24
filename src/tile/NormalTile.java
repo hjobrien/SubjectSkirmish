@@ -4,7 +4,6 @@ import java.util.Random;
 
 import event.Event;
 import event.FindItem;
-import event.SpawnGrassMonster;
 import event.SpawnNormalMonster;
 import javafx.scene.paint.Color;
 

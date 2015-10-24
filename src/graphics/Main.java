@@ -104,7 +104,7 @@ public class Main extends Application {
 		stage.setFullScreenExitHint("");
 		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
-			boolean moved; //to test if player moved
+//			boolean moved; //to test if player moved
 			if(e.getCode() == KeyCode.LEFT){
 //				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){

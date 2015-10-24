@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 
 public class GrassTile extends Tile implements Stepable{
 	
-	public static double chanceOfCreatureEncounter = 0.25;
-	public static double chanceOfItemEncounter = 0.50;
+	private static double chanceOfCreatureEncounter = 0.25;
+	private static double chanceOfItemEncounter = 0.50;
 	private static Color defaultColor = Color.GREEN;
 
 	public GrassTile(int x,int y) {
