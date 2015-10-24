@@ -55,8 +55,7 @@ public class Main extends Application {
 		ArrayList<ArrayList<Tile>> board = new ArrayList<ArrayList<Tile>>();
 		Random rand = new Random();
 		
-		//should be the perfect number of tiles now (26 x 15), but 
-		//might be different for other computers
+		//still needs to be optimized
 		for(int i = 0; i < X_MAX + 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
 			for(int j = 0; j < Y_MAX + 1; j++){
