@@ -104,6 +104,17 @@ public class Main extends Application {
 		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 //			boolean moved; //to test if player moved
+			
+			//basic event handling structure part 1:
+			/*
+			 * a new event is created as null, whenever any button is pressed
+			 * when one of the arrow keys is pressed, the player.advance returns a new event, 
+			 * which is the event created by whatever tile it steps onto, though this can change later
+			 * then, the event is (attempted) to be passed to a generic method that handles all kinds of events
+			 * though in the future, we could overload (<-- more polymorphism) the method so that if the event was a spawn event, it did
+			 * one thing, but if it was an item event, it would do another.
+			 * I choose to put it as the first action to be taken, because i figured the event handling could affect the graphics (for example) so it should be the highest precedence
+			 */
 			Event onAdvance = null;
 			if(e.getCode() == KeyCode.LEFT){
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
@@ -128,7 +139,7 @@ public class Main extends Application {
 			try{
 				handle(onAdvance);
 			}catch(NullPointerException NPException){
-				//means a button other than an arrow key was pressed, probably no big deal, though they coul be handled more gracefully
+				//means a button other than an arrow key was pressed, probably no big deal, though they could/should be handled more gracefully
 			}
 			location = player.getLocation();
 			update(player,g);
@@ -169,9 +180,20 @@ public class Main extends Application {
 
 	}
 	
+	
+	//basic event handling structure part 2
+	/*
+	 * this is the generic method for all events, should make more specific examples
+	 * right now it just does the toString of the events
+	 * I changed the objects that implemented event from printing in their constructor to producing the same output in toString, its cleaner
+	 */
 	public void handle(Event e){
 		System.out.println(e.toString());
 	}
+	
+	
+	
+	
 	
 	public void update(Player player, GraphicsContext g){
 		//draw player
