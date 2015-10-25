@@ -26,7 +26,7 @@ public class GrassTile extends Tile implements Stepable{
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnGrassMonster();
 		}
-		return null;
+		return new SpawnGrassMonster();
 	}
 
 	@Override

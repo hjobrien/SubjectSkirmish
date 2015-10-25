@@ -1,5 +1,6 @@
 package player;
 
+import event.Event;
 import graphics.Board;
 import javafx.scene.paint.Color;
 
@@ -17,10 +18,10 @@ public class Player {
 		this.board = board;
 	}
 	
-	public void advance(int deltaX, int deltaY){
+	public Event advance(int deltaX, int deltaY){
 		x += deltaX;
 		y += deltaY;
-		board.getBoard().get(x).get(y).onStep();
+		return board.getBoard().get(x).get(y).onStep();
 	}
 
 	

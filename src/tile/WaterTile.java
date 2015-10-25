@@ -27,7 +27,7 @@ public class WaterTile extends Tile implements Stepable{
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnWaterMonster();
 		}
-		return null;
+		return new SpawnWaterMonster();
 	}
 
 	@Override

@@ -4,11 +4,11 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
 
+import event.Event;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -104,39 +104,45 @@ public class Main extends Application {
 		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 //			boolean moved; //to test if player moved
+			Event onAdvance = null;
 			if(e.getCode() == KeyCode.LEFT){
-//				System.out.println((this.board.getBoard()).get(location[0]-1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
-					player.advance(-TILE_SIZE,0);
+					onAdvance = player.advance(-TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
-//				System.out.println((this.board.getBoard()).get(location[0]+1).get(location[1]).toString());
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
-					player.advance(TILE_SIZE,0);
+					onAdvance = player.advance(TILE_SIZE,0);
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
-//				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]-1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
-					player.advance(0,-TILE_SIZE);
+					onAdvance = player.advance(0,-TILE_SIZE);
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
-//				System.out.println((this.board.getBoard()).get(location[0]).get(location[1]+1).toString());
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
-					player.advance(0,TILE_SIZE);
+					onAdvance = player.advance(0,TILE_SIZE);
 				}
+			}
+			try{
+				handle(onAdvance);
+			}catch(NullPointerException NPException){
+				//means a button other than an arrow key was pressed, probably no big deal, though they coul be handled more gracefully
 			}
 			location = player.getLocation();
 			update(player,g);
 		});
-		
-		TextArea textArea = new TextArea("Testing\nthis is another line\nand another one");
-		textArea.getStylesheets().add("GUI Style.css");
-		grid.add(textArea, 0, 1);
-		
+
+//		TextArea textArea = new TextArea("Testing\n this is another line\n and another one");
+//		textArea.toFront();
+//		textArea.maxHeight(1);
+//		textArea.maxWidth(2);
+////		textArea.getStylesheets().add("GUI Style.css");
+//		grid.add(textArea, 0, 0);
 		grid.add(canvas, 0, 0); 
+
+		
 		stage.show();
 
 	}
@@ -161,6 +167,10 @@ public class Main extends Application {
 		g.scale(50,50);
 		g.setLineWidth(0.05);
 
+	}
+	
+	public void handle(Event e){
+		System.out.println(e.toString());
 	}
 	
 	public void update(Player player, GraphicsContext g){
