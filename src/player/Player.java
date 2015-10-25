@@ -1,5 +1,7 @@
 package player;
 
+import java.util.ArrayList;
+
 import event.Event;
 import graphics.Board;
 import javafx.scene.paint.Color;
@@ -10,6 +12,7 @@ public class Player {
 	private int y;
 	private Color color;
 	private Board board;
+	private ArrayList<Item> bag = new ArrayList<Item>();
 	
 	public Player(int startX, int startY, Color color, Board board){
 		this.x = startX;
@@ -31,5 +34,13 @@ public class Player {
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public void addToBag(Item itemToAdd){
+		bag.add(itemToAdd);
+	}
+	
+	public ArrayList<Item> getBag(){
+		return bag;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import event.Event;
+import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -17,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 //import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import player.Item;
 import player.Player;
 import tile.BorderTile;
 import tile.FireTile;
@@ -51,7 +53,7 @@ public class Main extends Application {
 
 	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my machine) 
 	//i don't think i can do anything about the error, its a java language problem
-	
+	//Tested on Java 8 Builds 60 and 65 (newest version 10/24/15)
 	
 	
 	
@@ -155,17 +157,22 @@ public class Main extends Application {
 			}
 			//resets after a spawn monster event was triggered, this is temporary
 			if(e.getCode() == KeyCode.ENTER){
-				stage.setScene(boardScene);
+				System.out.println(player.getBag());
+//				stage.setScene(boardScene);
 			}
 			try{
+				
 				if(onAdvance instanceof SpawnMonster){
-					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
-					stage.setScene(handle(newSpawn));
+//					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
+//					stage.setScene(handle(newSpawn));		uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
 				}
-				else{
+				else if(onAdvance instanceof FindItem){
+					FindItem newItem = (FindItem) onAdvance;
+					player.addToBag(handle(newItem));
+				}else{
 					handle(onAdvance);
 				}
-
+				
 			}catch(NullPointerException NPException){
 				//means a button other than an arrow key was pressed, probably no big deal, though they could/should be handled more gracefully
 			}
@@ -219,10 +226,15 @@ public class Main extends Application {
 		System.out.println(e.toString());
 	}
 	
+	//comment the contents of this method to stop JVM bug
 	public Scene handle(SpawnMonster spawn){
-		Group group = new Group();
+		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
 		Scene monsterFightScene = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 		return monsterFightScene;
+	}
+	
+	public Item handle(FindItem item){
+		return new Item(item.getName(), item.getRarity());
 	}
 	
 	

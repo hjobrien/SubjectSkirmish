@@ -1,26 +1,31 @@
 package event;
 
-import java.util.Random;
-
+//I renamed FindItem to Item, Github might have an issue with it
+//--Hank
 public class FindItem implements Event {
-
-	public FindItem(){
-		
+	private String name;
+	//could style item based on rarity
+	//should have some scale 1-5? 1-10?
+	private Rarity rarity;
+	
+	
+	//maybe make the random generation of properties in this object?
+	public FindItem(String name, Rarity rarity){
+		this.name = name;
+		this.rarity = rarity;
 	}
 
 	@Override
 	public String toString() {
-		String output = "Item Found \n";
-		Random r = new Random();
-		int itemChance = r.nextInt(10);
-		if (itemChance == 0){
-			output += "You found Eli";
-		} else if (itemChance < 3){
-			output += "You found Akaash";
-		} else if (itemChance < 10){
-			output += "You found Ben";
-		}
-		return output;
+		return name + " " + rarity;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public Rarity getRarity() {
+		return rarity;
 	}
 	
 	

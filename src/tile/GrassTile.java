@@ -3,7 +3,8 @@ package tile;
 import java.util.Random;
 
 import event.Event;
-import event.FindItem;
+import event.MonsterItem;
+import event.Rarity;
 import event.SpawnGrassMonster;
 import javafx.scene.paint.Color;
 
@@ -22,7 +23,7 @@ public class GrassTile extends Tile implements Stepable{
 		Random r = new Random();
 		double chance = r.nextDouble();
 		if (chance <= chanceOfItemEncounter){
-			return new FindItem();
+			return new MonsterItem("AkaashItem", Rarity.RARE);
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnGrassMonster();
 		}
