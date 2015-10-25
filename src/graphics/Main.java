@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import event.Event;
+import event.SpawnMonster;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,15 +39,30 @@ public class Main extends Application {
 	
 	private int[] location = new int[]{X_MAX / 2,Y_MAX / 2}; //x and y coordinate 
 	private Board board;
+	
 
 	//I tried changing this and nothing happened. Does it do
 	//anything at the moment?
 	//---update, i changed the moving so now tile size affects the player,
-	//but it still doesnt affect the tiles
+	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
 
 
+	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my machine) 
+	//i don't think i can do anything about the error, its a java language problem
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {	
 		launch(args);
 	}
@@ -136,8 +153,19 @@ public class Main extends Application {
 					onAdvance = player.advance(0,TILE_SIZE);
 				}
 			}
+			//resets after a spawn monster event was triggered, this is temporary
+			if(e.getCode() == KeyCode.ENTER){
+				stage.setScene(boardScene);
+			}
 			try{
-				handle(onAdvance);
+				if(onAdvance instanceof SpawnMonster){
+					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
+					stage.setScene(handle(newSpawn));
+				}
+				else{
+					handle(onAdvance);
+				}
+
 			}catch(NullPointerException NPException){
 				//means a button other than an arrow key was pressed, probably no big deal, though they could/should be handled more gracefully
 			}
@@ -189,6 +217,12 @@ public class Main extends Application {
 	 */
 	public void handle(Event e){
 		System.out.println(e.toString());
+	}
+	
+	public Scene handle(SpawnMonster spawn){
+		Group group = new Group();
+		Scene monsterFightScene = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+		return monsterFightScene;
 	}
 	
 	
