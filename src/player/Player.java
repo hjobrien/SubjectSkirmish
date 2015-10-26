@@ -55,6 +55,16 @@ public class Player {
 	public ArrayList<Item> getBag(){
 		return bag;
 	}
+	
+	//Should be styled into two nice rows that display item name and rarity under the appropriate titles.
+	//I forget how to do this
+	public String printBag(){
+		String bagString = "Item Name		Rarity\n";
+		for (Item i : bag){
+			bagString += i.getName() + "\t\t\t"+  i.getRarity() + "\n";
+		}
+		return bagString;
+	}
 
 	public int getMoney() {
 		return this.money;

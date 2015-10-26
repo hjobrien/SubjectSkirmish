@@ -163,7 +163,8 @@ public class Main extends Application {
 			
 			//b for bag
 			if(e.getCode() == KeyCode.B){
-				System.out.println(player.getBag());
+//				System.out.println(player.getBag()); //this just prints the array in a gross array format
+				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
 			}
 			
 			//i would rather have a "$" trigger this, but 4 is the best i knew how to do
