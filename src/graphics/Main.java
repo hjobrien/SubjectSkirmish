@@ -3,6 +3,7 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import event.Event;
 import event.FindItem;
@@ -13,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -52,20 +52,9 @@ public class Main extends Application {
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
 
-
 	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my computer) 
 	//i don't think i can do anything about the error, its a java language problem
 	//Tested on Java 8 Builds 60 and 65 (newest version as of 10/24/15)
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public static void main(String[] args) {	
 		launch(args);
@@ -108,7 +97,16 @@ public class Main extends Application {
 		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
+		
 		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
+		
+		//prompts the user to enter their name, can be commented out if you don't like it
+		System.out.println("What is your name? ");
+		Scanner console = new Scanner(System.in);
+		String name = console.next();
+		console.close();
+		player.setName(name);
+		
 		scaleGraphics(grid, g);
 		update(player, g);
 				
@@ -157,11 +155,19 @@ public class Main extends Application {
 					onAdvance = player.advance(0,TILE_SIZE);
 				}
 			}
+			
 			//resets after a spawn monster event was triggered, this is temporary
 			if(e.getCode() == KeyCode.ENTER){
 				System.out.println(player.getBag());
 				stage.setScene(boardScene);
 			}
+			
+			//i would rather have a "$" trigger this, but 4 is the best i knew how to do
+			if(e.getCode() == KeyCode.DIGIT4){
+				System.out.println(player.getName() + " has $" + player.getMoney());
+				stage.setScene(boardScene);
+			}
+			
 			try{
 				
 				if(onAdvance instanceof SpawnMonster){

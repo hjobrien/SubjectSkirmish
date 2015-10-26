@@ -7,12 +7,17 @@ import graphics.Board;
 import javafx.scene.paint.Color;
 
 public class Player {
+
+	private String name = "Player";
 	public static final double SIZE = 0.8; // 0 < SIZE < TILE_SIZE
 	private int x;
 	private int y;
 	private Color color;
 	private Board board;
 	private ArrayList<Item> bag = new ArrayList<Item>();
+	
+	//introduces the possibility of buying things in the future
+	private int money = 0;
 	
 	public Player(int startX, int startY, Color color, Board board){
 		this.x = startX;
@@ -36,11 +41,30 @@ public class Player {
 		return color;
 	}
 	
+	
 	public void addToBag(Item itemToAdd){
-		bag.add(itemToAdd);
+		//checks to see if the item found is money, and responds appropriately
+		if (itemToAdd.getName().charAt(0) == '$'){
+			String money = itemToAdd.getName().substring(1, itemToAdd.getName().length());
+			this.money += Integer.parseInt(money);
+		} else {
+			bag.add(itemToAdd);
+		}
 	}
 	
 	public ArrayList<Item> getBag(){
 		return bag;
+	}
+
+	public int getMoney() {
+		return this.money;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
 	}
 }

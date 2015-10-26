@@ -51,7 +51,7 @@ public class FindItem implements Event {
 		Item[] items = new Item[5];
 		items[0] = new Item("A rock", Rarity.COMMON);
 		items[1] = new Item("A stick", Rarity.COMMON);
-		items[2] = new Item("1$", Rarity.COMMON);
+		items[2] = new Item("$1", Rarity.COMMON);
 		items[3] = new Item("A feather", Rarity.COMMON);
 		items[4] = new Item("Some grass", Rarity.COMMON);
 		return items;
@@ -59,7 +59,7 @@ public class FindItem implements Event {
 	
 	private Item[] getUncommonItems(){
 		Item[] items = new Item[3];
-		items[0] = new Item("5$", Rarity.UNCOMMON);
+		items[0] = new Item("$5", Rarity.UNCOMMON);
 		items[1] = new Item("A pencil", Rarity.UNCOMMON);
 		items[2] = new Item("A piece of paper", Rarity.UNCOMMON);
 		return items;
@@ -67,7 +67,7 @@ public class FindItem implements Event {
 	
 	private Item[] getRareItems(){
 		Item[] items = new Item[2];
-		items[0] = new Item("10$", Rarity.RARE);
+		items[0] = new Item("$10", Rarity.RARE);
 		items[1] = new Item("A notebook", Rarity.RARE);
 		return items;
 	}
