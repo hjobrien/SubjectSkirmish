@@ -1,7 +1,5 @@
 package event;
 
-//I renamed FindItem to Item, Github might have an issue with it
-//--Hank
 public class FindItem implements Event {
 	private String name;
 	//could style item based on rarity

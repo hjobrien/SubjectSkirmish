@@ -12,6 +12,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -51,9 +53,9 @@ public class Main extends Application {
 	public static final Color PLAYER_COLOR = Color.BLACK;
 
 
-	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my machine) 
+	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my computer) 
 	//i don't think i can do anything about the error, its a java language problem
-	//Tested on Java 8 Builds 60 and 65 (newest version 10/24/15)
+	//Tested on Java 8 Builds 60 and 65 (newest version as of 10/24/15)
 	
 	
 	
@@ -158,13 +160,13 @@ public class Main extends Application {
 			//resets after a spawn monster event was triggered, this is temporary
 			if(e.getCode() == KeyCode.ENTER){
 				System.out.println(player.getBag());
-//				stage.setScene(boardScene);
+				stage.setScene(boardScene);
 			}
 			try{
 				
 				if(onAdvance instanceof SpawnMonster){
 //					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
-//					stage.setScene(handle(newSpawn));		uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
+//					stage.setScene(handle(newSpawn));		//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
 				}
 				else if(onAdvance instanceof FindItem){
 					FindItem newItem = (FindItem) onAdvance;
@@ -229,6 +231,7 @@ public class Main extends Application {
 	//comment the contents of this method to stop JVM bug
 	public Scene handle(SpawnMonster spawn){
 		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
+		group.getChildren().add(new Label("Test"));
 		Scene monsterFightScene = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 		return monsterFightScene;
 	}

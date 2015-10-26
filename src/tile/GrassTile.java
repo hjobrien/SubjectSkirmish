@@ -23,7 +23,7 @@ public class GrassTile extends Tile implements Stepable{
 		Random r = new Random();
 		double chance = r.nextDouble();
 		if (chance <= chanceOfItemEncounter){
-			return new MonsterItem("AkaashItem", Rarity.RARE);
+			return new MonsterItem("Akaash", Rarity.RARE);
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnGrassMonster();
 		}
