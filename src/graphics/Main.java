@@ -101,7 +101,7 @@ public class Main extends Application {
 		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
 		
 		//prompts the user to enter their name, can be commented out if you don't like it
-		System.out.println("What is your name? ");
+		System.out.print("What is your name? ");
 		Scanner console = new Scanner(System.in);
 		String name = console.next();
 		console.close();
