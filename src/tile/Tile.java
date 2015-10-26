@@ -1,6 +1,9 @@
 package tile;
 
+import java.util.Random;
+
 import event.Event;
+import event.Rarity;
 import javafx.scene.paint.Color;
 
 public abstract class Tile{
@@ -30,5 +33,21 @@ public abstract class Tile{
 	
 	public Event onStep(){
 		return null;
+	}
+	
+	public Rarity calculateRarity(){
+		Random r = new Random();
+		int rand = r.nextInt(15);
+		if (rand < 5){
+			return Rarity.COMMON;
+		} else if (rand < 9){
+			return Rarity.UNCOMMON;
+		} else if (rand < 12){
+			return Rarity.RARE;
+		} else if (rand < 14){
+			return Rarity.VERY_RARE;
+		} else {
+			return Rarity.UNIQUE;
+		}	
 	}
 }

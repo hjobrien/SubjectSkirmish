@@ -3,8 +3,7 @@ package tile;
 import java.util.Random;
 
 import event.Event;
-import event.MonsterItem;
-import event.Rarity;
+import event.FindItem;
 import event.SpawnNormalMonster;
 import javafx.scene.paint.Color;
 
@@ -32,7 +31,7 @@ public class NormalTile extends Tile implements Stepable {
 		Random r = new Random();
 		double chance = r.nextDouble();
 		if (chance <= chanceOfItemEncounter){
-			return new MonsterItem("Eli", Rarity.UNIQUE);
+			return new FindItem(super.calculateRarity());
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnNormalMonster();
 		}

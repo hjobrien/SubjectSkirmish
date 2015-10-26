@@ -3,14 +3,13 @@ package tile;
 import java.util.Random;
 
 import event.Event;
-import event.MonsterItem;
-import event.Rarity;
+import event.FindItem;
 import event.SpawnWaterMonster;
 import javafx.scene.paint.Color;
 
 public class WaterTile extends Tile implements Stepable{
 
-	private static double chanceOfItemEncounter = 0.0;
+	private static double chanceOfItemEncounter = 0.2;
 	private static double chanceOfCreatureEncounter = 0.5;
 	private static Color defaultColor = Color.BLUE;
 	
@@ -24,7 +23,7 @@ public class WaterTile extends Tile implements Stepable{
 		Random r = new Random();
 		double chance = r.nextDouble();
 		if (chance <= chanceOfItemEncounter){
-			return new MonsterItem("Ben", Rarity.COMMON);
+			return new FindItem(super.calculateRarity());
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnWaterMonster();
 		}

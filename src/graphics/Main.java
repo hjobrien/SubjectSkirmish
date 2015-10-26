@@ -169,8 +169,9 @@ public class Main extends Application {
 //					stage.setScene(handle(newSpawn));		//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
 				}
 				else if(onAdvance instanceof FindItem){
-					FindItem newItem = (FindItem) onAdvance;
-					player.addToBag(handle(newItem));
+					Item newItem = ((FindItem) onAdvance).getItem();
+//					FindItem newItem = (FindItem) onAdvance;
+					player.addToBag(newItem);
 				}else{
 					handle(onAdvance);
 				}
@@ -236,12 +237,9 @@ public class Main extends Application {
 		return monsterFightScene;
 	}
 	
-	public Item handle(FindItem item){
-		return new Item(item.getName(), item.getRarity());
-	}
-	
-	
-	
+//	public Item handle(FindItem item){
+//		return new Item(item.getName(), item.getRarity());
+//	}
 	
 	
 	public void update(Player player, GraphicsContext g){
