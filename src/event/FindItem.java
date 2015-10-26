@@ -57,12 +57,20 @@ public class FindItem implements Event {
 		return items;
 	}
 	
+	public int getCommonItemsSize(){
+		return getCommonItems().length;
+	}
+	
 	private Item[] getUncommonItems(){
 		Item[] items = new Item[3];
 		items[0] = new Item("$5", Rarity.UNCOMMON);
 		items[1] = new Item("A pencil", Rarity.UNCOMMON);
 		items[2] = new Item("A piece of paper", Rarity.UNCOMMON);
 		return items;
+	}
+	
+	public int getUncommonItemsSize(){
+		return getUncommonItems().length;
 	}
 	
 	private Item[] getRareItems(){
@@ -72,6 +80,10 @@ public class FindItem implements Event {
 		return items;
 	}
 	
+	public int getRareItemsSize(){
+		return getRareItems().length;
+	}
+	
 	private Item[] getVeryRareItems(){
 		Item[] items = new Item[2];
 		items[0] = new Item("A Norton Anthology", Rarity.VERY_RARE);
@@ -79,10 +91,18 @@ public class FindItem implements Event {
 		return items;
 	}
 	
+	public int getVeryRareItemsSize(){
+		return getVeryRareItems().length;
+	}
+	
 	private Item[] getUniqueItems(){
 		Item[] items = new Item[1];
 		items[0] = new Item("A TI-84", Rarity.UNIQUE);
 		return items;
+	}
+	
+	public int getUniqueItemsSize(){
+		return getUniqueItems().length;
 	}
 	
 	
