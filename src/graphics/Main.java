@@ -158,25 +158,30 @@ public class Main extends Application {
 			
 			//resets after a spawn monster event was triggered, this is temporary
 			if(e.getCode() == KeyCode.ENTER){
-				System.out.println(player.getBag());
 				stage.setScene(boardScene);
+			}
+			
+			//b for bag
+			if(e.getCode() == KeyCode.B){
+				System.out.println(player.getBag());
 			}
 			
 			//i would rather have a "$" trigger this, but 4 is the best i knew how to do
 			if(e.getCode() == KeyCode.DIGIT4){
 				System.out.println(player.getName() + " has $" + player.getMoney());
-				stage.setScene(boardScene);
 			}
 			
 			try{
+				//I really like this format, it seems to work well with what we are doing
 				
 				if(onAdvance instanceof SpawnMonster){
-//					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
-//					stage.setScene(handle(newSpawn));		//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
+					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
+					System.out.println(newSpawn.toString());
+					stage.setScene(handle(newSpawn));	//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
+														//Mine isnt bugging, it prints test on a clear white screen -Liam
 				}
 				else if(onAdvance instanceof FindItem){
 					Item newItem = ((FindItem) onAdvance).getItem();
-//					FindItem newItem = (FindItem) onAdvance;
 					player.addToBag(newItem);
 				}else{
 					handle(onAdvance);

@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 
 public class GrassTile extends Tile implements Stepable{
 	
-	private static double chanceOfItemEncounter = 0.40;
-	private static double chanceOfCreatureEncounter = 0.25;
+	private static double chanceOfItemEncounter = 0.20;
+	private static double chanceOfCreatureEncounter = 0.20;
 	private static Color defaultColor = Color.GREEN;
 
 	public GrassTile(int x,int y) {
@@ -26,7 +26,7 @@ public class GrassTile extends Tile implements Stepable{
 		} else if (chance <= chanceOfCreatureEncounter + chanceOfItemEncounter){ //account for full probability
 			return new SpawnGrassMonster();
 		}
-		return new SpawnGrassMonster();
+		return null;
 	}
 
 	@Override

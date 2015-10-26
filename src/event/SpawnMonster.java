@@ -5,4 +5,11 @@ public class SpawnMonster implements Event {
 	public SpawnMonster(){
 //		System.out.println("Monster Spawned");
 	}
+
+	@Override
+	public String toString() {
+		return "Monster Spawned";
+	}
+	
+	
 }
