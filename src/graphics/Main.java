@@ -177,6 +177,9 @@ public class Main extends Application {
 				if(onAdvance instanceof SpawnMonster){
 					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
 					System.out.println(newSpawn.toString());
+					
+					//in this new scene, the direction buttons have to control different things
+					//so that the options are maneuverable and the player cant keep moving
 					stage.setScene(handle(newSpawn));	//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
 														//Mine isnt bugging, it prints test on a clear white screen -Liam
 				}
