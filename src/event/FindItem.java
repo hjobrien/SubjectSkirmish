@@ -85,9 +85,10 @@ public class FindItem implements Event {
 	}
 	
 	private Item[] getVeryRareItems(){
-		Item[] items = new Item[2];
+		Item[] items = new Item[3];
 		items[0] = new Item("A Norton Anthology", Rarity.VERY_RARE);
 		items[1] = new Item("Antes de Ser Libres", Rarity.VERY_RARE);
+		items[2] = new Item("$50", Rarity.VERY_RARE);
 		return items;
 	}
 	
