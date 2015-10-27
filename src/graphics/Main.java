@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
@@ -245,11 +247,18 @@ public class Main extends Application {
 	}
 	
 	//comment the contents of this method to stop JVM bug
+	//no bug for me 
+	//Also we reallly need to figure out how this works-liam
 	public Scene handle(SpawnMonster spawn){
 		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
+
+//		JButton j = new JButton("Bag");
+//		j.setBounds(100, 100, 100, 100);
+//		group.getChildren().add(j); //doesnt work for some reason
+		
 		group.getChildren().add(new Label("Test"));
-		Scene monsterFightScene = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
-		return monsterFightScene;
+		group.getChildren().add(new Label("Test2"));
+		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 	
 //	public Item handle(FindItem item){
