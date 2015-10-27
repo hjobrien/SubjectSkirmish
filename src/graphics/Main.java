@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.JButton;
-
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
