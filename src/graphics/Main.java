@@ -193,6 +193,7 @@ public class Main extends Application {
 			}
 			
 			if(e.getCode() == KeyCode.M){
+				player.printBag();
 				showMenu(player);
 			}
 			

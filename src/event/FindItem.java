@@ -54,11 +54,11 @@ public class FindItem implements Event {
 	
 	private static Item[] getCommonItems(){
 		Item[] items = new Item[NUM_COMMON];
-		items[0] = new Item("A rock", Rarity.COMMON);
-		items[1] = new Item("A stick", Rarity.COMMON);
-		items[2] = new Item("$1", Rarity.COMMON);
-		items[3] = new Item("A feather", Rarity.COMMON);
-		items[4] = new Item("Some grass", Rarity.COMMON);
+		items[0] = new Item("A rock", Rarity.COMMON, "Rock.jpeg");
+		items[1] = new Item("A stick", Rarity.COMMON, "Stick.jpeg");
+		items[2] = new Item("$1", Rarity.COMMON, "Coin.jpeg");
+		items[3] = new Item("A feather", Rarity.COMMON, "Feather.jpeg");
+		items[4] = new Item("Some grass", Rarity.COMMON, "Grass.jpeg");
 		return items;
 	}
 	
@@ -68,9 +68,9 @@ public class FindItem implements Event {
 	
 	private static Item[] getUncommonItems(){
 		Item[] items = new Item[NUM_UNCOMMON];
-		items[0] = new Item("$5", Rarity.UNCOMMON);
-		items[1] = new Item("A pencil", Rarity.UNCOMMON);
-		items[2] = new Item("A piece of paper", Rarity.UNCOMMON);
+		items[0] = new Item("$5", Rarity.UNCOMMON, "5 Coins.jpeg");
+		items[1] = new Item("A pencil", Rarity.UNCOMMON, "Pencil.jpeg");
+		items[2] = new Item("A piece of paper", Rarity.UNCOMMON, "Paper.png");
 		return items;
 	}
 	
@@ -80,8 +80,8 @@ public class FindItem implements Event {
 	
 	private static Item[] getRareItems(){
 		Item[] items = new Item[NUM_RARE];
-		items[0] = new Item("$10", Rarity.RARE);
-		items[1] = new Item("A notebook", Rarity.RARE);
+		items[0] = new Item("$10", Rarity.RARE, "10 Coins.jpeg");
+		items[1] = new Item("A notebook", Rarity.RARE, "Notebook.jpeg");
 		return items;
 	}
 	
@@ -91,8 +91,8 @@ public class FindItem implements Event {
 	
 	private static Item[] getVeryRareItems(){
 		Item[] items = new Item[NUM_VERY_RARE];
-		items[0] = new Item("A Norton Anthology", Rarity.VERY_RARE);
-		items[1] = new Item("Antes de Ser Libres", Rarity.VERY_RARE);
+		items[0] = new Item("A Norton Anthology", Rarity.VERY_RARE, "Norton.jpeg");
+		items[1] = new Item("Antes de Ser Libres", Rarity.VERY_RARE, "ADSL.jpeg");
 		items[2] = new Item("$50", Rarity.VERY_RARE);
 		return items;
 	}
@@ -103,7 +103,7 @@ public class FindItem implements Event {
 	
 	private static Item[] getUniqueItems(){
 		Item[] items = new Item[NUM_UNIQUE];
-		items[0] = new Item("A TI-84", Rarity.UNIQUE);
+		items[0] = new Item("A TI-84", Rarity.UNIQUE, "Ti-84.jpeg");
 		return items;
 	}
 	

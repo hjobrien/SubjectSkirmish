@@ -46,7 +46,7 @@ public class Player {
 	
 	public void addToBag(Item itemToAdd){
 		//checks to see if the item found is money, and responds appropriately
-		if (itemToAdd.getName().charAt(0) == '$'){
+		if (itemToAdd.getName().charAt(0) == '$'){		//also could use String.contains("$");
 			String money = itemToAdd.getName().substring(1, itemToAdd.getName().length());
 			this.money += Integer.parseInt(money);
 		} else {
