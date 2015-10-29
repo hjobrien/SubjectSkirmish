@@ -3,12 +3,12 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +18,10 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 //import javafx.scene.paint.Paint;
@@ -37,8 +41,10 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private static final double MENU_HEIGHT = 500;
-	private static final double MENU_WIDTH = 200;
+	private static final double MENU_HEIGHT = 400;
+	private static final double MENU_WIDTH = 250;
+	private static final double MENU_BUTTON_WIDTH = 225;
+
 	
 	//commonly used formulas that can easily be changed now
 	//Still needs to be optimized for all screens
@@ -61,8 +67,18 @@ public class Main extends Application {
 	//i don't think i can do anything about the error, its a java language problem
 	//Tested on Java 8 Builds 60 and 65 (newest version as of 10/24/15)
 	
+	//Other note, if you want a method to go away, but you don't know where things are calling it, or whatever, use the @Deprecated tag above the method
+	@Deprecated
+	public static void doNothing(){
+		
+	}
+	
+	
+	
 	public static void main(String[] args) {	
 		launch(args);
+		//example of calling a Deprecated method, its pretty clear to see
+		doNothing();
 	}
 	
 	@Override
@@ -106,11 +122,12 @@ public class Main extends Application {
 		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
 		
 		//prompts the user to enter their name, can be commented out if you don't like it
-		System.out.print("What is your name? ");
-		Scanner console = new Scanner(System.in);
-		String name = console.next();
-		console.close();
-		player.setName(name);
+		//commenting to make running program faster --Hank
+//		System.out.print("What is your name? ");
+//		Scanner console = new Scanner(System.in);
+//		String name = console.next();
+//		console.close();
+//		player.setName(name);
 		
 		scaleGraphics(grid, g);
 		update(player, g);
@@ -174,23 +191,7 @@ public class Main extends Application {
 			
 			//i would rather have a "$" trigger this, but 4 is the best i knew how to do
 			if(e.getCode() == KeyCode.M){
-				//this will make a new window that is the menu, so it is different from what some programs do, but idk a good way of doing it another way
-				Stage menuStage = new Stage();
-				//forces you to deal with the menu instead of going back to the game
-				menuStage.initModality(Modality.APPLICATION_MODAL);
-				menuStage.setHeight(MENU_HEIGHT);
-				menuStage.setWidth(MENU_WIDTH);
-				GridPane mainMenuGrid = new GridPane();
-				Scene mainMenuScene = new Scene(mainMenuGrid, MENU_HEIGHT, MENU_WIDTH);
-				
-				Button cont = new Button("Continue"); 		//i can't name it continue, its a reserved word
-				cont.setOnAction(action -> {
-					menuStage.close();
-				});
-				mainMenuGrid.add(cont, 0, 5);//should be at bottom of menu, will work when more buttons are added
-				menuStage.setScene(mainMenuScene);
-				menuStage.show();
-//				showMenu(player);
+				showMenu();
 			}
 			
 			try{
@@ -232,18 +233,38 @@ public class Main extends Application {
 
 	}
 	
-	private void showMenu(Player player) {
+	private void showMenu() {
 		//this will make a new window that is the menu, so it is different from what some programs do, but idk a good way of doing it another way
 		Stage menuStage = new Stage();
+		menuStage.setTitle("Main Menu");
 		//forces you to deal with the menu instead of going back to the game
 		menuStage.initModality(Modality.APPLICATION_MODAL);
 		menuStage.setHeight(MENU_HEIGHT);
 		menuStage.setWidth(MENU_WIDTH);
 		
-		menuStage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
-			if(e.getCode() == KeyCode.ESCAPE)
-				menuStage.close();
+		VBox mainMenuObjs = new VBox();
+		Scene mainMenuScene = new Scene(mainMenuObjs, MENU_HEIGHT, MENU_WIDTH);
+		
+		mainMenuObjs.setAlignment(Pos.CENTER);
+		//empty region that forces components below it to the bottom of the stage
+		Region midSpring = new Region();
+		VBox.setVgrow(midSpring, Priority.ALWAYS);
+		
+		Button cont = new Button("Continue"); 		//i can't name it continue, its a reserved word
+		cont.setMinWidth(MENU_BUTTON_WIDTH);
+		cont.setMaxWidth(MENU_BUTTON_WIDTH);
+		cont.setOnAction(action -> {
+			//closes just the menu stage
+			menuStage.close();
 		});
+		
+		Button inventory = new Button("Inventory");
+		inventory.setMinWidth(MENU_BUTTON_WIDTH);
+		inventory.setMaxWidth(MENU_BUTTON_WIDTH);
+		
+		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
+		
+		menuStage.setScene(mainMenuScene);
 		menuStage.show();
 	}
 
@@ -282,7 +303,7 @@ public class Main extends Application {
 	
 	//comment the contents of this method to stop JVM bug
 	//no bug for me 
-	//Also we reallly need to figure out how this works-liam
+	//Also we really need to figure out how this works-liam
 	public Scene handle(SpawnMonster spawn){
 		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
 
@@ -298,7 +319,6 @@ public class Main extends Application {
 //	public Item handle(FindItem item){
 //		return new Item(item.getName(), item.getRarity());
 //	}
-	
 	
 	public void update(Player player, GraphicsContext g){
 		//draw player
