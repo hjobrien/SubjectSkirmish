@@ -189,9 +189,13 @@ public class Main extends Application {
 				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
 			}
 			
-			//i would rather have a "$" trigger this, but 4 is the best i knew how to do
 			if(e.getCode() == KeyCode.M){
 				showMenu();
+			}
+			
+			
+			if(e.getCode() == KeyCode.DIGIT4){
+				System.out.println(player.getName() + " has $" + player.getMoney());
 			}
 			
 			try{
