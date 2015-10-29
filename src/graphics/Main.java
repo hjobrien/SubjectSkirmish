@@ -281,6 +281,7 @@ public class Main extends Application {
 
 	private Scene getInventory(Player player) {
 		ArrayList<Item> localBag = player.getBag();
+		System.out.println(player.printBag());
 		GridPane inventoryGrid = new GridPane();
 		Scene inventoryScene = new Scene(inventoryGrid , MENU_WIDTH, MENU_HEIGHT);
 //		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);

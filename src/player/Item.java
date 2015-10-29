@@ -21,7 +21,7 @@ public class Item {
 		this.name = name;
 		this.rarity = rarity;
 		//testing for inventory
-//		this.icon = new Image(getClass().getResourceAsStream(iconFile));
+		this.icon = new Image(getClass().getResourceAsStream(iconFile));
 	}
 
 	public String toString (){
