@@ -190,7 +190,7 @@ public class Main extends Application {
 			}
 			
 			if(e.getCode() == KeyCode.M){
-				showMenu();
+				showMenu(player);
 			}
 			
 			
@@ -237,7 +237,7 @@ public class Main extends Application {
 
 	}
 	
-	private void showMenu() {
+	private void showMenu(Player player) {
 		//this will make a new window that is the menu, so it is different from what some programs do, but idk a good way of doing it another way
 		Stage menuStage = new Stage();
 		menuStage.setTitle("Main Menu");
@@ -247,7 +247,7 @@ public class Main extends Application {
 		menuStage.setWidth(MENU_WIDTH);
 		
 		VBox mainMenuObjs = new VBox();
-		Scene mainMenuScene = new Scene(mainMenuObjs, MENU_HEIGHT, MENU_WIDTH);
+		Scene mainMenuScene = new Scene(mainMenuObjs, MENU_WIDTH, MENU_HEIGHT);
 		
 		mainMenuObjs.setAlignment(Pos.CENTER);
 		//empty region that forces components below it to the bottom of the stage
@@ -262,9 +262,22 @@ public class Main extends Application {
 			menuStage.close();
 		});
 		
+		//successfully accesses the inventory
 		Button inventory = new Button("Inventory");
 		inventory.setMinWidth(MENU_BUTTON_WIDTH);
 		inventory.setMaxWidth(MENU_BUTTON_WIDTH);
+		inventory.setOnAction(action -> {
+			Group items = new Group();
+			items.getChildren().add(new Label(player.printBag()));
+			Scene inventoryScene = new Scene(items, MENU_WIDTH, MENU_HEIGHT);
+			menuStage.setScene(inventoryScene);
+			
+			menuStage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
+				if(e.getCode() == KeyCode.ESCAPE)
+					menuStage.close();
+			});
+			
+		});
 		
 		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
 		
