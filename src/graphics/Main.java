@@ -15,12 +15,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -41,9 +41,9 @@ public class Main extends Application {
 	private static final int BORDER_WIDTH = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private static final int BORDER_HEIGHT = 0;
-	private static final double MENU_HEIGHT = 400;
-	private static final double MENU_WIDTH = 250;
-	private static final double MENU_BUTTON_WIDTH = 225;
+	private static final int MENU_HEIGHT = 400;
+	private static final int MENU_WIDTH = 250;
+	private static final int MENU_BUTTON_WIDTH = 225;
 
 	
 	//commonly used formulas that can easily be changed now
@@ -265,6 +265,9 @@ public class Main extends Application {
 		
 		//successfully accesses the inventory
 		Button inventory = new Button("Inventory");
+		inventory.setOnAction(e -> {
+			menuStage.setScene(getInventory(player));
+		});
 		inventory.setMinWidth(MENU_BUTTON_WIDTH);
 		inventory.setMaxWidth(MENU_BUTTON_WIDTH);
 		inventory.setOnAction(action -> {
@@ -288,6 +291,24 @@ public class Main extends Application {
 		menuStage.setScene(mainMenuScene);
 		menuStage.show();
 	}
+
+	private Scene getInventory(Player player) {
+		ArrayList<Item> localBag = player.getBag();
+		GridPane inventoryGrid = new GridPane();
+		Scene inventoryScene = new Scene(inventoryGrid , MENU_WIDTH, MENU_HEIGHT);
+		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
+		int numRows = (int) Math.ceil((double)(localBag.size()) / maxHorizIcons);
+		for(int i = 1; i <= numRows; i++){
+			for(int j = 1; j <= maxHorizIcons; j++){
+				ImageView temp = new ImageView();
+				temp.setImage(localBag.get(i*j).getIcon());
+				inventoryGrid.add(temp, i, j);
+			}
+		}
+		return inventoryScene;
+	}
+
+
 
 	public boolean isOnScreenEdge(int x, int y){
 		

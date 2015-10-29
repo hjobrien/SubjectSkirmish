@@ -1,12 +1,16 @@
 package player;
 
 import event.Rarity;
+import javafx.scene.image.Image;
 
 public class Item {
 
 	
 	private String name;
 	private Rarity rarity;
+	private Image icon = new Image(getClass().getResourceAsStream("images.png"));
+	
+	public static final int ICON_SIZE = 25; //used for item output in inventory, i need to know how bug each item is. this restricts the size of icon we can use.
 	
 	public Item(String name, Rarity rarity){
 		this.name = name;
@@ -24,6 +28,10 @@ public class Item {
 
 	public Rarity getRarity() {
 		return rarity;
+	}
+	
+	public Image getIcon() {
+		return icon;
 	}
 
 }
