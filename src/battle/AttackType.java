@@ -6,6 +6,8 @@ public enum AttackType {
 	 * Needs a lot of work
 	 */
 	
+	//shouldnt be needed, can use Type instead
+	
 	LITERATURE(1),					//address with value 1
 	MATH(2),						//address with value 2
 	SCIENCE(3),						//address with value 3

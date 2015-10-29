@@ -18,7 +18,7 @@ public abstract class Creature {
 	
 	public static final double[][] ATTACK_WEIGHT_MATRIX = AttackWeightMatrix.ATTACK_WEIGHT_MATRIX;
 		
-	public abstract void onDeath(); //return Event?
+	public abstract void onDeath(); //return Event? 
 	
 	protected void takeDamage(double damage) {
 		health -= damage;
