@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 
 import event.Event;
+import event.Rarity;
 import graphics.Board;
 import javafx.scene.paint.Color;
 
@@ -24,6 +25,7 @@ public class Player {
 		this.y = startY;
 		this.color = color;
 		this.board = board;
+		bag.add(new Item("test", Rarity.COMMON));
 	}
 	
 	public Event advance(int deltaX, int deltaY){

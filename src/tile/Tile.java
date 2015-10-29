@@ -41,12 +41,11 @@ public abstract class Tile{
 	//this solves the problem i had earlier of 10$ being as likely to find as 1$ due to the fact
 	//that 1$ was found 1/5 of the time 5/15 of the time, whereas 10$ was found 1/3 of the time 3/15 of the time.
 	public Rarity calculateRarity(){
-		FindItem f = new FindItem("Placeholder", Rarity.COMMON); //super gross coding, but the only way i found to access the findItem class
-		int commonChance = 5 * f.getCommonItemsSize();
-		int uncommonChance = 4 * f.getUncommonItemsSize() + commonChance;
-		int rareChance = 3 * f.getRareItemsSize() + uncommonChance;
-		int veryRareChance = 2 * f.getVeryRareItemsSize() + rareChance;
-		int total = f.getUniqueItemsSize() + veryRareChance;
+		int commonChance = 5 * FindItem.getCommonItemsSize();
+		int uncommonChance = 4 * FindItem.getUncommonItemsSize() + commonChance;
+		int rareChance = 3 * FindItem.getRareItemsSize() + uncommonChance;
+		int veryRareChance = 2 * FindItem.getVeryRareItemsSize() + rareChance;
+		int total = FindItem.getUniqueItemsSize() + veryRareChance;
 		
 		Random r = new Random();
 		int rand = r.nextInt(total);
