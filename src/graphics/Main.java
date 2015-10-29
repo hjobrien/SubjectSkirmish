@@ -183,11 +183,12 @@ public class Main extends Application {
 				stage.setScene(boardScene);
 			}
 			
-			//b for bag
-			if(e.getCode() == KeyCode.B){
-//				System.out.println(player.getBag()); //this just prints the array in a gross array format
-				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
-			}
+//					Unnecessary now that inventory can be accessed from menu
+//			//b for bag
+//			if(e.getCode() == KeyCode.B){
+////				System.out.println(player.getBag()); //this just prints the array in a gross array format
+//				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
+//			}
 			
 			if(e.getCode() == KeyCode.M){
 				showMenu(player);
@@ -273,8 +274,11 @@ public class Main extends Application {
 			menuStage.setScene(inventoryScene);
 			
 			menuStage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
-				if(e.getCode() == KeyCode.ESCAPE)
-					menuStage.close();
+				//B for back
+				if(e.getCode() == KeyCode.B){
+					menuStage.setScene(mainMenuScene);
+//					menuStage.close();
+				}
 			});
 			
 		});
