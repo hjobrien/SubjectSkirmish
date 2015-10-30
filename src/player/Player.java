@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 
 import event.Event;
+import event.Rarity;
 import graphics.Board;
 import javafx.scene.paint.Color;
 
@@ -24,6 +25,7 @@ public class Player {
 		this.y = startY;
 		this.color = color;
 		this.board = board;
+		bag.add(new Item("test", Rarity.COMMON));
 	}
 	
 	public Event advance(int deltaX, int deltaY){
@@ -44,7 +46,7 @@ public class Player {
 	
 	public void addToBag(Item itemToAdd){
 		//checks to see if the item found is money, and responds appropriately
-		if (itemToAdd.getName().charAt(0) == '$'){
+		if (itemToAdd.getName().charAt(0) == '$'){		//also could use String.contains("$");
 			String money = itemToAdd.getName().substring(1, itemToAdd.getName().length());
 			this.money += Integer.parseInt(money);
 		} else {

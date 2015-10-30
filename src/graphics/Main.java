@@ -15,6 +15,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -61,6 +62,8 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
+	private static final int INVENTORY_COLS = 10;
+	private static final int INVENTORY_ROWS = 10;
 
 
 	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my computer) 
@@ -191,6 +194,7 @@ public class Main extends Application {
 //			}
 			
 			if(e.getCode() == KeyCode.M){
+				player.printBag();
 				showMenu(player);
 			}
 			
@@ -208,7 +212,7 @@ public class Main extends Application {
 					
 					//in this new scene, the direction buttons have to control different things
 					//so that the options are maneuverable and the player cant keep moving
-					stage.setScene(handle(newSpawn));	//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
+//					stage.setScene(handle(newSpawn));	//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
 														//Mine isnt bugging, it prints test on a clear white screen -Liam
 				}
 				else if(onAdvance instanceof FindItem){
@@ -294,15 +298,20 @@ public class Main extends Application {
 
 	private Scene getInventory(Player player) {
 		ArrayList<Item> localBag = player.getBag();
+		System.out.println(player.printBag());
 		GridPane inventoryGrid = new GridPane();
 		Scene inventoryScene = new Scene(inventoryGrid , MENU_WIDTH, MENU_HEIGHT);
-		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
-		int numRows = (int) Math.ceil((double)(localBag.size()) / maxHorizIcons);
-		for(int i = 1; i <= numRows; i++){
-			for(int j = 1; j <= maxHorizIcons; j++){
-				ImageView temp = new ImageView();
-				temp.setImage(localBag.get(i*j).getIcon());
-				inventoryGrid.add(temp, i, j);
+//		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
+//		int numRows = (int) Math.ceil((double)(localBag.size()-1) / maxHorizIcons);
+		int count = 0;
+		for(int i = 0; i < INVENTORY_ROWS; i++){
+			for(int j = 0; j < INVENTORY_COLS; j++){
+				if(count < localBag.size()){
+					ImageView temp = new ImageView();
+					temp.setImage(localBag.get(i*j).getIcon());
+					inventoryGrid.add(temp, j, i);
+				}
+				count++;
 			}
 		}
 		return inventoryScene;

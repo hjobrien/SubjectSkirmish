@@ -7,6 +7,11 @@ import player.Item;
 
 public class FindItem implements Event {
 	
+	public static final int NUM_COMMON = 5;
+	public static final int NUM_UNCOMMON = 3;
+	public static final int NUM_RARE = 2;
+	public static final int NUM_VERY_RARE = 3;
+	public static final int NUM_UNIQUE = 1;
 	//since items have names and rarities, we don't need to store those
 	//fields in the FindItem class
 	private Item item;
@@ -47,63 +52,63 @@ public class FindItem implements Event {
 	
 	//Could potentially also differentiate between water items and grass items
 	
-	private Item[] getCommonItems(){
-		Item[] items = new Item[5];
-		items[0] = new Item("A rock", Rarity.COMMON);
-		items[1] = new Item("A stick", Rarity.COMMON);
+	private static Item[] getCommonItems(){
+		Item[] items = new Item[NUM_COMMON];
+		items[0] = new Item("A rock", Rarity.COMMON, "Rock.jpeg");
+		items[1] = new Item("A stick", Rarity.COMMON, "Stick.jpeg");
 		items[2] = new Item("$1", Rarity.COMMON);
-		items[3] = new Item("A feather", Rarity.COMMON);
-		items[4] = new Item("Some grass", Rarity.COMMON);
+		items[3] = new Item("A feather", Rarity.COMMON, "Feather.jpeg");
+		items[4] = new Item("Some grass", Rarity.COMMON, "Grass.jpeg");
 		return items;
 	}
 	
-	public int getCommonItemsSize(){
-		return getCommonItems().length;
+	public static int getCommonItemsSize(){
+		return NUM_COMMON;
 	}
 	
-	private Item[] getUncommonItems(){
-		Item[] items = new Item[3];
+	private static Item[] getUncommonItems(){
+		Item[] items = new Item[NUM_UNCOMMON];
 		items[0] = new Item("$5", Rarity.UNCOMMON);
-		items[1] = new Item("A pencil", Rarity.UNCOMMON);
-		items[2] = new Item("A piece of paper", Rarity.UNCOMMON);
+		items[1] = new Item("A pencil", Rarity.UNCOMMON, "Pencil.jpeg");
+		items[2] = new Item("A piece of paper", Rarity.UNCOMMON, "Paper.png");
 		return items;
 	}
 	
-	public int getUncommonItemsSize(){
-		return getUncommonItems().length;
+	public static int getUncommonItemsSize(){
+		return NUM_UNCOMMON;
 	}
 	
-	private Item[] getRareItems(){
-		Item[] items = new Item[2];
+	private static Item[] getRareItems(){
+		Item[] items = new Item[NUM_RARE];
 		items[0] = new Item("$10", Rarity.RARE);
-		items[1] = new Item("A notebook", Rarity.RARE);
+		items[1] = new Item("A notebook", Rarity.RARE, "Notebook.jpeg");
 		return items;
 	}
 	
-	public int getRareItemsSize(){
-		return getRareItems().length;
+	public static int getRareItemsSize(){
+		return NUM_RARE;
 	}
 	
-	private Item[] getVeryRareItems(){
-		Item[] items = new Item[3];
-		items[0] = new Item("A Norton Anthology", Rarity.VERY_RARE);
-		items[1] = new Item("Antes de Ser Libres", Rarity.VERY_RARE);
+	private static Item[] getVeryRareItems(){
+		Item[] items = new Item[NUM_VERY_RARE];
+		items[0] = new Item("A Norton Anthology", Rarity.VERY_RARE, "Norton.jpeg");
+		items[1] = new Item("Antes de Ser Libres", Rarity.VERY_RARE, "ADSL.jpeg");
 		items[2] = new Item("$50", Rarity.VERY_RARE);
 		return items;
 	}
 	
-	public int getVeryRareItemsSize(){
-		return getVeryRareItems().length;
+	public static int getVeryRareItemsSize(){
+		return NUM_VERY_RARE;
 	}
 	
-	private Item[] getUniqueItems(){
-		Item[] items = new Item[1];
-		items[0] = new Item("A TI-84", Rarity.UNIQUE);
+	private static Item[] getUniqueItems(){
+		Item[] items = new Item[NUM_UNIQUE];
+		items[0] = new Item("A TI-84", Rarity.UNIQUE, "Ti-84.jpeg");
 		return items;
 	}
 	
-	public int getUniqueItemsSize(){
-		return getUniqueItems().length;
+	public static int getUniqueItemsSize(){
+		return NUM_UNIQUE;
 	}
 	
 	
