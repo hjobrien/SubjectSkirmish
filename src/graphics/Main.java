@@ -186,12 +186,11 @@ public class Main extends Application {
 				stage.setScene(boardScene);
 			}
 			
-//					Unnecessary now that inventory can be accessed from menu
-//			//b for bag
-//			if(e.getCode() == KeyCode.B){
-////				System.out.println(player.getBag()); //this just prints the array in a gross array format
-//				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
-//			}
+			//b for bag
+			if(e.getCode() == KeyCode.B){
+//				System.out.println(player.getBag()); //this just prints the array in a gross array format
+				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
+			}
 			
 			if(e.getCode() == KeyCode.M){
 				player.printBag();
@@ -252,7 +251,7 @@ public class Main extends Application {
 		menuStage.setWidth(MENU_WIDTH);
 		
 		VBox mainMenuObjs = new VBox();
-		Scene mainMenuScene = new Scene(mainMenuObjs, MENU_WIDTH, MENU_HEIGHT);
+		Scene mainMenuScene = new Scene(mainMenuObjs, MENU_HEIGHT, MENU_WIDTH);
 		
 		mainMenuObjs.setAlignment(Pos.CENTER);
 		//empty region that forces components below it to the bottom of the stage
@@ -267,28 +266,12 @@ public class Main extends Application {
 			menuStage.close();
 		});
 		
-		//successfully accesses the inventory
 		Button inventory = new Button("Inventory");
 		inventory.setOnAction(e -> {
 			menuStage.setScene(getInventory(player));
 		});
 		inventory.setMinWidth(MENU_BUTTON_WIDTH);
 		inventory.setMaxWidth(MENU_BUTTON_WIDTH);
-		inventory.setOnAction(action -> {
-			Group items = new Group();
-			items.getChildren().add(new Label(player.printBag()));
-			Scene inventoryScene = new Scene(items, MENU_WIDTH, MENU_HEIGHT);
-			menuStage.setScene(inventoryScene);
-			
-			menuStage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
-				//B for back
-				if(e.getCode() == KeyCode.B){
-					menuStage.setScene(mainMenuScene);
-//					menuStage.close();
-				}
-			});
-			
-		});
 		
 		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
 		
