@@ -63,7 +63,7 @@ public class Player {
 	public String printBag(){
 		String bagString = "Item Name		Rarity\n";
 		for (Item i : bag){
-			bagString += i.getName() + "\t\t\t"+  i.getRarity() + "\n";
+			bagString += i.getName() + "\t\t\t"+  i.getRarity() + "\t\t\t" + i.getIconName() + "\n";
 		}
 		return bagString;
 	}

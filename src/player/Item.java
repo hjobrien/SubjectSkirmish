@@ -9,8 +9,9 @@ public class Item {
 	private String name;
 	private Rarity rarity;
 	private Image icon = new Image(getClass().getResourceAsStream("defaultImage.png"));
+	private String iconName;
 	
-	public static final int ICON_SIZE = 25; //used for item output in inventory, i need to know how bug each item is. this restricts the size of icon we can use.
+	public static final int ICON_SIZE = 25; //used for item output in inventory, i need to know how big each item is. this restricts the size of icon we can use.
 	
 	public Item(String name, Rarity rarity){
 		this.name = name;
@@ -22,6 +23,8 @@ public class Item {
 		this.rarity = rarity;
 		//testing for inventory
 		this.icon = new Image(getClass().getResourceAsStream(iconFile));
+		System.out.println(icon.errorProperty());
+		this.iconName = iconFile;
 	}
 
 	public String toString (){
@@ -37,6 +40,10 @@ public class Item {
 		return rarity;
 	}
 	
+	public String getIconName() {
+		return iconName;
+	}
+
 	public Image getIcon() {
 		return icon;
 	}
