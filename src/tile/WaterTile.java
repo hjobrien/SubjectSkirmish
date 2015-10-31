@@ -11,7 +11,7 @@ public class WaterTile extends Tile implements Stepable{
 
 	private static double chanceOfItemEncounter = 0.2;
 	private static double chanceOfCreatureEncounter = 0.1;
-	private static Color defaultColor = Color.BLUE;
+	private static Color defaultColor = Color.DARKORANGE;//Color.BLUE;
 	
 	
 	public WaterTile(int x,int y) {

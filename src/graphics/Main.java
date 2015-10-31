@@ -291,7 +291,7 @@ public class Main extends Application {
 			for(int j = 0; j < INVENTORY_COLS; j++){
 				if(count < localBag.size()){
 					ImageView temp = new ImageView();
-					temp.setImage(localBag.get(i*j).getIcon());
+//					temp.setImage(localBag.get(i*j).getIcon());
 					inventoryGrid.add(temp, j, i);
 				}
 				count++;

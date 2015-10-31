@@ -8,7 +8,7 @@ public class Item {
 	
 	private String name;
 	private Rarity rarity;
-	private Image icon = new Image(getClass().getResourceAsStream("defaultImage.png"));
+//	private Image icon = new Image(getClass().getResourceAsStream("defaultImage.png"));
 	private String iconName;
 	
 	public static final int ICON_SIZE = 25; //used for item output in inventory, i need to know how big each item is. this restricts the size of icon we can use.
@@ -22,8 +22,8 @@ public class Item {
 		this.name = name;
 		this.rarity = rarity;
 		//testing for inventory
-		this.icon = new Image(getClass().getResourceAsStream(iconFile));
-		System.out.println(icon.errorProperty());
+//		this.icon = new Image(getClass().getResourceAsStream(iconFile));
+//		System.out.println(icon.errorProperty());
 		this.iconName = iconFile;
 	}
 
@@ -44,8 +44,8 @@ public class Item {
 		return iconName;
 	}
 
-	public Image getIcon() {
-		return icon;
-	}
+//	public Image getIcon() {
+//		return icon;
+//	}
 
 }

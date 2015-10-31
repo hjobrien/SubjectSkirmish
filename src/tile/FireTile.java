@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class FireTile extends Tile {
 
 //	private static double chanceOfCreatureEncounter = 1.0;
-	private static Color defaultColor = Color.RED;
+	private static Color defaultColor = Color.GREY;//Color.RED;
 	
 
 	public FireTile(int x,int y) {
