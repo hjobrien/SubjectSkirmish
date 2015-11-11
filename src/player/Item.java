@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class Item {
 
-	
+	//testing
 	private String name;
 	private Rarity rarity;
 	private Image icon = new Image("/images/defaultImage.png" , true);
