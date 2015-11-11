@@ -187,8 +187,8 @@ public class Main extends Application {
 				stage.setScene(boardScene);
 			}
 			
-			//b for bag
-			if(e.getCode() == KeyCode.B){
+			//I for items
+			if(e.getCode() == KeyCode.I){
 //				System.out.println(player.getBag()); //this just prints the array in a gross array format
 				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
 			}
@@ -243,6 +243,12 @@ public class Main extends Application {
 	}
 	
 	private void showMenu(Player player) {
+		//****I want to set a general rule that declares what buttons control which aspects of the program****
+		//I currently am setting it where space is an "accept" button, carrying out the button's role
+		//and B is the "back" button, returning to the previous screen. 
+		//we can change this if we want but i think its easy and intuitive
+		//these buttons should be reserved for these two uses to avoid confusion
+		
 		//this will make a new window that is the menu, so it is different from what some programs do, but idk a good way of doing it another way
 		Stage menuStage = new Stage();
 		menuStage.setTitle("Main Menu");
@@ -262,17 +268,28 @@ public class Main extends Application {
 		Button cont = new Button("Continue"); 		//i can't name it continue, its a reserved word
 		cont.setMinWidth(menuButtonWidth);
 		cont.setMaxWidth(menuButtonWidth);
-		cont.setOnAction(action -> {
-			//closes just the menu stage
-			menuStage.close();
+		
+		cont.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.SPACE)
+				menuStage.close();
 		});
 		
 		Button inventory = new Button("Inventory");
-		inventory.setOnAction(e -> {
-			menuStage.setScene(getInventory(player));
-		});
 		inventory.setMinWidth(menuButtonWidth);
 		inventory.setMaxWidth(menuButtonWidth);
+		
+		
+		inventory.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.SPACE)
+				menuStage.setScene(getInventory(player));
+			
+				//this adds another event filter after the inventory is viewed so that in the future, we can access items
+				//and right now, we can easily return to the menu screen
+				menuStage.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
+					if (f.getCode() == KeyCode.B)
+						menuStage.setScene(mainMenuScene);
+				});
+		});
 		
 		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
 		
