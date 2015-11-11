@@ -62,7 +62,8 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
-	private static final int INVENTORY_COLS = 10;
+	private static final int ITEM_SIZE = 50;
+	private static final int INVENTORY_COLS = MENU_WIDTH / ITEM_SIZE;
 	private static final int INVENTORY_ROWS = 10;
 
 
@@ -122,7 +123,7 @@ public class Main extends Application {
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
-		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
+		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board, ITEM_SIZE);
 		
 		//prompts the user to enter their name, can be commented out if you don't like it
 		//commenting to make running program faster --Hank
@@ -291,7 +292,7 @@ public class Main extends Application {
 			for(int j = 0; j < INVENTORY_COLS; j++){
 				if(count < localBag.size()){
 					ImageView temp = new ImageView();
-//					temp.setImage(localBag.get(i*j).getIcon());
+					temp.setImage(localBag.get(i*j+j).getIcon());
 					inventoryGrid.add(temp, j, i);
 				}
 				count++;
