@@ -60,12 +60,25 @@ public class Player {
 	//Should be styled into two nice rows that display item name and rarity under the appropriate titles.
 	//I forget how to do this
 	public String printBag(){
+		//Im trying to fix this but facing difficulties
+		
+//		String bagString = "";
+//		String heading1 = "Item Name";
+//		String heading2 = "Rarity";
+//		String heading3 = "Icon Name";
+//		String tempString = Sprintf("%-15s %15s %15s %n", heading1, heading2, heading3);
+//		
 		String bagString = "Item Name		Rarity\n";
 		for (Item i : bag){
 			bagString += i.getName() + "\t\t\t"+  i.getRarity() + "\t\t\t" + i.getIconName() + "\n";
 		}
 		return bagString;
 	}
+	
+//	String heading1 = "Exam_Name";
+//	String heading2 = "Exam_Grade";
+//
+//	System.out.printf( "%-15s %15s %n", heading1, heading2);
 
 	public int getMoney() {
 		return this.money;
