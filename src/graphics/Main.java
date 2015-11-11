@@ -280,15 +280,52 @@ public class Main extends Application {
 		
 		
 		inventory.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.SPACE)
-				menuStage.setScene(getInventory(player));
-			
-				//this adds another event filter after the inventory is viewed so that in the future, we can access items
-				//and right now, we can easily return to the menu screen
-				menuStage.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.B)
-						menuStage.setScene(mainMenuScene);
+			if (e.getCode() == KeyCode.SPACE){
+				Stage inventoryStage = new Stage();
+				inventoryStage.setTitle("Inventory Menu");
+				inventoryStage.initModality(Modality.APPLICATION_MODAL);
+				inventoryStage.setHeight(menuHeight);
+				inventoryStage.setWidth(menuWidth);
+				VBox inventoryMenuObjs = new VBox();
+				Scene inventoryMenuScene = new Scene(inventoryMenuObjs, menuHeight, menuWidth);
+				inventoryMenuObjs.setAlignment(Pos.CENTER);
+				Region inventoryMidSpring = new Region();
+				VBox.setVgrow(inventoryMidSpring, Priority.ALWAYS);
+				
+				Button pictures = new Button("Pictures");
+				pictures.setMaxHeight(menuHeight);
+				pictures.setMaxWidth(menuWidth);
+				
+				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
+					if (f.getCode() == KeyCode.SPACE)
+						inventoryStage.setScene(getInventoryScene(player));
+				}); 
+				
+				Button words = new Button("Words");
+				words.setMaxHeight(menuHeight);
+				words.setMaxWidth(menuWidth);
+				
+				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
+					if (f.getCode() == KeyCode.SPACE)
+						System.out.print(player.printBag());
 				});
+				
+				inventoryMenuObjs.getChildren().addAll(inventoryMidSpring, pictures, words);
+				inventoryStage.setScene(inventoryMenuScene);
+				inventoryStage.show();
+
+			}
+			
+			
+//				menuStage.setScene(getInventoryScene(player));
+//			
+//				//this adds another event filter after the inventory is viewed so that in the future, we can access items
+//				//and right now, we can easily return to the menu screen
+//				menuStage.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
+//					if (f.getCode() == KeyCode.B)
+//						menuStage.setScene(mainMenuScene);
+//				});
+				
 		});
 		
 		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
@@ -297,7 +334,7 @@ public class Main extends Application {
 		menuStage.show();
 	}
 
-	private Scene getInventory(Player player) {
+	private Scene getInventoryScene(Player player) {
 		ArrayList<Item> localBag = player.getBag();
 		System.out.println(player.printBag());
 		GridPane inventoryGrid = new GridPane();
