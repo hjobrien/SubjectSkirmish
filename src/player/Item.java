@@ -11,7 +11,7 @@ public class Item {
 	private Image icon = new Image("/images/defaultImage.png" , true);
 	private String iconName;
 	
-	public static final int ICON_SIZE = 25; //used for item output in inventory, i need to know how big each item is. this restricts the size of icon we can use.
+	public static final int ICON_SIZE = 75; //used for item output in inventory, i need to know how big each item is. this restricts the size of icon we can use.
 	
 	public Item(String name, Rarity rarity){
 		this.name = name;
@@ -22,7 +22,8 @@ public class Item {
 		this.name = name;
 		this.rarity = rarity;
 		//testing for inventory
-		this.icon = new Image("/images/" + iconFile, true);
+		//source path, width, height, keep aspect ratio, smooth
+		this.icon = new Image("/images/" + iconFile, ICON_SIZE, ICON_SIZE, false, true);
 		this.iconName = "images/" + iconFile;
 	}
 

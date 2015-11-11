@@ -19,14 +19,12 @@ public class Player {
 	
 	//introduces the possibility of buying things in the future
 	private int money = 0;
-	private int itemSize = 50; //is default value
 	
-	public Player(int startX, int startY, Color color, Board board, int itemSize){
+	public Player(int startX, int startY, Color color, Board board){
 		this.x = startX;
 		this.y = startY;
 		this.color = color;
 		this.board = board;
-		this.itemSize = itemSize;
 	}
 	
 	public Event advance(int deltaX, int deltaY){

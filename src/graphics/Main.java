@@ -15,7 +15,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -62,9 +61,7 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
-	private static final int ITEM_SIZE = 50;
-	private static final int INVENTORY_COLS = MENU_WIDTH / ITEM_SIZE;
-	private static final int INVENTORY_ROWS = 10;
+
 
 
 	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my computer) 
@@ -123,7 +120,7 @@ public class Main extends Application {
 		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
-		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board, ITEM_SIZE);
+		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
 		
 		//prompts the user to enter their name, can be commented out if you don't like it
 		//commenting to make running program faster --Hank
@@ -288,8 +285,8 @@ public class Main extends Application {
 //		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
 //		int numRows = (int) Math.ceil((double)(localBag.size()-1) / maxHorizIcons);
 		int count = 0;
-		for(int i = 0; i < INVENTORY_ROWS; i++){
-			for(int j = 0; j < INVENTORY_COLS; j++){
+		for(int i = 0; i < MENU_WIDTH / Item.ICON_SIZE-1; i++){
+			for(int j = 0; j < MENU_HEIGHT / Item.ICON_SIZE-2; j++){
 				if(count < localBag.size()){
 					ImageView temp = new ImageView();
 					temp.setImage(localBag.get(i*j+j).getIcon());
