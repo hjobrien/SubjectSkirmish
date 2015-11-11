@@ -1,8 +1,11 @@
 package graphics;
 
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import event.Event;
 import event.FindItem;
@@ -38,12 +41,12 @@ import tile.WaterTile;
 public class Main extends Application {
 
 	private static final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private static final int BORDER_WIDTH = 0;
+	private static int borderWidth = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private static final int BORDER_HEIGHT = 0;
-	private static final int MENU_HEIGHT = 400;
-	private static final int MENU_WIDTH = 250;
-	private static final int MENU_BUTTON_WIDTH = 225;
+	private static int borderHeight = 0;
+	private static int menuHeight = 400;
+	private static int menuWidth = 250;
+	private static int menuButtonWidth = 225;
 
 	
 	//commonly used formulas that can easily be changed now
@@ -117,7 +120,7 @@ public class Main extends Application {
 
 		
 		GridPane grid = new GridPane();
-		Canvas canvas = new Canvas(SCREEN_WIDTH - BORDER_WIDTH, SCREEN_HEIGHT - BORDER_HEIGHT);
+		Canvas canvas = new Canvas(SCREEN_WIDTH - borderWidth, SCREEN_HEIGHT - borderHeight);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
 		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
@@ -245,11 +248,11 @@ public class Main extends Application {
 		menuStage.setTitle("Main Menu");
 		//forces you to deal with the menu instead of going back to the game
 		menuStage.initModality(Modality.APPLICATION_MODAL);
-		menuStage.setHeight(MENU_HEIGHT);
-		menuStage.setWidth(MENU_WIDTH);
+		menuStage.setHeight(menuHeight);
+		menuStage.setWidth(menuWidth);
 		
 		VBox mainMenuObjs = new VBox();
-		Scene mainMenuScene = new Scene(mainMenuObjs, MENU_HEIGHT, MENU_WIDTH);
+		Scene mainMenuScene = new Scene(mainMenuObjs, menuHeight, menuWidth);
 		
 		mainMenuObjs.setAlignment(Pos.CENTER);
 		//empty region that forces components below it to the bottom of the stage
@@ -257,8 +260,8 @@ public class Main extends Application {
 		VBox.setVgrow(midSpring, Priority.ALWAYS);
 		
 		Button cont = new Button("Continue"); 		//i can't name it continue, its a reserved word
-		cont.setMinWidth(MENU_BUTTON_WIDTH);
-		cont.setMaxWidth(MENU_BUTTON_WIDTH);
+		cont.setMinWidth(menuButtonWidth);
+		cont.setMaxWidth(menuButtonWidth);
 		cont.setOnAction(action -> {
 			//closes just the menu stage
 			menuStage.close();
@@ -268,8 +271,8 @@ public class Main extends Application {
 		inventory.setOnAction(e -> {
 			menuStage.setScene(getInventory(player));
 		});
-		inventory.setMinWidth(MENU_BUTTON_WIDTH);
-		inventory.setMaxWidth(MENU_BUTTON_WIDTH);
+		inventory.setMinWidth(menuButtonWidth);
+		inventory.setMaxWidth(menuButtonWidth);
 		
 		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
 		
@@ -281,12 +284,12 @@ public class Main extends Application {
 		ArrayList<Item> localBag = player.getBag();
 		System.out.println(player.printBag());
 		GridPane inventoryGrid = new GridPane();
-		Scene inventoryScene = new Scene(inventoryGrid , MENU_WIDTH, MENU_HEIGHT);
+		Scene inventoryScene = new Scene(inventoryGrid , menuWidth, menuHeight);
 //		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
 //		int numRows = (int) Math.ceil((double)(localBag.size()-1) / maxHorizIcons);
 		int count = 0;
-		for(int i = 0; i < MENU_WIDTH / Item.ICON_SIZE-1; i++){
-			for(int j = 0; j < MENU_HEIGHT / Item.ICON_SIZE-2; j++){
+		for(int i = 0; i < menuWidth / Item.ICON_SIZE-1; i++){
+			for(int j = 0; j < menuHeight / Item.ICON_SIZE-2; j++){
 				if(count < localBag.size()){
 					ImageView temp = new ImageView();
 					temp.setImage(localBag.get(i*j+j).getIcon());
@@ -371,6 +374,27 @@ public class Main extends Application {
 		
 	}
 	
+	
+//	private void initConstants(){
+//		Scanner configReader;
+//		try {
+//			configReader = new Scanner(new File("config.txt"));
+//		} catch (FileNotFoundException e) {
+//			createDefaultConfig();
+//		}
+//		
+//		
+//	}
+
+
+
+//	private void createDefaultConfig() {
+//		//for right now, i will keep the defaults up in the top of this file, but this format is good
+//		//because it generates its dependencies, i.e. it wont throw errors for FileNotFound, which is good for UX
+//		//create a new file with default values
+//		initConstants(); //go back and initialize constants based off new file we just made
+//		
+//	}
 
 
 
