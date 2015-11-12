@@ -271,7 +271,7 @@ public class Main extends Application {
 		cont.setMaxWidth(menuButtonWidth);
 		
 		cont.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.SPACE)
+			if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
 				menuStage.close();
 		});
 		
@@ -281,7 +281,7 @@ public class Main extends Application {
 		
 		
 		inventory.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.SPACE){
+			if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
 				Stage inventoryStage = new Stage();
 				inventoryStage.setTitle("Inventory Menu");
 				inventoryStage.initModality(Modality.APPLICATION_MODAL);
@@ -298,7 +298,7 @@ public class Main extends Application {
 				pictures.setMaxWidth(menuWidth);
 				
 				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE){
+					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
 						inventoryStage.setScene(getInventoryScene(player));
 					
 						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
@@ -313,7 +313,7 @@ public class Main extends Application {
 				words.setMaxWidth(menuWidth);
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE)
+					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
 						System.out.print(player.printBag());
 				});
 				
