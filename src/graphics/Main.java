@@ -250,6 +250,7 @@ public class Main extends Application {
 		//these buttons should be reserved for these two uses to avoid confusion
 		
 		//this will make a new window that is the menu, so it is different from what some programs do, but idk a good way of doing it another way
+		
 		Stage menuStage = new Stage();
 		menuStage.setTitle("Main Menu");
 		//forces you to deal with the menu instead of going back to the game
@@ -297,8 +298,14 @@ public class Main extends Application {
 				pictures.setMaxWidth(menuWidth);
 				
 				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE)
+					if (f.getCode() == KeyCode.SPACE){
 						inventoryStage.setScene(getInventoryScene(player));
+					
+						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
+							if (g.getCode() == KeyCode.B)
+								inventoryStage.setScene(inventoryMenuScene);
+						});
+					}
 				}); 
 				
 				Button words = new Button("Words");
@@ -333,6 +340,36 @@ public class Main extends Application {
 		menuStage.setScene(mainMenuScene);
 		menuStage.show();
 	}
+	
+//	//tried to implement these two methods to make everything nicer but failed
+//	public Stage makeStage(String title){
+//		Stage menuStage = new Stage();
+//		menuStage.setTitle(title);
+//		
+//		//forces you to deal with the menu instead of going back to the game
+//		menuStage.initModality(Modality.APPLICATION_MODAL);
+//		menuStage.setHeight(menuHeight);
+//		menuStage.setWidth(menuWidth);
+//		
+//		return menuStage;
+//	}
+//	
+//	public Scene makeScene(ArrayList<Button> buttons){
+//		VBox mainObjs = new VBox();
+//		Scene mainScene = new Scene(mainObjs, menuHeight, menuWidth);
+//		
+//		mainObjs.setAlignment(Pos.CENTER);
+//		//empty region that forces components below it to the bottom of the stage
+//		Region midSpring = new Region();
+//		VBox.setVgrow(midSpring, Priority.ALWAYS);
+//		
+//		mainObjs.getChildren().add(midSpring);
+//		for (Button b: buttons){
+//			mainObjs.getChildren().add(b);
+//		}
+//		
+//		return mainScene;
+//	}
 
 	private Scene getInventoryScene(Player player) {
 		ArrayList<Item> localBag = player.getBag();
