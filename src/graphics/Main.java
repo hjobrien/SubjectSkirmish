@@ -92,6 +92,8 @@ public class Main extends Application {
 		ArrayList<ArrayList<Tile>> board = new ArrayList<ArrayList<Tile>>();
 		Random rand = new Random();
 		
+		//the paths can be commented back in if we figure out how to not make it ugly
+		
 		//still needs to be optimized
 		for(int i = 0; i < X_MAX + 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
@@ -102,15 +104,15 @@ public class Main extends Application {
 					tempTile = new BorderTile(i,j);
 				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
 					//automatically makes the tile that the player starts on a grass tile
-					tempTile = new GrassTile(i, j, GRASS_PATH);
+					tempTile = new GrassTile(i, j/*, GRASS_PATH*/);
 				} else {
 					int x = rand.nextInt(6);
 					if(x < 1){
-						tempTile = new FireTile(i,j, FIRE_PATH);
+						tempTile = new FireTile(i,j/*, FIRE_PATH*/);
 					} else if (x < 4){
-						tempTile = new GrassTile(i,j, GRASS_PATH);
+						tempTile = new GrassTile(i,j/*, GRASS_PATH*/);
 					} else { 
-						tempTile = new WaterTile(i,j, WATER_PATH);
+						tempTile = new WaterTile(i,j/*, WATER_PATH*/);
 					}
 					//normal tiles can also be used
 				}
@@ -304,7 +306,7 @@ public class Main extends Application {
 						inventoryStage.setScene(getInventoryScene(player));
 						
 						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
-							if (g.getCode() == KeyCode.B)
+							if (g.getCode() == KeyCode.B || g.getCode() == KeyCode.ENTER)
 								inventoryStage.setScene(inventoryMenuScene);
 						});
 					}
