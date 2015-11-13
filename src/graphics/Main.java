@@ -300,7 +300,7 @@ public class Main extends Application {
 				pictures.setMaxWidth(menuButtonWidth);
 				
 				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
+					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER){
 						inventoryStage.setScene(getInventoryScene(player));
 						
 						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
@@ -315,7 +315,7 @@ public class Main extends Application {
 				words.setMaxWidth(menuButtonWidth);
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
+					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER)
 						System.out.print(player.printBag());
 				});
 				
@@ -324,7 +324,7 @@ public class Main extends Application {
 				cont2.setMaxWidth(menuButtonWidth);
 				
 				cont2.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
+					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER)
 						inventoryStage.close();
 				});
 				
