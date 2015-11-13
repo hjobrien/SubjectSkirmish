@@ -23,7 +23,7 @@ public class Item {
 		//testing for inventory
 		//source path, width, height, keep aspect ratio, smooth
 		this.icon = new Image("/images/" + iconFile, ICON_SIZE, ICON_SIZE, false, true);
-		this.iconName = "images/" + iconFile;
+		this.iconName = "/images/" + iconFile;
 	}
 
 	public String toString (){

@@ -17,6 +17,9 @@ public class WaterTile extends Tile implements Stepable{
 	public WaterTile(int x,int y) {
 		super(x, y, defaultColor);
 	}
+	public WaterTile(int x, int y, String iconPath){
+		super(x, y, iconPath);
+	}
 
 	@Override
 	public Event onStep() {

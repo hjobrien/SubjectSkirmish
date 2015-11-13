@@ -16,6 +16,9 @@ public class GrassTile extends Tile implements Stepable{
 	public GrassTile(int x,int y) {
 		super(x, y, defaultColor);
 	}
+	public GrassTile(int x, int y, String iconPath){
+		super(x, y, iconPath);
+	}
 
 	@Override
 	public Event onStep() {

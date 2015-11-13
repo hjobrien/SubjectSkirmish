@@ -3,20 +3,27 @@ package tile;
 import java.util.Random;
 
 import event.Event;
+import event.FindItem;
 import event.Rarity;
 import javafx.scene.paint.Color;
-import event.FindItem;
 
 
 public abstract class Tile{
 	private int x;
 	private int y;
 	private Color c;
+	private String imagePath;
 	
 	public Tile(int x, int y, Color c){
 		this.c = c;
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Tile(int x, int y, String iconPath){
+		this.x = x;
+		this.y = y;
+		this.imagePath = iconPath;
 	}
 	
 	public int getX() {
@@ -61,5 +68,9 @@ public abstract class Tile{
 		} else {
 			return Rarity.UNIQUE;
 		}	
+	}
+
+	public String getImagePath() {
+		return imagePath;
 	}
 }

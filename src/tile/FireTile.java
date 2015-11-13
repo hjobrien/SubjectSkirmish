@@ -11,6 +11,10 @@ public class FireTile extends Tile {
 	public FireTile(int x,int y) {
 		super(x, y, defaultColor);
 	}
+	
+	public FireTile(int x, int y, String iconPath){
+		super(x, y, iconPath);
+	}
 
 
 	@Override

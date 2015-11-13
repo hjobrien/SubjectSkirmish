@@ -1,11 +1,8 @@
 package graphics;
 
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 import event.Event;
 import event.FindItem;
@@ -18,6 +15,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -64,6 +62,9 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
+	private static final String FIRE_PATH = "FireTile.jpeg";
+	private static final String GRASS_PATH = "GrassTile.jpeg";
+	private static final String WATER_PATH = "WaterTile.jpeg";
 
 
 
@@ -104,11 +105,11 @@ public class Main extends Application {
 				} else {
 					int x = rand.nextInt(6);
 					if(x < 1){
-						tempTile = new FireTile(i,j);
+						tempTile = new FireTile(i,j, FIRE_PATH);
 					} else if (x < 4){
-						tempTile = new GrassTile(i,j);
+						tempTile = new GrassTile(i,j, GRASS_PATH);
 					} else { 
-						tempTile = new WaterTile(i,j);
+						tempTile = new WaterTile(i,j, WATER_PATH);
 					}
 					//normal tiles can also be used
 				}
@@ -300,7 +301,7 @@ public class Main extends Application {
 				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
 					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
 						inventoryStage.setScene(getInventoryScene(player));
-					
+						
 						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
 							if (g.getCode() == KeyCode.B)
 								inventoryStage.setScene(inventoryMenuScene);
@@ -455,7 +456,9 @@ public class Main extends Application {
 
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
-				g.setFill(tempTile.getColor());
+				Image temp = new Image(tempTile.getImagePath());
+				g.drawImage(temp, 0, 0);//TODO fix
+//				g.setFill(tempTile.getColor());
 				g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
 			}
 		}
