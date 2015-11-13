@@ -62,9 +62,10 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
 	public static final Color PLAYER_COLOR = Color.BLACK;
-	private static final String FIRE_PATH = "FireTile.jpeg";
-	private static final String GRASS_PATH = "GrassTile.jpeg";
-	private static final String WATER_PATH = "WaterTile.jpeg";
+	private static final String FIRE_PATH = "/images/FireTile.jpeg";
+	private static final String GRASS_PATH = "/images/GrassTile.jpeg";
+	private static final String WATER_PATH = "/images/WaterTile.jpeg";
+	private static final String BORDER_PATH = "/images/BorderTile.jpeg";
 
 
 
@@ -101,7 +102,7 @@ public class Main extends Application {
 					tempTile = new BorderTile(i,j);
 				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
 					//automatically makes the tile that the player starts on a grass tile
-					tempTile = new GrassTile(i, j);
+					tempTile = new GrassTile(i, j, GRASS_PATH);
 				} else {
 					int x = rand.nextInt(6);
 					if(x < 1){
@@ -465,9 +466,14 @@ public class Main extends Application {
 
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
-				Image temp = new Image(tempTile.getImagePath());
-				g.drawImage(temp, 0, 0);//TODO fix
-//				g.setFill(tempTile.getColor());
+				System.out.println(tempTile.getImagePath() + " " + tempTile.toString());
+				if((tempTile instanceof GrassTile) || (tempTile instanceof FireTile) || (tempTile instanceof WaterTile)){
+					Image temp = new Image(tempTile.getImagePath());
+					g.drawImage(temp, 0, 0);//TODO fix
+				}
+				else{
+					g.setFill(tempTile.getColor());
+				}
 				g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
 			}
 		}
