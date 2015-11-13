@@ -295,8 +295,8 @@ public class Main extends Application {
 				VBox.setVgrow(inventoryMidSpring, Priority.ALWAYS);
 				
 				Button pictures = new Button("Pictures");
-				pictures.setMaxHeight(menuHeight);
-				pictures.setMaxWidth(menuWidth);
+				pictures.setMinWidth(menuButtonWidth);
+				pictures.setMaxWidth(menuButtonWidth);
 				
 				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
 					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
@@ -310,15 +310,24 @@ public class Main extends Application {
 				}); 
 				
 				Button words = new Button("Words");
-				words.setMaxHeight(menuHeight);
-				words.setMaxWidth(menuWidth);
+				words.setMinWidth(menuButtonWidth);
+				words.setMaxWidth(menuButtonWidth);
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
 					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
 						System.out.print(player.printBag());
 				});
 				
-				inventoryMenuObjs.getChildren().addAll(inventoryMidSpring, pictures, words);
+				Button cont2 = new Button("Continue"); 		//i can't name it continue, its a reserved word
+				cont2.setMinWidth(menuButtonWidth);
+				cont2.setMaxWidth(menuButtonWidth);
+				
+				cont2.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
+					if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
+						inventoryStage.close();
+				});
+				
+				inventoryMenuObjs.getChildren().addAll(inventoryMidSpring, pictures, words, cont2);
 				inventoryStage.setScene(inventoryMenuScene);
 				inventoryStage.show();
 
