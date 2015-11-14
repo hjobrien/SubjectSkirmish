@@ -10,6 +10,10 @@ public class BorderTile extends Tile {
 		super(x, y, c);
 	}
 
+	public BorderTile(int x, int y, String iconPath) {
+		super(x, y, iconPath);
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

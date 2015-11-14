@@ -45,6 +45,7 @@ public class Main extends Application {
 	private static int menuHeight = 400;
 	private static int menuWidth = 250;
 	private static int menuButtonWidth = 225;
+	private static boolean hasUpdated = false;
 
 	
 	//commonly used formulas that can easily be changed now
@@ -99,7 +100,7 @@ public class Main extends Application {
 				//such beautiful polymorphism
 				Tile tempTile = null;
 				if (isOnScreenEdge(i, j)){
-					tempTile = new BorderTile(i,j);
+					tempTile = new BorderTile(i,j, BORDER_PATH);
 				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
 					//automatically makes the tile that the player starts on a grass tile
 					tempTile = new GrassTile(i, j, GRASS_PATH);
@@ -136,7 +137,7 @@ public class Main extends Application {
 //		player.setName(name);
 		
 		scaleGraphics(grid, g);
-		update(player, g);
+		update(player, g, Direction.NO_MOVE);
 				
 		Scene boardScene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -150,6 +151,7 @@ public class Main extends Application {
 		stage.setFullScreenExitHint("");
 		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
+			Direction moveDirection = Direction.NO_MOVE;
 //			boolean moved; //to test if player moved
 			
 			//basic event handling structure part 1:
@@ -166,21 +168,25 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.LEFT){
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
 					onAdvance = player.advance(-TILE_SIZE,0);
+					moveDirection = Direction.WEST;
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
 					onAdvance = player.advance(TILE_SIZE,0);
+					moveDirection = Direction.EAST;
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
 					onAdvance = player.advance(0,-TILE_SIZE);
+					moveDirection = Direction.NORTH;
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
 					onAdvance = player.advance(0,TILE_SIZE);
+					moveDirection = Direction.SOUTH;
 				}
 			}
 			
@@ -228,7 +234,7 @@ public class Main extends Application {
 				//means a button other than an arrow key was pressed, probably no big deal, though they could/should be handled more gracefully
 			}
 			location = player.getLocation();
-			update(player,g);
+			update(player,g,moveDirection);
 		});
 
 //		TextArea textArea = new TextArea("Testing\n this is another line\n and another one");
@@ -448,29 +454,58 @@ public class Main extends Application {
 //		return new Item(item.getName(), item.getRarity());
 //	}
 	
-	public void update(Player player, GraphicsContext g){
+	public void update(Player player, GraphicsContext g, Direction moveDirection){
+		if(!hasUpdated){
+			drawGround(g);
+		}
+		hasUpdated = true;
 		//draw player
 		double size = Player.SIZE;
 		
+		
+//		Image temp = new Image(board.getBoard().get(location[0]).get(location[1]).getImagePath());
 		//clears old player
-		g.clearRect(location[0]-TILE_SIZE,location[1]-TILE_SIZE, TILE_SIZE * 3,TILE_SIZE * 3);
+		switch(moveDirection){
+		case NORTH:
+			g.drawImage(new Image(board.getBoard().get(location[0]).get(location[1]+TILE_SIZE).getImagePath()), location[0], location[1]+TILE_SIZE,TILE_SIZE,TILE_SIZE);//TODO fix
+			break;
+		case SOUTH:
+			g.drawImage(new Image(board.getBoard().get(location[0]).get(location[1]-TILE_SIZE).getImagePath()), location[0], location[1]-TILE_SIZE,TILE_SIZE,TILE_SIZE);//TODO fix
+			break;
+		case EAST:
+			g.drawImage(new Image(board.getBoard().get(location[0]-TILE_SIZE).get(location[1]).getImagePath()), location[0]-TILE_SIZE, location[1],TILE_SIZE,TILE_SIZE);//TODO fix
+			break;
+		case WEST:
+			g.drawImage(new Image(board.getBoard().get(location[0]+TILE_SIZE).get(location[1]).getImagePath()), location[0]+TILE_SIZE, location[1],TILE_SIZE,TILE_SIZE);//TODO fix
+			break;
+		default:
+//			g.clearRect(location[0],location[1], TILE_SIZE,TILE_SIZE);
+			break;
+		}
+		
+		g.setFill(player.getColor());
+		g.fillRect(location[0] + (TILE_SIZE-size)/2, location[1] + (TILE_SIZE-size)/2, size, size);
+		
+	}
+
+
+
+	private void drawGround(GraphicsContext g) {
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
 //				System.out.println(tempTile.getImagePath() + " " + tempTile.toString());
-				if((tempTile instanceof GrassTile) || (tempTile instanceof FireTile) || (tempTile instanceof WaterTile)){
+//				if((tempTile instanceof GrassTile) || (tempTile instanceof FireTile) || (tempTile instanceof WaterTile)){
 					Image temp = new Image(tempTile.getImagePath());
-					g.drawImage(temp, tempTile.getX(), tempTile.getY(),10,10);//TODO fix
-				}
-				else{
-					g.setFill(tempTile.getColor());
-					g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
-
-				}
+					g.drawImage(temp, tempTile.getX(), tempTile.getY(),1,1);//TODO fix
+//				}
+//				else{
+//					g.setFill(tempTile.getColor());
+//					g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
+//
+//				}
 			}
 		}
 
-		g.setFill(player.getColor());
-		g.fillRect(location[0] + (TILE_SIZE-size)/2, location[1] + (TILE_SIZE-size)/2, size, size);
 		
 	}
 	
