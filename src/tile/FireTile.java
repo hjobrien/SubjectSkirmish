@@ -20,7 +20,7 @@ public class FireTile extends Tile {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "x:" + super.getX() + "y:" + super.getY() + " Fire";
+		return super.toString() + " Fire";
 	}
 
 

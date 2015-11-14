@@ -38,7 +38,9 @@ public abstract class Tile{
 		return c;
 	}
 	
-	public abstract String toString();
+	public String toString(){
+		return "x:" + x + " y:" + y;
+	}
 	
 	public Event onStep(){
 		return null;

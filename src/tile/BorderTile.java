@@ -16,8 +16,7 @@ public class BorderTile extends Tile {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "x:" + super.getX() + "y:" + super.getY() + " Border";
+		return super.toString() + " Border";
 	}
 
 }
