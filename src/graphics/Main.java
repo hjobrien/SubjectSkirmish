@@ -92,8 +92,6 @@ public class Main extends Application {
 		ArrayList<ArrayList<Tile>> board = new ArrayList<ArrayList<Tile>>();
 		Random rand = new Random();
 		
-		//the paths can be commented back in if we figure out how to not make it ugly
-		
 		//still needs to be optimized
 		for(int i = 0; i < X_MAX + 1; i++){
 			ArrayList<Tile> temp = new ArrayList<Tile>();
@@ -104,15 +102,15 @@ public class Main extends Application {
 					tempTile = new BorderTile(i,j);
 				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
 					//automatically makes the tile that the player starts on a grass tile
-					tempTile = new GrassTile(i, j/*, GRASS_PATH*/);
+					tempTile = new GrassTile(i, j, GRASS_PATH);
 				} else {
 					int x = rand.nextInt(6);
 					if(x < 1){
-						tempTile = new FireTile(i,j/*, FIRE_PATH*/);
+						tempTile = new FireTile(i,j, FIRE_PATH);
 					} else if (x < 4){
-						tempTile = new GrassTile(i,j/*, GRASS_PATH*/);
+						tempTile = new GrassTile(i,j, GRASS_PATH);
 					} else { 
-						tempTile = new WaterTile(i,j/*, WATER_PATH*/);
+						tempTile = new WaterTile(i,j, WATER_PATH);
 					}
 					//normal tiles can also be used
 				}
@@ -298,39 +296,30 @@ public class Main extends Application {
 				VBox.setVgrow(inventoryMidSpring, Priority.ALWAYS);
 				
 				Button pictures = new Button("Pictures");
-				pictures.setMinWidth(menuButtonWidth);
-				pictures.setMaxWidth(menuButtonWidth);
+				pictures.setMaxHeight(menuHeight);
+				pictures.setMaxWidth(menuWidth);
 				
 				pictures.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER){
+					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
 						inventoryStage.setScene(getInventoryScene(player));
 						
 						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
-							if (g.getCode() == KeyCode.B || g.getCode() == KeyCode.ENTER)
+							if (g.getCode() == KeyCode.B)
 								inventoryStage.setScene(inventoryMenuScene);
 						});
 					}
 				}); 
 				
 				Button words = new Button("Words");
-				words.setMinWidth(menuButtonWidth);
-				words.setMaxWidth(menuButtonWidth);
+				words.setMaxHeight(menuHeight);
+				words.setMaxWidth(menuWidth);
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER)
+					if (f.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER)
 						System.out.print(player.printBag());
 				});
 				
-				Button cont2 = new Button("Continue"); 		//i can't name it continue, its a reserved word
-				cont2.setMinWidth(menuButtonWidth);
-				cont2.setMaxWidth(menuButtonWidth);
-				
-				cont2.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER)
-						inventoryStage.close();
-				});
-				
-				inventoryMenuObjs.getChildren().addAll(inventoryMidSpring, pictures, words, cont2);
+				inventoryMenuObjs.getChildren().addAll(inventoryMidSpring, pictures, words);
 				inventoryStage.setScene(inventoryMenuScene);
 				inventoryStage.show();
 
@@ -465,18 +454,18 @@ public class Main extends Application {
 		
 		//clears old player
 		g.clearRect(location[0]-TILE_SIZE,location[1]-TILE_SIZE, TILE_SIZE * 3,TILE_SIZE * 3);
-
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
-				System.out.println(tempTile.getImagePath() + " " + tempTile.toString());
+//				System.out.println(tempTile.getImagePath() + " " + tempTile.toString());
 				if((tempTile instanceof GrassTile) || (tempTile instanceof FireTile) || (tempTile instanceof WaterTile)){
 					Image temp = new Image(tempTile.getImagePath());
-					g.drawImage(temp, 0, 0);//TODO fix
+					g.drawImage(temp, tempTile.getX(), tempTile.getY(),10,10);//TODO fix
 				}
 				else{
 					g.setFill(tempTile.getColor());
+					g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
+
 				}
-				g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
 			}
 		}
 
