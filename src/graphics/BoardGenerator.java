@@ -18,7 +18,7 @@ public class BoardGenerator {
 	//commonly used formulas that can easily be changed now
 	//Still needs to be optimized for all screens
 	private static final int X_MAX = (SCREEN_WIDTH / 50);
-	private static final int Y_MAX = (SCREEN_HEIGHT / 50)-1;
+	private static final int Y_MAX = (SCREEN_HEIGHT / 50)-3;
 	
 	private static final String FIRE_PATH = "/images/FireTile.jpeg";
 	private static final String GRASS_PATH = "/images/GrassTile.jpeg";

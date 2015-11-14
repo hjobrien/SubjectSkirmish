@@ -38,6 +38,8 @@ public class Main extends Application {
 	//Still needs to be optimized for all screens
 	private static final int X_MAX = (SCREEN_WIDTH / 50);
 	private static final int Y_MAX = (SCREEN_HEIGHT / 50) - 3;
+			 
+			;
 	
 	public static final Color PLAYER_COLOR = Color.BLACK;
 	
@@ -105,7 +107,7 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.ESCAPE)
 				System.exit(0);
 		});
-		stage.setFullScreen(true);
+//		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
