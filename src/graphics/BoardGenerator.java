@@ -24,9 +24,12 @@ public class BoardGenerator {
 	private static final String GRASS_PATH = "/images/GrassTile.jpeg";
 	private static final String WATER_PATH = "/images/WaterTile.jpeg";
 	private static final String BORDER_PATH = "/images/BorderTile.jpeg";
-	private static final double WATER_PRESSURE = 0.17;
-	private static final double GRASS_PRESSURE = 0.185;
-	private static final double FIRE_PRESSURE = 0.2;
+	
+	//Adjust these weights to change how groupings form, though they should be pretty similar overall or one tile will dominate
+	private static final double WATER_PRESSURE = 0.27;
+	private static final double GRASS_PRESSURE = 0.285;
+	//Fire weight is high to promote large groups, but i turned down its spawn chance to promote a few large groups
+	private static final double FIRE_PRESSURE = 0.29;
 	
 	
 	public BoardGenerator(){
@@ -39,6 +42,8 @@ public class BoardGenerator {
 				return genRandBoard();
 			case SMALL_GROUPS:
 				return smallGroupedBoard();
+			case LARGE_GROUPS:
+				return largeGroupedBoard();
 			default:
 				break;
 		}
@@ -47,6 +52,10 @@ public class BoardGenerator {
 
 	private static Board smallGroupedBoard() {
 		return increaseBoardGrouping(genRandBoard());
+	}
+	
+	private static Board largeGroupedBoard() {
+		return increaseBoardGrouping(smallGroupedBoard());
 	}
 
 	//presure in context of evolutionary pressure
@@ -81,6 +90,8 @@ public class BoardGenerator {
 				}
 			}
 		}
+		//makes sure tile evolving didn't remove initial grass tile
+		seedBoard.get(X_MAX / 2).set(Y_MAX / 2, new GrassTile(X_MAX / 2, Y_MAX / 2, GRASS_PATH));
 		return new Board(seedBoard);
 		
 	}

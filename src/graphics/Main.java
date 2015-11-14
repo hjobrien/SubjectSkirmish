@@ -63,7 +63,7 @@ public class Main extends Application {
 	public static final int TILE_SIZE = 1;
 	
 	//dont change, other versions are not implemented yet
-	private static final BoardStyle GEN_STYLE = BoardStyle.SMALL_GROUPS; 
+	private static final BoardStyle GEN_STYLE = BoardStyle.LARGE_GROUPS; 
 
 
 
