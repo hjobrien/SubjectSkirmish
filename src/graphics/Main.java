@@ -2,19 +2,16 @@ package graphics;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Random;
 
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -29,29 +26,29 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import player.Item;
 import player.Player;
-import tile.BorderTile;
-import tile.FireTile;
-import tile.GrassTile;
 import tile.Stepable;
 import tile.Tile;
-import tile.WaterTile;
 
 public class Main extends Application {
 
 	private static final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private static int borderWidth = 0;
 	private static final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	
+	//commonly used formulas that can easily be changed now
+	//Still needs to be optimized for all screens
+	private static final int X_MAX = (SCREEN_WIDTH / 50);
+	private static final int Y_MAX = (SCREEN_HEIGHT / 50) - 3;
+	
+	public static final Color PLAYER_COLOR = Color.BLACK;
+	
+	private static int borderWidth = 0;
 	private static int borderHeight = 0;
 	private static int menuHeight = 400;
 	private static int menuWidth = 250;
 	private static int menuButtonWidth = 225;
 	private static boolean hasUpdated = false;
 
-	
-	//commonly used formulas that can easily be changed now
-	//Still needs to be optimized for all screens
-	private static final int X_MAX = (SCREEN_WIDTH / 50);
-	private static final int Y_MAX = (SCREEN_HEIGHT / 50) - 3;
+
 	
 	private int[] location = new int[]{X_MAX / 2,Y_MAX / 2}; //x and y coordinate 
 	private Board board;
@@ -62,11 +59,7 @@ public class Main extends Application {
 	//---update, i changed the moving so now tile size affects the player,
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1; 
-	public static final Color PLAYER_COLOR = Color.BLACK;
-	private static final String FIRE_PATH = "/images/FireTile.jpeg";
-	private static final String GRASS_PATH = "/images/GrassTile.jpeg";
-	private static final String WATER_PATH = "/images/WaterTile.jpeg";
-	private static final String BORDER_PATH = "/images/BorderTile.jpeg";
+
 
 
 
@@ -74,52 +67,14 @@ public class Main extends Application {
 	//i don't think i can do anything about the error, its a java language problem
 	//Tested on Java 8 Builds 60 and 65 (newest version as of 10/24/15)
 	
-	//Other note, if you want a method to go away, but you don't know where things are calling it, or whatever, use the @Deprecated tag above the method
-	@Deprecated
-	public static void doNothing(){
-		
-	}
-	
-	
-	
+
 	public static void main(String[] args) {	
 		launch(args);
-		//example of calling a Deprecated method, its pretty clear to see
-		doNothing();
 	}
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		ArrayList<ArrayList<Tile>> board = new ArrayList<ArrayList<Tile>>();
-		Random rand = new Random();
-		
-		//still needs to be optimized
-		for(int i = 0; i < X_MAX + 1; i++){
-			ArrayList<Tile> temp = new ArrayList<Tile>();
-			for(int j = 0; j < Y_MAX + 1; j++){
-				//such beautiful polymorphism
-				Tile tempTile = null;
-				if (isOnScreenEdge(i, j)){
-					tempTile = new BorderTile(i,j, BORDER_PATH);
-				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
-					//automatically makes the tile that the player starts on a grass tile
-					tempTile = new GrassTile(i, j, GRASS_PATH);
-				} else {
-					int x = rand.nextInt(6);
-					if(x < 1){
-						tempTile = new FireTile(i,j, FIRE_PATH);
-					} else if (x < 4){
-						tempTile = new GrassTile(i,j, GRASS_PATH);
-					} else { 
-						tempTile = new WaterTile(i,j, WATER_PATH);
-					}
-					//normal tiles can also be used
-				}
-				temp.add(tempTile);
-			}
-			board.add(temp);
-		}
-		this.board = new Board(board);
+		this.board = BoardGenerator.generate(BoardStyle.FULL_RANDOM);
 
 		
 		GridPane grid = new GridPane();
@@ -411,16 +366,7 @@ public class Main extends Application {
 
 
 
-	public boolean isOnScreenEdge(int x, int y){
-		
-		//a benefit of this is that the grid could now be 
-		//bigger than is actually needed, as long as the border 
-		//restricts the player. 
-		if (x == 0 || x == X_MAX|| y == 0|| y == Y_MAX){
-			return true;
-		} 
-		return false;
-	}
+
 	
 	public void scaleGraphics(GridPane grid, GraphicsContext g){
 		
@@ -444,20 +390,20 @@ public class Main extends Application {
 		System.out.println(e.toString());
 	}
 	
-	//comment the contents of this method to stop JVM bug
-	//no bug for me 
-	//Also we really need to figure out how this works-liam
-	public Scene handle(SpawnMonster spawn){
-		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
-
-//		JButton j = new JButton("Bag");
-//		j.setBounds(100, 100, 100, 100);
-//		group.getChildren().add(j); //doesnt work for some reason
-		
-		group.getChildren().add(new Label("Test"));
-		group.getChildren().add(new Label("Test2"));
-		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
-	}
+//	//comment the contents of this method to stop JVM bug
+//	//no bug for me 
+//	//Also we really need to figure out how this works-liam
+//	public Scene handle(SpawnMonster spawn){
+//		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
+//
+////		JButton j = new JButton("Bag");
+////		j.setBounds(100, 100, 100, 100);
+////		group.getChildren().add(j); //doesnt work for some reason
+//		
+//		group.getChildren().add(new Label("Test"));
+//		group.getChildren().add(new Label("Test2"));
+//		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+//	}
 	
 //	public Item handle(FindItem item){
 //		return new Item(item.getName(), item.getRarity());
