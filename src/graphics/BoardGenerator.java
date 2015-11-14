@@ -18,7 +18,7 @@ public class BoardGenerator {
 	//commonly used formulas that can easily be changed now
 	//Still needs to be optimized for all screens
 	private static final int X_MAX = (SCREEN_WIDTH / 50);
-	private static final int Y_MAX = (SCREEN_HEIGHT / 50) - 3;
+	private static final int Y_MAX = (SCREEN_HEIGHT / 50)-1;
 	
 	private static final String FIRE_PATH = "/images/FireTile.jpeg";
 	private static final String GRASS_PATH = "/images/GrassTile.jpeg";
@@ -31,8 +31,11 @@ public class BoardGenerator {
 	}
 	
 	public static Board generate(BoardStyle style){
-		if(style == BoardStyle.FULL_RANDOM){
-			return genRandBoard();
+		switch(style){
+			case FULL_RANDOM:
+				return genRandBoard();
+			default:
+				break;
 		}
 		return null;
 	}
@@ -53,12 +56,12 @@ public class BoardGenerator {
 					//automatically makes the tile that the player starts on a grass tile
 					tempTile = new GrassTile(i, j, GRASS_PATH);
 				} else {
-					int x = rand.nextInt(6);
-					if(x < 1){
+					int x = rand.nextInt(6); //0-5
+					if(x < 1){ //0
 						tempTile = new FireTile(i,j, FIRE_PATH);
-					} else if (x < 4){
+					} else if (x < 4){ //1-3
 						tempTile = new GrassTile(i,j, GRASS_PATH);
-					} else { 
+					} else { //4-5
 						tempTile = new WaterTile(i,j, WATER_PATH);
 					}
 					//normal tiles can also be used

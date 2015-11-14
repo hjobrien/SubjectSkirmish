@@ -58,7 +58,10 @@ public class Main extends Application {
 	//anything at the moment?
 	//---update, i changed the moving so now tile size affects the player,
 	//but it still doesn't affect the tiles
-	public static final int TILE_SIZE = 1; 
+	public static final int TILE_SIZE = 1;
+	
+	//dont change, other versions are not implemented yet
+	private static final BoardStyle GEN_STYLE = BoardStyle.FULL_RANDOM; 
 
 
 
@@ -74,7 +77,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		this.board = BoardGenerator.generate(BoardStyle.FULL_RANDOM);
+		this.board = BoardGenerator.generate(GEN_STYLE);
 
 		
 		GridPane grid = new GridPane();
@@ -102,7 +105,7 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.ESCAPE)
 				System.exit(0);
 		});
-//		stage.setFullScreen(true);
+		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		
 		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
@@ -192,12 +195,6 @@ public class Main extends Application {
 			update(player,g,moveDirection);
 		});
 
-//		TextArea textArea = new TextArea("Testing\n this is another line\n and another one");
-//		textArea.toFront();
-//		textArea.maxHeight(1);
-//		textArea.maxWidth(2);
-////		textArea.getStylesheets().add("GUI Style.css");
-//		grid.add(textArea, 0, 0);
 		grid.add(canvas, 0, 0); 
 
 		
@@ -313,35 +310,7 @@ public class Main extends Application {
 		menuStage.show();
 	}
 	
-//	//tried to implement these two methods to make everything nicer but failed
-//	public Stage makeStage(String title){
-//		Stage menuStage = new Stage();
-//		menuStage.setTitle(title);
-//		
-//		//forces you to deal with the menu instead of going back to the game
-//		menuStage.initModality(Modality.APPLICATION_MODAL);
-//		menuStage.setHeight(menuHeight);
-//		menuStage.setWidth(menuWidth);
-//		
-//		return menuStage;
-//	}
-//	
-//	public Scene makeScene(ArrayList<Button> buttons){
-//		VBox mainObjs = new VBox();
-//		Scene mainScene = new Scene(mainObjs, menuHeight, menuWidth);
-//		
-//		mainObjs.setAlignment(Pos.CENTER);
-//		//empty region that forces components below it to the bottom of the stage
-//		Region midSpring = new Region();
-//		VBox.setVgrow(midSpring, Priority.ALWAYS);
-//		
-//		mainObjs.getChildren().add(midSpring);
-//		for (Button b: buttons){
-//			mainObjs.getChildren().add(b);
-//		}
-//		
-//		return mainScene;
-//	}
+
 
 	private Scene getInventoryScene(Player player) {
 		ArrayList<Item> localBag = player.getBag();
@@ -390,24 +359,7 @@ public class Main extends Application {
 		System.out.println(e.toString());
 	}
 	
-//	//comment the contents of this method to stop JVM bug
-//	//no bug for me 
-//	//Also we really need to figure out how this works-liam
-//	public Scene handle(SpawnMonster spawn){
-//		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
-//
-////		JButton j = new JButton("Bag");
-////		j.setBounds(100, 100, 100, 100);
-////		group.getChildren().add(j); //doesnt work for some reason
-//		
-//		group.getChildren().add(new Label("Test"));
-//		group.getChildren().add(new Label("Test2"));
-//		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
-//	}
-	
-//	public Item handle(FindItem item){
-//		return new Item(item.getName(), item.getRarity());
-//	}
+
 	
 	public void update(Player player, GraphicsContext g, Direction moveDirection){
 		if(!hasUpdated){
@@ -454,6 +406,55 @@ public class Main extends Application {
 
 		
 	}
+	
+//	//comment the contents of this method to stop JVM bug
+//	//no bug for me 
+//	//Also we really need to figure out how this works-liam
+//	public Scene handle(SpawnMonster spawn){
+//		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
+//
+////		JButton j = new JButton("Bag");
+////		j.setBounds(100, 100, 100, 100);
+////		group.getChildren().add(j); //doesnt work for some reason
+//		
+//		group.getChildren().add(new Label("Test"));
+//		group.getChildren().add(new Label("Test2"));
+//		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+//	}
+	
+//	public Item handle(FindItem item){
+//		return new Item(item.getName(), item.getRarity());
+//	}	
+	
+//	//tried to implement these two methods to make everything nicer but failed
+//	public Stage makeStage(String title){
+//		Stage menuStage = new Stage();
+//		menuStage.setTitle(title);
+//		
+//		//forces you to deal with the menu instead of going back to the game
+//		menuStage.initModality(Modality.APPLICATION_MODAL);
+//		menuStage.setHeight(menuHeight);
+//		menuStage.setWidth(menuWidth);
+//		
+//		return menuStage;
+//	}
+//	
+//	public Scene makeScene(ArrayList<Button> buttons){
+//		VBox mainObjs = new VBox();
+//		Scene mainScene = new Scene(mainObjs, menuHeight, menuWidth);
+//		
+//		mainObjs.setAlignment(Pos.CENTER);
+//		//empty region that forces components below it to the bottom of the stage
+//		Region midSpring = new Region();
+//		VBox.setVgrow(midSpring, Priority.ALWAYS);
+//		
+//		mainObjs.getChildren().add(midSpring);
+//		for (Button b: buttons){
+//			mainObjs.getChildren().add(b);
+//		}
+//		
+//		return mainScene;
+//	}
 	
 	
 //	private void initConstants(){
