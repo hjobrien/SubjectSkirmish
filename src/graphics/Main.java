@@ -461,25 +461,25 @@ public class Main extends Application {
 		hasUpdated = true;
 		//draw player
 		double size = Player.SIZE;
-		
+		int x = location[0];
+		int y = location[1];
 		
 //		Image temp = new Image(board.getBoard().get(location[0]).get(location[1]).getImagePath());
 		//clears old player
 		switch(moveDirection){
 		case NORTH:
-			g.drawImage(new Image(board.getBoard().get(location[0]).get(location[1]+TILE_SIZE).getImagePath()), location[0], location[1]+TILE_SIZE,TILE_SIZE,TILE_SIZE);//TODO fix
+			g.drawImage(new Image(board.getBoard().get(x).get(y+TILE_SIZE).getImagePath()), x, y+TILE_SIZE,TILE_SIZE,TILE_SIZE);
 			break;
 		case SOUTH:
-			g.drawImage(new Image(board.getBoard().get(location[0]).get(location[1]-TILE_SIZE).getImagePath()), location[0], location[1]-TILE_SIZE,TILE_SIZE,TILE_SIZE);//TODO fix
+			g.drawImage(new Image(board.getBoard().get(x).get(y-TILE_SIZE).getImagePath()), x, y-TILE_SIZE,TILE_SIZE,TILE_SIZE);
 			break;
 		case EAST:
-			g.drawImage(new Image(board.getBoard().get(location[0]-TILE_SIZE).get(location[1]).getImagePath()), location[0]-TILE_SIZE, location[1],TILE_SIZE,TILE_SIZE);//TODO fix
+			g.drawImage(new Image(board.getBoard().get(x-TILE_SIZE).get(y).getImagePath()), x-TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
 			break;
 		case WEST:
-			g.drawImage(new Image(board.getBoard().get(location[0]+TILE_SIZE).get(location[1]).getImagePath()), location[0]+TILE_SIZE, location[1],TILE_SIZE,TILE_SIZE);//TODO fix
+			g.drawImage(new Image(board.getBoard().get(x+TILE_SIZE).get(y).getImagePath()), x+TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
 			break;
 		default:
-//			g.clearRect(location[0],location[1], TILE_SIZE,TILE_SIZE);
 			break;
 		}
 		
