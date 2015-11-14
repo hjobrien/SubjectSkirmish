@@ -396,11 +396,11 @@ public class Main extends Application {
 //		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
 //		int numRows = (int) Math.ceil((double)(localBag.size()-1) / maxHorizIcons);
 		int count = 0;
-		for(int i = 0; i < menuWidth / Item.ICON_SIZE-1; i++){
+		for(int i = 0; i < menuWidth / Item.ICON_SIZE; i++){
 			for(int j = 0; j < menuHeight / Item.ICON_SIZE-2; j++){
 				if(count < localBag.size()){
 					ImageView temp = new ImageView();
-					temp.setImage(localBag.get(i*j+j).getIcon());
+					temp.setImage(localBag.get(count).getIcon());
 					inventoryGrid.add(temp, j, i);
 				}
 				count++;
@@ -473,7 +473,6 @@ public class Main extends Application {
 		int x = location[0];
 		int y = location[1];
 		
-//		Image temp = new Image(board.getBoard().get(location[0]).get(location[1]).getImagePath());
 		//clears old player
 		switch(moveDirection){
 		case NORTH:
@@ -502,16 +501,8 @@ public class Main extends Application {
 	private void drawGround(GraphicsContext g) {
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
-//				System.out.println(tempTile.getImagePath() + " " + tempTile.toString());
-//				if((tempTile instanceof GrassTile) || (tempTile instanceof FireTile) || (tempTile instanceof WaterTile)){
-					Image temp = new Image(tempTile.getImagePath());
-					g.drawImage(temp, tempTile.getX(), tempTile.getY(),1,1);//TODO fix
-//				}
-//				else{
-//					g.setFill(tempTile.getColor());
-//					g.fillRect(tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
-//
-//				}
+				Image temp = new Image(tempTile.getImagePath());
+				g.drawImage(temp, tempTile.getX(), tempTile.getY(),1,1);
 			}
 		}
 
