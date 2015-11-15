@@ -1,7 +1,8 @@
 package graphics;
 
 public enum BoardStyle {
-	FULL_RANDOM,
+	RANDOM,
 	SMALL_GROUPS,
-	LARGE_GROUPS;
+	LARGE_GROUPS,
+	LARGER_GROUPS;
 }

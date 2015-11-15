@@ -26,10 +26,12 @@ public class BoardGenerator {
 	private static final String BORDER_PATH = "/images/BorderTile.jpeg";
 	
 	//Adjust these weights to change how groupings form, though they should be pretty similar overall or one tile will dominate
-	private static final double WATER_PRESSURE = 0.27;
+	//the value of the weights affects the size of the groups, if they are all the same value
+	//if the weights are different values the numbers of each kind of tile will likely be unequal
+	private static final double WATER_PRESSURE = 0.285;
 	private static final double GRASS_PRESSURE = 0.285;
 	//Fire weight is high to promote large groups, but i turned down its spawn chance to promote a few large groups
-	private static final double FIRE_PRESSURE = 0.29;
+	private static final double FIRE_PRESSURE = 0.285;
 	
 	
 	public BoardGenerator(){
@@ -38,17 +40,21 @@ public class BoardGenerator {
 	
 	public static Board generate(BoardStyle style){
 		switch(style){
-			case FULL_RANDOM:
+			case RANDOM:
 				return genRandBoard();
 			case SMALL_GROUPS:
 				return smallGroupedBoard();
 			case LARGE_GROUPS:
 				return largeGroupedBoard();
+			case LARGER_GROUPS:
+				return largerGroupedBoard();
 			default:
 				break;
 		}
 		return null;
 	}
+
+	
 
 	private static Board smallGroupedBoard() {
 		return increaseBoardGrouping(genRandBoard());
@@ -56,6 +62,9 @@ public class BoardGenerator {
 	
 	private static Board largeGroupedBoard() {
 		return increaseBoardGrouping(smallGroupedBoard());
+	}
+	private static Board largerGroupedBoard() {
+		return increaseBoardGrouping(largerGroupedBoard());
 	}
 
 	//presure in context of evolutionary pressure

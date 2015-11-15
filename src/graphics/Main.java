@@ -8,6 +8,7 @@ import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,8 +39,6 @@ public class Main extends Application {
 	//Still needs to be optimized for all screens
 	private static final int X_MAX = (SCREEN_WIDTH / 50);
 	private static final int Y_MAX = (SCREEN_HEIGHT / 50) - 3;
-			 
-			;
 	
 	public static final Color PLAYER_COLOR = Color.BLACK;
 	
@@ -98,9 +97,10 @@ public class Main extends Application {
 		
 		scaleGraphics(grid, g);
 		update(player, g, Direction.NO_MOVE);
-				
+		
 		Scene boardScene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+		
+		
 		stage.setScene(boardScene);
 		//make escape close window
 		stage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
@@ -222,6 +222,7 @@ public class Main extends Application {
 		
 		VBox mainMenuObjs = new VBox();
 		Scene mainMenuScene = new Scene(mainMenuObjs, menuHeight, menuWidth);
+
 		
 		mainMenuObjs.setAlignment(Pos.CENTER);
 		//empty region that forces components below it to the bottom of the stage
