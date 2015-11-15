@@ -27,6 +27,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import player.Item;
 import player.Player;
+import tile.DoorTile;
 import tile.Stepable;
 import tile.Tile;
 
@@ -106,7 +107,7 @@ public class Main extends Application {
 		stage.addEventFilter(KeyEvent.KEY_PRESSED,e -> {
 			if(e.getCode() == KeyCode.ESCAPE)
 				System.exit(0);
-		});
+		});  
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		
@@ -127,26 +128,42 @@ public class Main extends Application {
 			Event onAdvance = null;
 			if(e.getCode() == KeyCode.LEFT){
 				if((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof Stepable){
-					onAdvance = player.advance(-TILE_SIZE,0);
 					moveDirection = Direction.WEST;
+					if ((this.board.getBoard()).get(location[0] - 1).get(location[1]) instanceof DoorTile){
+						updateBoard(moveDirection, player, g);
+					} else {
+						onAdvance = player.advance(-TILE_SIZE,0);
+					}
 				}
 			}
 			if(e.getCode() == KeyCode.RIGHT){
 				if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof Stepable){
-					onAdvance = player.advance(TILE_SIZE,0);
 					moveDirection = Direction.EAST;
+					if((this.board.getBoard()).get(location[0] + 1).get(location[1]) instanceof DoorTile){
+						updateBoard(moveDirection, player, g);
+					} else {
+						onAdvance = player.advance(TILE_SIZE,0);
+					}
 				}
 			}
 			if(e.getCode() == KeyCode.UP){
 				if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof Stepable){
-					onAdvance = player.advance(0,-TILE_SIZE);
 					moveDirection = Direction.NORTH;
+					if((this.board.getBoard()).get(location[0]).get(location[1] - 1) instanceof DoorTile){
+						updateBoard(moveDirection, player, g);
+					} else {
+						onAdvance = player.advance(0,-TILE_SIZE);
+					}
 				}
 			}
 			if(e.getCode() == KeyCode.DOWN){
 				if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof Stepable){
-					onAdvance = player.advance(0,TILE_SIZE);
 					moveDirection = Direction.SOUTH;
+					if((this.board.getBoard()).get(location[0]).get(location[1] + 1) instanceof DoorTile){
+						updateBoard(moveDirection, player, g);
+					} else {
+					onAdvance = player.advance(0,TILE_SIZE);
+					}
 				}
 			}
 			
@@ -204,6 +221,25 @@ public class Main extends Application {
 
 	}
 	
+	private void updateBoard(Direction d, Player player, GraphicsContext g) {
+		this.board = BoardGenerator.generate(GEN_STYLE);
+		hasUpdated = false;
+		
+		g.drawImage(new Image(board.getBoard().get(player.getLocation()[0]).get(player.getLocation()[1]).getImagePath()), player.getLocation()[0], player.getLocation()[1],TILE_SIZE,TILE_SIZE);
+		
+		if (d.equals(Direction.WEST)){
+			player.advance(X_MAX - 2, 0);
+		} else if (d.equals(Direction.EAST)){
+			player.advance(-(X_MAX - 2), 0);
+		} else if (d.equals(Direction.NORTH)){
+			player.advance(0, (Y_MAX - 2));
+		} else if (d.equals(Direction.SOUTH)){
+			player.advance(0, -(Y_MAX - 2));
+		}
+		update(player, g, Direction.NO_MOVE);
+		player.advance(0,0);
+	}
+
 	private void showMenu(Player player) {
 		//****I want to set a general rule that declares what buttons control which aspects of the program****
 		//I currently am setting it where space is an "accept" button, carrying out the button's role
@@ -388,6 +424,8 @@ public class Main extends Application {
 		case WEST:
 			g.drawImage(new Image(board.getBoard().get(x+TILE_SIZE).get(y).getImagePath()), x+TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
 			break;
+//		case NO_MOVE:
+//			g.drawImage(new Image(board.getBoard().get(x).get(y).getImagePath()), x, y, TILE_SIZE, TILE_SIZE);
 		default:
 			break;
 		}
