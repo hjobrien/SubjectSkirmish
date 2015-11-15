@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import tile.BorderTile;
+import tile.DoorTile;
 import tile.FireTile;
 import tile.GrassTile;
 import tile.Tile;
@@ -157,7 +158,10 @@ public class BoardGenerator {
 			for(int j = 0; j < Y_MAX + 1; j++){
 				//such beautiful polymorphism
 				Tile tempTile = null;
-				if (isOnScreenEdge(i, j)){
+				
+				if ((i == 0 && j == Y_MAX / 2) || (i == X_MAX && j == Y_MAX / 2) || (i == X_MAX / 2 && j == 0) || (i == X_MAX / 2 && j == Y_MAX)){
+					tempTile = new DoorTile(i, j);
+				} else if (isOnScreenEdge(i, j)){
 					tempTile = new BorderTile(i,j, BORDER_PATH);
 				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
 					//automatically makes the tile that the player starts on a grass tile

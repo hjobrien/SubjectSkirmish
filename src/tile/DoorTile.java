@@ -6,7 +6,6 @@ public class DoorTile extends Tile implements Stepable{
 
 	private static final Color c = Color.BROWN;//Color.PINK;
 	
-	
 	public DoorTile(int x, int y) {
 		super(x, y, c);
 	}
