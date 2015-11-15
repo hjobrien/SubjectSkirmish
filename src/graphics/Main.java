@@ -221,11 +221,11 @@ public class Main extends Application {
 
 	}
 	
+	//creates a new random board and moves the player to where they would appear if they 
+	//had entered the door they moved through
 	private void updateBoard(Direction d, Player player, GraphicsContext g) {
 		this.board = BoardGenerator.generate(GEN_STYLE);
 		hasUpdated = false;
-		
-		g.drawImage(new Image(board.getBoard().get(player.getLocation()[0]).get(player.getLocation()[1]).getImagePath()), player.getLocation()[0], player.getLocation()[1],TILE_SIZE,TILE_SIZE);
 		
 		if (d.equals(Direction.WEST)){
 			player.advance(X_MAX - 2, 0);
@@ -237,7 +237,6 @@ public class Main extends Application {
 			player.advance(0, -(Y_MAX - 2));
 		}
 		update(player, g, Direction.NO_MOVE);
-		player.advance(0,0);
 	}
 
 	private void showMenu(Player player) {
@@ -405,8 +404,10 @@ public class Main extends Application {
 			drawGround(g);
 		}
 		hasUpdated = true;
+		
 		//draw player
 		double size = Player.SIZE;
+		location = player.getLocation();
 		int x = location[0];
 		int y = location[1];
 		
@@ -424,8 +425,6 @@ public class Main extends Application {
 		case WEST:
 			g.drawImage(new Image(board.getBoard().get(x+TILE_SIZE).get(y).getImagePath()), x+TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
 			break;
-//		case NO_MOVE:
-//			g.drawImage(new Image(board.getBoard().get(x).get(y).getImagePath()), x, y, TILE_SIZE, TILE_SIZE);
 		default:
 			break;
 		}
@@ -441,7 +440,7 @@ public class Main extends Application {
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
 				Image temp = new Image(tempTile.getImagePath());
-				g.drawImage(temp, tempTile.getX(), tempTile.getY(),1,1);
+				g.drawImage(temp, tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
 			}
 		}
 
