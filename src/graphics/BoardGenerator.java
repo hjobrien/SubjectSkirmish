@@ -25,6 +25,7 @@ public class BoardGenerator {
 	private static final String GRASS_PATH = "/images/GrassTile.jpeg";
 	private static final String WATER_PATH = "/images/WaterTile.jpeg";
 	private static final String BORDER_PATH = "/images/BorderTile.jpeg";
+	private static final String DOOR_PATH = "/images/DoorTile.jpg";
 	
 	//Adjust these weights to change how groupings form, though they should be pretty similar overall or one tile will dominate
 	//the value of the weights affects the size of the groups, if they are all the same value
@@ -169,7 +170,7 @@ public class BoardGenerator {
 				Tile tempTile = null;
 				
 				if ((i == 0 && j == Y_MAX / 2) || (i == X_MAX && j == Y_MAX / 2) || (i == X_MAX / 2 && j == 0) || (i == X_MAX / 2 && j == Y_MAX)){
-					tempTile = new DoorTile(i, j);
+					tempTile = new DoorTile(i, j, DOOR_PATH);
 				} else if (isOnScreenEdge(i, j)){
 					tempTile = new BorderTile(i,j, BORDER_PATH);
 				} else if (i == X_MAX / 2 && j == Y_MAX / 2){
