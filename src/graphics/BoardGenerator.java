@@ -21,7 +21,7 @@ public class BoardGenerator {
 	private static final int X_MAX = (SCREEN_WIDTH / 50);
 	private static final int Y_MAX = (SCREEN_HEIGHT / 50)-3;
 	
-	private static final String FIRE_PATH = "/images/FireTile.jpeg";
+	private static final String FIRE_PATH = "/images/LavaX2_Animation.gif"; //supposed to be a moving image, but doesn't get drawn that way, not top priority
 	private static final String GRASS_PATH = "/images/GrassTile.jpeg";
 	private static final String WATER_PATH = "/images/WaterTile.jpeg";
 	private static final String BORDER_PATH = "/images/BorderTile.jpeg";
