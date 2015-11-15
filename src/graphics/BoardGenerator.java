@@ -30,9 +30,9 @@ public class BoardGenerator {
 	//Adjust these weights to change how groupings form, though they should be pretty similar overall or one tile will dominate
 	//the value of the weights affects the size of the groups, if they are all the same value
 	//if the weights are different values the numbers of each kind of tile will likely be unequal
-	private static final double WATER_PRESSURE = 0.285;
+	private static final double WATER_PRESSURE = 0.4;
 	private static final double GRASS_PRESSURE = 0.285;
-	//Fire weight is high to promote large groups, but i turned down its spawn chance to promote a few large groups
+	//interestingly if FIRE_PRESSURE is high but equal with the others (for instance they all are 0.333) fire dominates
 	private static final double FIRE_PRESSURE = 0.285;
 	
 	
@@ -66,7 +66,7 @@ public class BoardGenerator {
 		return increaseBoardGrouping(smallGroupedBoard());
 	}
 	private static Board largerGroupedBoard() {
-		return increaseBoardGrouping(largerGroupedBoard());
+		return increaseBoardGrouping(largeGroupedBoard());
 	}
 
 	//presure in context of evolutionary pressure
@@ -90,6 +90,9 @@ public class BoardGenerator {
 
 				tileTypePressure = getPressure(center, north, east, south, west);
 				double d = rand.nextDouble();
+				
+				//side effect of this structure is it promotes fire, then grass then water, so water is at a significant disadvantage
+				//I think what happens is a tile become fire and then can't influence other tiles except to become fire, if they were initially water/grass that influence is lost
 				if(d < tileTypePressure[2]){
 					seedBoard.get(i).set(j, new FireTile(i,j,FIRE_PATH));
 				}
