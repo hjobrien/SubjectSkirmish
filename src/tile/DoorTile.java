@@ -1,7 +1,16 @@
 package tile;
 
-public class DoorTile extends Tile {
+import javafx.scene.paint.Color;
 
+public class DoorTile extends Tile implements Stepable{
+
+	private static final Color c = Color.BROWN;//Color.PINK;
+	
+	
+	public DoorTile(int x, int y) {
+		super(x, y, c);
+	}
+	
 	public DoorTile(int x, int y, String iconPath) {
 		super(x, y, iconPath);
 	}
