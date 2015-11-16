@@ -63,9 +63,10 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1;
 	
-	//dont change, other versions are not implemented yet
+//	private static final BoardStyle GEN_STYLE = BoardStyle.RANDOM; 
+//	private static final BoardStyle GEN_STYLE = BoardStyle.SMALL_GROUPS; 
+//	private static final BoardStyle GEN_STYLE = BoardStyle.LARGE_GROUPS; 
 	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS; 
-	
 
 	public static void main(String[] args) {	
 		launch(args);
@@ -435,9 +436,7 @@ public class Main extends Application {
 				Image temp = new Image(tempTile.getImagePath());
 				g.drawImage(temp, tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
 			}
-		}
-
-		
+		}		
 	}
 	
 //	//comment the contents of this method to stop JVM bug
