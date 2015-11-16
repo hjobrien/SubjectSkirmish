@@ -8,11 +8,12 @@ import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.ImageCursor;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -64,13 +65,6 @@ public class Main extends Application {
 	
 	//dont change, other versions are not implemented yet
 	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS; 
-
-
-
-
-	//BUG: after ending a SpawnMonsterEvent, board is vertically compressed and then a JVM error is thrown (on my computer) 
-	//i don't think i can do anything about the error, its a java language problem
-	//Tested on Java 8 Builds 60 and 65 (newest version as of 10/24/15)
 	
 
 	public static void main(String[] args) {	
@@ -108,6 +102,7 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.ESCAPE)
 				System.exit(0);
 		});  
+		//full screen looks nicer but it doesn't work with multiple stages, so when we change that then we can uncomment this
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		
@@ -174,7 +169,6 @@ public class Main extends Application {
 			
 			//I for items
 			if(e.getCode() == KeyCode.I){
-//				System.out.println(player.getBag()); //this just prints the array in a gross array format
 				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
 			}
 			
@@ -197,8 +191,7 @@ public class Main extends Application {
 					
 					//in this new scene, the direction buttons have to control different things
 					//so that the options are maneuverable and the player cant keep moving
-//					stage.setScene(handle(newSpawn));	//uncomment for JVM Bug, doens't actually do anything yet, so its staying commented
-														//Mine isnt bugging, it prints test on a clear white screen -Liam
+//					stage.setScene(handle(newSpawn));
 				}
 				else if(onAdvance instanceof FindItem){
 					Item newItem = ((FindItem) onAdvance).getItem();
@@ -450,17 +443,13 @@ public class Main extends Application {
 //	//comment the contents of this method to stop JVM bug
 //	//no bug for me 
 //	//Also we really need to figure out how this works-liam
-//	public Scene handle(SpawnMonster spawn){
-//		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
-//
-////		JButton j = new JButton("Bag");
-////		j.setBounds(100, 100, 100, 100);
-////		group.getChildren().add(j); //doesnt work for some reason
-//		
-//		group.getChildren().add(new Label("Test"));
-//		group.getChildren().add(new Label("Test2"));
-//		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
-//	}
+	public Scene handle(SpawnMonster spawn){
+		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
+		
+		group.getChildren().add(new Label("Test"));
+		group.getChildren().add(new Label("Test2"));
+		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+	}
 	
 //	public Item handle(FindItem item){
 //		return new Item(item.getName(), item.getRarity());
