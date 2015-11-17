@@ -12,4 +12,11 @@ public class Bunny extends Creature implements Friend {
 
 	}
 
+	@Override
+	public void onAddToBag() {
+		super.setCaptivity(true);
+		//maybe change its health here? 
+		//its state changes from wild to captive here, change values accordingly
+	}
+
 }

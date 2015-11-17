@@ -2,8 +2,9 @@ package player;
 
 import java.util.ArrayList;
 
+import creature.Creature;
+import creature.Friend;
 import event.Event;
-import event.Rarity;
 import graphics.Board;
 import javafx.scene.paint.Color;
 
@@ -11,11 +12,13 @@ public class Player {
 
 	private String name = "Player";
 	public static final double SIZE = 0.8; // 0 < SIZE < TILE_SIZE
+	private static final int MAX_MONSTERS = 5;
 	private int x;
 	private int y;
 	private Color color;
 	private Board board;
 	private ArrayList<Item> bag = new ArrayList<Item>();
+	private ArrayList<Creature> monsters = new ArrayList<Creature>();
 	
 	//introduces the possibility of buying things in the future
 	private int money = 0;
@@ -48,11 +51,22 @@ public class Player {
 		if (itemToAdd.getName().charAt(0) == '$'){		//also could use String.contains("$");
 			String money = itemToAdd.getName().substring(1, itemToAdd.getName().length());
 			this.money += Integer.parseInt(money);
-		} else {
+		}
+		else {
 			bag.add(itemToAdd);
 		}
 	}
 	
+	public void addFriendlyCreature(Creature creatureToAdd) {
+		if(monsters.size() < MAX_MONSTERS){
+			monsters.add(creatureToAdd);
+		}
+		else{
+			//we can actually deal with this case later
+			System.err.println("Player bag of creatures is full");
+		}
+	}
+
 	public ArrayList<Item> getBag(){
 		return bag;
 	}
@@ -61,15 +75,13 @@ public class Player {
 		String bagString = "";
 		String heading1 = "Item Name";
 		String heading2 = "Rarity";
-//		String heading3 = "Icon Name";
-		bagString += String.format("%-20s %-20s %n", heading1, heading2);
-//		bagString += String.format("%-20s %-20s %-20s %n", heading1, heading2, heading3);
+		String heading3 = "Icon Name";
+		bagString += String.format("%-20s %-20s %-20s %n", heading1, heading2, heading3);
 		for (Item i : bag){
 			String name = i.getName();
 			String rarity = i.getRarity().toString();
-//			String iconName = i.getIconName();
-			bagString += String.format("%-20s %-20s %n", name, rarity);
-//			bagString += String.format("%-20s %-20s %-20s %n", name, rarity, iconName);
+			String iconName = i.getIconName();
+			bagString += String.format("%-20s %-20s %-20s %n", name, rarity, iconName);
 		}
 		return bagString;
 	}

@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -63,10 +62,9 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1;
 	
-//	private static final BoardStyle GEN_STYLE = BoardStyle.RANDOM; 
-//	private static final BoardStyle GEN_STYLE = BoardStyle.SMALL_GROUPS; 
-//	private static final BoardStyle GEN_STYLE = BoardStyle.LARGE_GROUPS; 
+	//dont change, other versions are not implemented yet
 	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS; 
+	
 
 	public static void main(String[] args) {	
 		launch(args);
@@ -107,7 +105,7 @@ public class Main extends Application {
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		
-		stage.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
+		boardScene.addEventFilter(KeyEvent.KEY_PRESSED, e ->{
 			Direction moveDirection = Direction.NO_MOVE;
 //			boolean moved; //to test if player moved
 			
@@ -174,6 +172,7 @@ public class Main extends Application {
 			}
 			
 			if(e.getCode() == KeyCode.M){
+				player.printBag();
 				showMenu(player);
 			}
 			
@@ -304,18 +303,9 @@ public class Main extends Application {
 				words.setMaxWidth(menuButtonWidth);
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER){
-						inventoryStage.setScene(getWordsScene(player));
-						
-						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
-							if (g.getCode() == KeyCode.B)
-								inventoryStage.setScene(inventoryMenuScene);
-						});
-					}
+					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER)
+						System.out.print(player.printBag());
 				});
-				
-				
-				
 				
 				Button cont2 = new Button("Continue"); 		//i can't name it continue, its a reserved word
 				cont2.setMinWidth(menuButtonWidth);
@@ -344,56 +334,15 @@ public class Main extends Application {
 				
 		});
 		
-		Button money = new Button("Money");
-		money.setMinWidth(menuButtonWidth);
-		money.setMaxWidth(menuButtonWidth);
-		
-		money.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
-				menuStage.setScene(getMoneyScene(player));
-				
-				menuStage.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.B)
-						menuStage.setScene(mainMenuScene);
-				});
-			}
-		});
-		
-		mainMenuObjs.getChildren().addAll(midSpring, inventory, money, cont);
+		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
 		
 		menuStage.setScene(mainMenuScene);
 		menuStage.show();
 	}
-	
-
-
-	private Scene getMoneyScene(Player player) {
-		GridPane moneyGrid = new GridPane();
-		Canvas canvas = new Canvas(menuWidth, menuHeight);
-		GraphicsContext g = canvas.getGraphicsContext2D();
-		g.fillText(player.getName() + " has $" + player.getMoney(), 10, 20);
-		
-		moneyGrid.add(canvas, 0, 0);
-		
-		Scene moneyScene = new Scene(moneyGrid, menuWidth, menuHeight);
-		return moneyScene;
-	}
-
-	private Scene getWordsScene(Player player) {
-		GridPane wordsGrid = new GridPane();
-		Canvas canvas = new Canvas(menuWidth, menuHeight);
-		GraphicsContext g = canvas.getGraphicsContext2D();
-		g.fillText(player.printBag(), 10, 20);
-		
-		wordsGrid.add(canvas, 0, 0);
-		
-		Scene moneyScene = new Scene(wordsGrid, menuWidth, menuHeight);
-		return moneyScene;
-	}
 
 	private Scene getInventoryScene(Player player) {
 		ArrayList<Item> localBag = player.getBag();
-//		System.out.println(player.printBag());
+		System.out.println(player.printBag());
 		GridPane inventoryGrid = new GridPane();
 		Scene inventoryScene = new Scene(inventoryGrid , menuWidth, menuHeight);
 //		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
@@ -411,10 +360,6 @@ public class Main extends Application {
 		}
 		return inventoryScene;
 	}
-
-
-
-
 	
 	public void scaleGraphics(GridPane grid, GraphicsContext g){
 		
@@ -427,7 +372,6 @@ public class Main extends Application {
 
 	}
 	
-	
 	//basic event handling structure part 2
 	/*
 	 * this is the generic method for all events, should make more specific examples
@@ -437,9 +381,7 @@ public class Main extends Application {
 	public void handle(Event e){
 		System.out.println(e.toString());
 	}
-	
-
-	
+		
 	public void update(Player player, GraphicsContext g, Direction moveDirection){
 		if(!hasUpdated){
 			drawGround(g);
@@ -475,26 +417,25 @@ public class Main extends Application {
 		
 	}
 
-
-
 	private void drawGround(GraphicsContext g) {
 		for(ArrayList<Tile> row : board.getBoard()){
 			for(Tile tempTile : row){
 				Image temp = new Image(tempTile.getImagePath());
 				g.drawImage(temp, tempTile.getX(), tempTile.getY(), TILE_SIZE, TILE_SIZE);
 			}
-		}		
+		}
+
+		
 	}
 	
-//	//comment the contents of this method to stop JVM bug
-//	//no bug for me 
-//	//Also we really need to figure out how this works-liam
+	
+	
 	public Scene handle(SpawnMonster spawn){
-		Group group = new Group();//idk what this does, but its how some scenes are made, wouldn't hurt to look into it
+		Group group = new Group();
+		Scene monsterEncounter = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
-		group.getChildren().add(new Label("Test"));
-		group.getChildren().add(new Label("Test2"));
-		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+		
+		return null;
 	}
 	
 //	public Item handle(FindItem item){

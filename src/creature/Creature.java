@@ -1,24 +1,27 @@
 package creature;
 
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import battle.Attack;
 import battle.AttackWeightMatrix;
+import javafx.scene.image.Image;
 import player.Item;
 
 
 public abstract class Creature {
 	
-	private BufferedImage selfPic; //should set to a default 'img. not found' picture
+	private Image icon; //should set to a default 'img. not found' picture
 	private int health;
 	private ArrayList<Attack> moves;
 	private ArrayList<Item> possibleDrops;
+	private boolean isCaptive = false;
 	
 	public static final double[][] ATTACK_WEIGHT_MATRIX = AttackWeightMatrix.ATTACK_WEIGHT_MATRIX;
 		
 	public abstract void onDeath(); //return Event? 
+	
+	public abstract void onAddToBag();
 	
 	protected void takeDamage(double damage) {
 		health -= damage;
@@ -27,4 +30,27 @@ public abstract class Creature {
 		}
 		
 	}
+
+	public void setCaptivity(boolean b) {
+		isCaptive = b;
+	}
+	
+	
+	public Image getIcon() {
+		return icon;
+	}
+
+	public ArrayList<Attack> getMoves() {
+		return moves;
+	}
+
+	public ArrayList<Item> getPossibleDrops() {
+		return possibleDrops;
+	}
+
+	public void giveReward() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
