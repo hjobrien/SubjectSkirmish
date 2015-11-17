@@ -3,16 +3,21 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
+import javax.swing.event.ChangeListener;
+
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -317,7 +322,7 @@ public class Main extends Application {
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
 					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER){
-						inventoryStage.setScene(getWordsScene(player));
+						inventoryStage.setScene(getWordsScene(player, inventoryMenuObjs));
 						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
 							if (g.getCode() == KeyCode.B)
 								inventoryStage.setScene(inventoryMenuScene);
@@ -374,8 +379,24 @@ public class Main extends Application {
 		return moneyScene;
 	}
 	
-	private Scene getWordsScene(Player player){
+	private Scene getWordsScene(Player player, VBox vb){
 		GridPane wordsGrid = new GridPane();
+//		ScrollBar s = new ScrollBar();
+//		wordsGrid.getChildren().add(s);
+//		
+//		s.setLayoutX(menuWidth-s.getWidth());
+//        s.setMin(0);
+//        s.setOrientation(Orientation.VERTICAL);
+//        s.setPrefHeight(180);
+//        s.setMax(360);
+//        
+//        s.valueProperty().addListener(new ChangeListener<Number>() {
+//            public void changed(ObservableValue<? extends Number> ov,
+//                Number old_val, Number new_val) {
+//                    vb.setLayoutY(-new_val.doubleValue());
+//            }
+//        });
+        
 		Canvas canvas = new Canvas(menuWidth, menuHeight);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		Scene moneyScene = new Scene(wordsGrid, menuWidth, menuHeight);
