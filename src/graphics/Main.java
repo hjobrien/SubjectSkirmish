@@ -339,6 +339,10 @@ public class Main extends Application {
 		menuStage.setScene(mainMenuScene);
 		menuStage.show();
 	}
+	
+	public void methoToDoNothing(){
+		//i'm doing nothing
+	}
 
 	private Scene getInventoryScene(Player player) {
 		ArrayList<Item> localBag = player.getBag();
