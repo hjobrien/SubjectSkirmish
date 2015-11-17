@@ -359,10 +359,6 @@ public class Main extends Application {
 		menuStage.show();
 	}
 	
-	public void methoToDoNothing(){
-		//i'm doing nothing
-	}
-	
 	private Scene getMoneyScene(Player player){
 		GridPane moneyGrid = new GridPane();
 		Canvas canvas = new Canvas(menuWidth, menuHeight);
@@ -371,8 +367,7 @@ public class Main extends Application {
 		
 		g.fillText(player.getName() + " has $" + player.getMoney(), 10, 20);
 		
-		moneyGrid.add(canvas, 0, 0); 
-		
+		moneyGrid.add(canvas, 0, 0); 		
 		return moneyScene;
 	}
 	
