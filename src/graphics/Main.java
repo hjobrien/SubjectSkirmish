@@ -174,7 +174,6 @@ public class Main extends Application {
 			}
 			
 			if(e.getCode() == KeyCode.M){
-				player.printBag();
 				showMenu(player);
 			}
 			
@@ -305,9 +304,18 @@ public class Main extends Application {
 				words.setMaxWidth(menuButtonWidth);
 				
 				words.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER)
-						System.out.print(player.printBag());
+					if (f.getCode() == KeyCode.SPACE || f.getCode() == KeyCode.ENTER){
+						inventoryStage.setScene(getWordsScene(player));
+						
+						inventoryStage.addEventFilter(KeyEvent.KEY_PRESSED, g -> {
+							if (g.getCode() == KeyCode.B)
+								inventoryStage.setScene(inventoryMenuScene);
+						});
+					}
 				});
+				
+				
+				
 				
 				Button cont2 = new Button("Continue"); 		//i can't name it continue, its a reserved word
 				cont2.setMinWidth(menuButtonWidth);
@@ -336,7 +344,22 @@ public class Main extends Application {
 				
 		});
 		
-		mainMenuObjs.getChildren().addAll(midSpring, inventory, cont);
+		Button money = new Button("Money");
+		money.setMinWidth(menuButtonWidth);
+		money.setMaxWidth(menuButtonWidth);
+		
+		money.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ENTER){
+				menuStage.setScene(getMoneyScene(player));
+				
+				menuStage.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
+					if (f.getCode() == KeyCode.B)
+						menuStage.setScene(mainMenuScene);
+				});
+			}
+		});
+		
+		mainMenuObjs.getChildren().addAll(midSpring, inventory, money, cont);
 		
 		menuStage.setScene(mainMenuScene);
 		menuStage.show();
@@ -344,9 +367,33 @@ public class Main extends Application {
 	
 
 
+	private Scene getMoneyScene(Player player) {
+		GridPane moneyGrid = new GridPane();
+		Canvas canvas = new Canvas(menuWidth, menuHeight);
+		GraphicsContext g = canvas.getGraphicsContext2D();
+		g.fillText(player.getName() + " has $" + player.getMoney(), 10, 20);
+		
+		moneyGrid.add(canvas, 0, 0);
+		
+		Scene moneyScene = new Scene(moneyGrid, menuWidth, menuHeight);
+		return moneyScene;
+	}
+
+	private Scene getWordsScene(Player player) {
+		GridPane wordsGrid = new GridPane();
+		Canvas canvas = new Canvas(menuWidth, menuHeight);
+		GraphicsContext g = canvas.getGraphicsContext2D();
+		g.fillText(player.printBag(), 10, 20);
+		
+		wordsGrid.add(canvas, 0, 0);
+		
+		Scene moneyScene = new Scene(wordsGrid, menuWidth, menuHeight);
+		return moneyScene;
+	}
+
 	private Scene getInventoryScene(Player player) {
 		ArrayList<Item> localBag = player.getBag();
-		System.out.println(player.printBag());
+//		System.out.println(player.printBag());
 		GridPane inventoryGrid = new GridPane();
 		Scene inventoryScene = new Scene(inventoryGrid , menuWidth, menuHeight);
 //		int maxHorizIcons = (int) ((double)(MENU_WIDTH) / Item.ICON_SIZE);
