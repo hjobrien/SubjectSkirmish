@@ -189,7 +189,7 @@ public class Main extends Application {
 					
 					//in this new scene, the direction buttons have to control different things
 					//so that the options are maneuverable and the player cant keep moving
-//					stage.setScene(handle(newSpawn));
+					stage.setScene(handle(newSpawn));
 				}
 				else if(onAdvance instanceof FindItem){
 					Item newItem = ((FindItem) onAdvance).getItem();
@@ -211,6 +211,20 @@ public class Main extends Application {
 		stage.show();
 
 	}
+	
+	
+	public Scene handle(SpawnMonster spawn){
+		Group group = new Group();
+		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
+		
+		
+		Scene monsterEncounter = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+		
+		
+		return null;
+	}
+	
 	
 	//creates a new random board and moves the player to where they would appear if they 
 	//had entered the door they moved through
@@ -463,13 +477,7 @@ public class Main extends Application {
 	
 	
 	
-	public Scene handle(SpawnMonster spawn){
-		Group group = new Group();
-		Scene monsterEncounter = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
-		
-		
-		return null;
-	}
+
 	
 //	public Item handle(FindItem item){
 //		return new Item(item.getName(), item.getRarity());
