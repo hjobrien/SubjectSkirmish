@@ -166,20 +166,19 @@ public class Main extends Application {
 				stage.setScene(boardScene);
 			}
 			
-			//I for items
-			if(e.getCode() == KeyCode.I){
-				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
-			}
+//			//I for items
+//			if(e.getCode() == KeyCode.I){
+//				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
+//			}
 			
 			if(e.getCode() == KeyCode.M){
-				player.printBag();
 				showMenu(player);
 			}
 			
 			
-			if(e.getCode() == KeyCode.DIGIT4){
-				System.out.println(player.getName() + " has $" + player.getMoney());
-			}
+//			if(e.getCode() == KeyCode.DIGIT4){
+//				System.out.println(player.getName() + " has $" + player.getMoney());
+//			}
 			
 			try{
 				//I really like this format, it seems to work well with what we are doing
@@ -326,16 +325,6 @@ public class Main extends Application {
 				inventoryStage.show();
 
 			}
-			
-			
-//				menuStage.setScene(getInventoryScene(player));
-//			
-//				//this adds another event filter after the inventory is viewed so that in the future, we can access items
-//				//and right now, we can easily return to the menu screen
-//				menuStage.addEventFilter(KeyEvent.KEY_PRESSED, f -> {
-//					if (f.getCode() == KeyCode.B)
-//						menuStage.setScene(mainMenuScene);
-//				});
 				
 		});
 		
