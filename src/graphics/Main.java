@@ -64,7 +64,8 @@ public class Main extends Application {
 	public static final int TILE_SIZE = 1;
 	
 	//dont change, other versions are not implemented yet
-	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS; 
+	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS;
+	private static final String PLAYER_ICON_PATH = "/creatureImages/ImageNotFound.jpeg"; 
 	
 
 	public static void main(String[] args) {	
@@ -80,7 +81,7 @@ public class Main extends Application {
 		Canvas canvas = new Canvas(SCREEN_WIDTH - borderWidth, SCREEN_HEIGHT - borderHeight);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
-		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board);
+		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board, PLAYER_ICON_PATH);
 		
 		//prompts the user to enter their name, can be commented out if you don't like it
 		//commenting to make running program faster --Hank
@@ -194,7 +195,7 @@ public class Main extends Application {
 					Scene monsterEncounter = handle(newSpawn);
 					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
 						if(m.getCode() == KeyCode.A){
-							//this should all be the stage.setScene line, but the other stuff is to end the JVM bug
+							//this should just be the stage.setScene line, but the other stuff is to tame the JVM bug
 							Platform.runLater(new Runnable(){
 								@Override
 								public void run(){
@@ -228,14 +229,15 @@ public class Main extends Application {
 	
 	
 	public Scene handle(SpawnMonster spawn){
-		Group group = new Group();
+		Group root = new Group();
 		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
 		monsterG.scale(50,50);
 		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
-		group.getChildren().add(encounterCanvas);
+		monsterG.drawImage(Player.getImage(), 5,10,5,5);
+		root.getChildren().add(encounterCanvas);
 		
-		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
+		return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 	
 	

@@ -7,7 +7,7 @@ public class Attack {
 	private double baseDamage;
 	private AttackType type;
 	
-	public Attack (String name, double damage, AttackType type){
+	public Attack (String name, double damage, AttackType type, Effect effect){
 		this.name = name;
 		this.baseDamage = damage;
 		this.type = type;

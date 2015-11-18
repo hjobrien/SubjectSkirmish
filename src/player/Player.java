@@ -6,6 +6,7 @@ import creature.Creature;
 import creature.Friend;
 import event.Event;
 import graphics.Board;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -15,6 +16,7 @@ public class Player {
 	private static final int MAX_MONSTERS = 5;
 	private int x;
 	private int y;
+	private static Image icon;
 	private Color color;
 	private Board board;
 	private ArrayList<Item> bag = new ArrayList<Item>();
@@ -23,11 +25,12 @@ public class Player {
 	//introduces the possibility of buying things in the future
 	private int money = 0;
 	
-	public Player(int startX, int startY, Color color, Board board){
+	public Player(int startX, int startY, Color color, Board board, String iconFilePath){
 		this.x = startX;
 		this.y = startY;
 		this.color = color;
 		this.board = board;
+		icon = new Image(iconFilePath);
 	}
 	
 	public Event advance(int deltaX, int deltaY){
@@ -98,5 +101,9 @@ public class Player {
 	
 	public void setName(String name){
 		this.name = name;
+	}
+
+	public static Image getImage() {
+		return icon;
 	}
 }
