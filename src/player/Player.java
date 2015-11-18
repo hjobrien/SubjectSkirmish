@@ -75,13 +75,15 @@ public class Player {
 		String bagString = "";
 		String heading1 = "Item Name";
 		String heading2 = "Rarity";
-		String heading3 = "Icon Name";
-		bagString += String.format("%-20s %-20s %-20s %n", heading1, heading2, heading3);
+//		String heading3 = "Icon Name";
+		bagString += String.format("%-20s %-20s %n", heading1, heading2);
+//		bagString += String.format("%-20s %-20s %-20s %n", heading1, heading2, heading3);
 		for (Item i : bag){
 			String name = i.getName();
 			String rarity = i.getRarity().toString();
-			String iconName = i.getIconName();
-			bagString += String.format("%-20s %-20s %-20s %n", name, rarity, iconName);
+//			String iconName = i.getIconName();
+			bagString += String.format("%-20s %-20s %n", name, rarity);
+//			bagString += String.format("%-20s %-20s %-20s %n", name, rarity, iconName);
 		}
 		return bagString;
 	}
