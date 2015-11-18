@@ -23,7 +23,7 @@ public class SpawnGrassMonster extends SpawnMonster {
 	public Creature getCreature() {
 		Random rand = new Random();
 		int i = rand.nextInt(2);
-		if(i==0)
+		if(i==1)
 			return new Tanimonster();
 		else
 			return new Armadylan();
