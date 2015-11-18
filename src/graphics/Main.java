@@ -3,21 +3,17 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import javax.swing.event.ChangeListener;
-
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Orientation;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -194,7 +190,20 @@ public class Main extends Application {
 					
 					//in this new scene, the direction buttons have to control different things
 					//so that the options are maneuverable and the player cant keep moving
-					stage.setScene(handle(newSpawn));
+					//this part still bugs for me, java 8u65
+					Scene monsterEncounter = handle(newSpawn);
+					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
+						if(m.getCode() == KeyCode.A){
+							//this should all be the stage.setScene line, but the other stuff is to end the JVM bug
+							Platform.runLater(new Runnable(){
+								@Override
+								public void run(){
+									stage.setScene(boardScene);
+								}
+							});
+						}
+					});
+					stage.setScene(monsterEncounter);
 				}
 				else if(onAdvance instanceof FindItem){
 					Item newItem = ((FindItem) onAdvance).getItem();
@@ -225,10 +234,8 @@ public class Main extends Application {
 		monsterG.scale(50,50);
 		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
 		group.getChildren().add(encounterCanvas);
-		Scene monsterEncounter = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
-		
-		return monsterEncounter;
+		return new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 	
 	
