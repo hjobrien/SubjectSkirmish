@@ -1,14 +1,17 @@
 package event;
 
 import creature.Enemy;
+import creature.Tanimonster;
 
-public abstract class SpawnMonster implements Event {
+public class SpawnMonster implements Event {
 	
 	public SpawnMonster(){
 //		System.out.println("Monster Spawned");
 	}
 
-	public abstract Enemy getEnemy();
+	public Enemy getEnemy(){
+		return null;
+	}
 	
 	@Override
 	public String toString() {

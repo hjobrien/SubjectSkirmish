@@ -2,6 +2,7 @@ package creature;
 
 import battle.Attack;
 import battle.Type;
+import javafx.scene.image.Image;
 
 
 public class Tanimonster extends Creature implements Enemy{
@@ -9,6 +10,10 @@ public class Tanimonster extends Creature implements Enemy{
 	public static final Type TYPE = Type.COMPUTER_SCIENCE;
 	
 	//TODO: initialize (init) local health in constructor to some default value, scale based on difficulty?
+	public Tanimonster(){
+		super("/creatureImages/TanimonsterImage.jpeg");
+	}
+	
 	
 	@Override
 	public void onAttack(Attack a) {
@@ -36,6 +41,12 @@ public class Tanimonster extends Creature implements Enemy{
 	public void onAddToBag() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Image getImage() {
+		return super.getImage();
 	}
 
 	

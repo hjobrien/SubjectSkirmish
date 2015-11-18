@@ -6,6 +6,14 @@ package creature;
 
 public class Bunny extends Creature implements Friend {
 
+	public static final String ICON_FILE = "/creatureImages/BunnyImage.jpeg";
+
+	
+	public Bunny() {
+		super(ICON_FILE);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void onDeath() {
 		// TODO Auto-generated method stub

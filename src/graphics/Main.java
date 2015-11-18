@@ -222,12 +222,13 @@ public class Main extends Application {
 		Group group = new Group();
 		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
-		
-		
+		monsterG.scale(50,50);
+		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
+		group.getChildren().add(encounterCanvas);
 		Scene monsterEncounter = new Scene(group, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		
-		return null;
+		return monsterEncounter;
 	}
 	
 	

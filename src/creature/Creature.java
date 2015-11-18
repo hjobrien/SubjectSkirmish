@@ -23,6 +23,10 @@ public abstract class Creature {
 	
 	public abstract void onAddToBag();
 	
+	public Creature(String iconFilePath){
+		icon = new Image(iconFilePath);
+	}
+	
 	protected void takeDamage(double damage) {
 		health -= damage;
 		if(health <= 0){
@@ -51,6 +55,10 @@ public abstract class Creature {
 	public void giveReward() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Image getImage(){
+		return icon;
 	}
 
 }
