@@ -10,7 +10,7 @@ public class Bunny extends Creature implements Friend {
 
 	
 	public Bunny() {
-		super(ICON_FILE);
+		super(ICON_FILE, "Bunny");
 		// TODO Auto-generated constructor stub
 	}
 

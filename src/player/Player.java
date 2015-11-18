@@ -3,10 +3,10 @@ package player;
 import java.util.ArrayList;
 
 import creature.Creature;
-import creature.Friend;
 import event.Event;
 import graphics.Board;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class Player {
@@ -16,7 +16,7 @@ public class Player {
 	private static final int MAX_MONSTERS = 5;
 	private int x;
 	private int y;
-	private static Image icon;
+	private static ImageView icon;
 	private Color color;
 	private Board board;
 	private ArrayList<Item> bag = new ArrayList<Item>();
@@ -30,7 +30,7 @@ public class Player {
 		this.y = startY;
 		this.color = color;
 		this.board = board;
-		icon = new Image(iconFilePath);
+		icon = new ImageView(iconFilePath);
 	}
 	
 	public Event advance(int deltaX, int deltaY){
@@ -103,7 +103,7 @@ public class Player {
 		this.name = name;
 	}
 
-	public static Image getImage() {
+	public static ImageView getImage() {
 		return icon;
 	}
 }

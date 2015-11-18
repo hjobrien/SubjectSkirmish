@@ -1,7 +1,7 @@
 package creature;
 
 import battle.Attack;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public interface Enemy {
 
@@ -9,5 +9,5 @@ public interface Enemy {
 	
 	public void onAttack(Attack a);
 	
-	public Image getImage();
+	public ImageView getImage();
 }

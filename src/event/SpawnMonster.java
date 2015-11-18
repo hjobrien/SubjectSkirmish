@@ -1,7 +1,6 @@
 package event;
 
-import creature.Enemy;
-import creature.Tanimonster;
+import creature.Creature;
 
 public class SpawnMonster implements Event {
 	
@@ -9,7 +8,7 @@ public class SpawnMonster implements Event {
 //		System.out.println("Monster Spawned");
 	}
 
-	public Enemy getEnemy(){
+	public Creature getCreature(){
 		return null;
 	}
 	

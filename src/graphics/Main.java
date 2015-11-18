@@ -18,11 +18,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 //import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -63,9 +66,8 @@ public class Main extends Application {
 	//but it still doesn't affect the tiles
 	public static final int TILE_SIZE = 1;
 	
-	//dont change, other versions are not implemented yet
 	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS;
-	private static final String PLAYER_ICON_PATH = "/creatureImages/ImageNotFound.jpeg"; 
+	private static final String PLAYER_ICON_PATH = "/creatureImages/ImageNotFound.png"; 
 	
 
 	public static void main(String[] args) {	
@@ -76,8 +78,8 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		this.board = BoardGenerator.generate(GEN_STYLE);
 
-		
-		GridPane grid = new GridPane();
+		Group root = new Group();
+//		GridPane grid = new GridPane();
 		Canvas canvas = new Canvas(SCREEN_WIDTH - borderWidth, SCREEN_HEIGHT - borderHeight);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
@@ -91,10 +93,10 @@ public class Main extends Application {
 //		console.close();
 //		player.setName(name);
 		
-		scaleGraphics(grid, g);
+		scaleGraphics(g);
 		update(player, g, Direction.NO_MOVE);
 		
-		Scene boardScene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
+		Scene boardScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		
 		stage.setScene(boardScene);
@@ -219,8 +221,8 @@ public class Main extends Application {
 			location = player.getLocation();
 			update(player,g,moveDirection);
 		});
-
-		grid.add(canvas, 0, 0); 
+		root.getChildren().add(canvas);
+//		grid.add(canvas, 0, 0); 
 
 		
 		stage.show();
@@ -229,15 +231,36 @@ public class Main extends Application {
 	
 	
 	public Scene handle(SpawnMonster spawn){
-		Group root = new Group();
-		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
-		monsterG.scale(50,50);
-		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
-		monsterG.drawImage(Player.getImage(), 5,10,5,5);
-		root.getChildren().add(encounterCanvas);
+		GridPane grid = new GridPane();
+		grid.getColumnConstraints().add(new ColumnConstraints(200));
+		grid.getColumnConstraints().add(new ColumnConstraints(600));
+		grid.getColumnConstraints().add(new ColumnConstraints(200));
+		grid.getRowConstraints().add(new RowConstraints(0));
+		grid.getRowConstraints().add(new RowConstraints(350));
+		grid.getRowConstraints().add(new RowConstraints(100));
+		grid.getRowConstraints().add(new RowConstraints(400));
+
 		
-		return new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+		Scene encounter = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
+		encounter.getStylesheets().add("/stylesheets/Style.css");
+		
+		
+		
+		
+//		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+		Text enemyName = new Text(spawn.getCreature().getName());
+		enemyName.setId("fancytext");
+		
+		grid.add(spawn.getCreature().getImage(), 3, 2);
+		grid.add(Player.getImage(), 1, 3);
+		grid.add(enemyName, 2, 1, 2, 1);
+//		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
+//		monsterG.scale(50,50);
+//		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
+//		monsterG.drawImage(Player.getImage(), 5,10,5,5);
+//		root.getChildren().add(encounterCanvas);
+		
+		return encounter;
 	}
 	
 	
@@ -439,7 +462,7 @@ public class Main extends Application {
 		return inventoryScene;
 	}
 	
-	public void scaleGraphics(GridPane grid, GraphicsContext g){
+	public void scaleGraphics(GraphicsContext g){
 		
 		//puts 0,0 in center of display
 //		g.scale(1,-1);

@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import battle.Attack;
 import battle.AttackWeightMatrix;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import player.Item;
 
 
 public abstract class Creature {
 	
-	private Image icon; //should set to a default 'img. not found' picture
+	private ImageView icon; //should set to a default 'img. not found' picture
 	private int health;
+	private String name;
 	private ArrayList<Attack> moves;
 	private ArrayList<Item> possibleDrops;
 	private boolean isCaptive = false;
@@ -23,8 +25,9 @@ public abstract class Creature {
 	
 	public abstract void onAddToBag();
 	
-	public Creature(String iconFilePath){
-		icon = new Image(iconFilePath);
+	public Creature(String iconFilePath, String name){
+		icon = new ImageView(iconFilePath);
+		this.name = name;
 	}
 	
 	protected void takeDamage(double damage) {
@@ -38,11 +41,7 @@ public abstract class Creature {
 	public void setCaptivity(boolean b) {
 		isCaptive = b;
 	}
-	
-	
-	public Image getIcon() {
-		return icon;
-	}
+
 
 	public ArrayList<Attack> getMoves() {
 		return moves;
@@ -57,8 +56,12 @@ public abstract class Creature {
 		
 	}
 	
-	public Image getImage(){
+	public ImageView getImage(){
 		return icon;
+	}
+	
+	public String getName(){
+		return name;
 	}
 
 }

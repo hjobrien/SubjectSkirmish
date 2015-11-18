@@ -1,6 +1,6 @@
 package event;
 
-import creature.Enemy;
+import creature.Creature;
 
 public class SpawnNormalMonster extends SpawnMonster {
 
@@ -14,7 +14,7 @@ public class SpawnNormalMonster extends SpawnMonster {
 	}
 
 	@Override
-	public Enemy getEnemy() {
+	public Creature getCreature() {
 		// TODO Auto-generated method stub
 		return null;
 	}

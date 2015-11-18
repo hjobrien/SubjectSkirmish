@@ -1,6 +1,6 @@
 package event;
 
-import creature.Enemy;
+import creature.Creature;
 import creature.Tanimonster;
 
 public class SpawnGrassMonster extends SpawnMonster {
@@ -17,7 +17,7 @@ public class SpawnGrassMonster extends SpawnMonster {
 
 
 	@Override
-	public Enemy getEnemy() {
+	public Creature getCreature() {
 		return new Tanimonster();
 	}
 

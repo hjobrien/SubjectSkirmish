@@ -4,11 +4,12 @@ import battle.Attack;
 
 public class SiHorse extends Creature implements Enemy {
 
-	public static final String ICON_FILE = "/creatureImages/SiHorseImage.jpeg";
+	public static final String ICON_FILE = "/creatureImages/SiHorseImage.png";
+	private static final String NAME = "SI HORSE";
 	
 	
 	public SiHorse() {
-		super(ICON_FILE);
+		super(ICON_FILE, NAME);
 		// TODO Auto-generated constructor stub
 	}
 

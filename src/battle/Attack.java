@@ -17,6 +17,10 @@ public class Attack {
 		return baseDamage;
 	}
 
+	public String getName(){
+		return name;
+	}
+	
 	public AttackType getType() {
 		return this.type;
 	}
