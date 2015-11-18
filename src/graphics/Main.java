@@ -348,6 +348,10 @@ public class Main extends Application {
 		menuStage.show();
 	}
 	
+	public void methoToDoNothing(){
+		//i'm doing nothing
+	}
+	
 	private Scene getMoneyScene(Player player){
 		GridPane moneyGrid = new GridPane();
 		Canvas canvas = new Canvas(menuWidth, menuHeight);
