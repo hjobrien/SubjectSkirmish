@@ -274,20 +274,20 @@ public class Main extends Application {
 
 		grid.add(Player.getImage(), 1, 3);
 		
-		for(int i = 0; i < c.getMoves().length; i++){
-			Button move = new Button();
-			move.setMaxWidth(menuWidth);
-			move.setMinWidth(menuWidth);
-
-			if (c.getMoves()[i] == null){
-				move.setText("move " + i);
-			} else {
-				move.setText(c.getMoves()[i].toString());
-			}
-			
-			//not the right formula, just messing around with it
-			grid.add(move, i % 2 + 1, i + 1 % 2 + 2, 1, 1);
-		}
+//		for(int i = 0; i < c.getMoves().length; i++){
+//			Button move = new Button();
+//			move.setMaxWidth(menuWidth);
+//			move.setMinWidth(menuWidth);
+//
+//			if (c.getMoves()[i] == null){
+//				move.setText("move " + i);
+//			} else {
+//				move.setText(c.getMoves()[i].toString());
+//			}
+//			
+//			//not the right formula
+//			grid.add(move, i % 2 + 1, i + 1 % 2 + 2, 1, 1);
+//		}
 		
 
 //		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
