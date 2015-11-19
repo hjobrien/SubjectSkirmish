@@ -241,7 +241,7 @@ public class Main extends Application {
 
 		
 		Scene encounter = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
-		encounter.getStylesheets().add("/stylesheets/Style.css");
+		encounter.getStylesheets().add("/stylesheets/EncounterStyle.css");
 		
 		
 		
