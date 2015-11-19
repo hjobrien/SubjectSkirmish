@@ -266,12 +266,18 @@ public class Main extends Application {
 		
 //		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		Creature c = spawn.getCreature();
+		grid.add(c.getImage(), 3, 2);
+		
 		Text enemyName = new Text(c.getName());
 		enemyName.setId("fancytext");
-		
-		grid.add(c.getImage(), 3, 2);
-		grid.add(Player.getImage(), 1, 3);
 		grid.add(enemyName, 2, 1, 2, 1);
+
+		grid.add(Player.getImage(), 1, 3);
+		
+		Button moves = new Button();
+		moves.setText("Moves");
+		
+		grid.add(moves, 2, 3, 2, 2);
 //		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
 //		monsterG.scale(50,50);
 //		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
