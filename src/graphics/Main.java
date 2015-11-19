@@ -274,10 +274,22 @@ public class Main extends Application {
 
 		grid.add(Player.getImage(), 1, 3);
 		
-		Button moves = new Button();
-		moves.setText("Moves");
+		for(int i = 0; i < c.getMoves().length; i++){
+			Button move = new Button();
+			move.setMaxWidth(menuWidth);
+			move.setMinWidth(menuWidth);
+
+			if (c.getMoves()[i] == null){
+				move.setText("move " + i);
+			} else {
+				move.setText(c.getMoves()[i].toString());
+			}
+			
+			//not the right formula, just messing around with it
+			grid.add(move, i % 2 + 1, i + 1 % 2 + 2, 1, 1);
+		}
 		
-		grid.add(moves, 2, 3, 2, 2);
+
 //		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
 //		monsterG.scale(50,50);
 //		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);

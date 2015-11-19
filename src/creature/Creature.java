@@ -14,7 +14,7 @@ public abstract class Creature {
 	private ImageView icon; //should set to a default 'img. not found' picture
 	private int health;
 	private String name;
-	private ArrayList<Attack> moves;
+	private Attack[] moves = new Attack[4];
 	private ArrayList<Item> possibleDrops;
 	private boolean isCaptive = false;
 	
@@ -42,7 +42,7 @@ public abstract class Creature {
 	}
 
 
-	public ArrayList<Attack> getMoves() {
+	public Attack[] getMoves() {
 		return moves;
 	}
 

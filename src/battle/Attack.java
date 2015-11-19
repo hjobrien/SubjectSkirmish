@@ -24,5 +24,9 @@ public class Attack {
 	public AttackType getType() {
 		return this.type;
 	}
+	
+	public String toString(){
+		return name;
+	}
 
 }
