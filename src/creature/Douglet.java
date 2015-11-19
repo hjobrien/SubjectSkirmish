@@ -5,9 +5,10 @@ import battle.Attack;
 public class Douglet extends Creature implements Enemy {
 
 	public static final String ICON_PATH = "/creatureImages/DougletImage.png";
+	public static final String NAME = "Douglet";
 	
 	public Douglet() {
-		super(ICON_PATH, "Douglet");
+		super(ICON_PATH, NAME);
 		// TODO Auto-generated constructor stub
 	}
 

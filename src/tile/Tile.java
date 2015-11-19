@@ -38,6 +38,7 @@ public abstract class Tile{
 		return c;
 	}
 	
+	@Override
 	public String toString(){
 		return "x:" + x + " y:" + y;
 	}

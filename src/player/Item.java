@@ -26,6 +26,7 @@ public class Item {
 		this.iconName = "/images/" + iconFile;
 	}
 
+	@Override
 	public String toString (){
 		return name + " "  + rarity;
 	}

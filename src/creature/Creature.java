@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import battle.Attack;
 import battle.AttackWeightMatrix;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import player.Item;
 
@@ -26,7 +25,7 @@ public abstract class Creature {
 	public abstract void onAddToBag();
 	
 	public Creature(String iconFilePath, String name){
-		icon = new ImageView(iconFilePath);
+		this.icon = new ImageView(iconFilePath);
 		this.name = name;
 	}
 	

@@ -3,6 +3,7 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
+import creature.Creature;
 import event.Event;
 import event.FindItem;
 import event.SpawnMonster;
@@ -189,10 +190,8 @@ public class Main extends Application {
 				
 				if(onAdvance instanceof SpawnMonster){
 					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
-					System.out.println(newSpawn.toString());
-					
-					//in this new scene, the direction buttons have to control different things
-					//so that the options are maneuverable and the player cant keep moving
+//					System.out.println(newSpawn.toString());
+		
 					//this part still bugs for me, java 8u65
 					Scene monsterEncounter = handle(newSpawn);
 					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
@@ -248,10 +247,12 @@ public class Main extends Application {
 		
 		
 //		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-		Text enemyName = new Text(spawn.getCreature().getName());
+		Creature c = spawn.getCreature();
+		Text enemyName = new Text(c.getName());
+		System.out.println(c.getName());
 		enemyName.setId("fancytext");
 		
-		grid.add(spawn.getCreature().getImage(), 3, 2);
+		grid.add(c.getImage(), 3, 2);
 		grid.add(Player.getImage(), 1, 3);
 		grid.add(enemyName, 2, 1, 2, 1);
 //		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();

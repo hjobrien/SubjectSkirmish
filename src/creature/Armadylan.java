@@ -5,9 +5,10 @@ import battle.Attack;
 public class Armadylan extends Creature implements Enemy {
 
 	public static final String ICON_PATH = "/creatureImages/ArmadylanImage.png";
+	public static final String NAME = "Armadylan";
 	
 	public Armadylan() {
-		super(ICON_PATH, "Armadylan");
+		super(ICON_PATH, NAME);
 		// TODO Auto-generated constructor stub
 	}
 

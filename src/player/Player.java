@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import creature.Creature;
 import event.Event;
 import graphics.Board;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 

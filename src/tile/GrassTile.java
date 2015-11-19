@@ -11,7 +11,7 @@ public class GrassTile extends Tile implements Stepable{
 	
 	private static double chanceOfItemEncounter = 0.20;
 	private static double chanceOfCreatureEncounter = 0.20;
-	private static Color defaultColor = Color.RED;//Color.GREEN;
+	private static Color defaultColor = Color.GREEN;//Color.RED;
 
 	public GrassTile(int x,int y) {
 		super(x, y, defaultColor);
