@@ -194,6 +194,14 @@ public class Main extends Application {
 		
 					//this part still bugs for me, java 8u65
 					Scene monsterEncounter = handle(newSpawn);
+					boolean battleEnded = false;
+					stage.setScene(monsterEncounter);
+					
+//					while (!battleEnded){
+//						battleEnded = battle(stage, monsterEncounter);
+//					}
+//					stage.setScene(boardScene);
+					
 					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
 						if(m.getCode() == KeyCode.A){
 							//this should just be the stage.setScene line, but the other stuff is to tame the JVM bug
@@ -205,7 +213,7 @@ public class Main extends Application {
 							});
 						}
 					});
-					stage.setScene(monsterEncounter);
+					
 				}
 				else if(onAdvance instanceof FindItem){
 					Item newItem = ((FindItem) onAdvance).getItem();
@@ -228,7 +236,17 @@ public class Main extends Application {
 
 	}
 	
-	
+//	private boolean battle(Stage stage, Scene monsterEncounter) {
+//		monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
+//			if(m.getCode() == KeyCode.A){
+//				return true;
+//			}
+//
+//		});
+//		
+//		return false;
+//	}
+
 	public Scene handle(SpawnMonster spawn){
 		GridPane grid = new GridPane();
 		grid.getColumnConstraints().add(new ColumnConstraints(200));
@@ -249,7 +267,6 @@ public class Main extends Application {
 //		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		Creature c = spawn.getCreature();
 		Text enemyName = new Text(c.getName());
-		System.out.println(c.getName());
 		enemyName.setId("fancytext");
 		
 		grid.add(c.getImage(), 3, 2);
