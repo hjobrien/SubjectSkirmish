@@ -304,6 +304,8 @@ public class Main extends Application {
 	//had entered the door they moved through
 	private void updateBoard(Direction d, Player player, GraphicsContext g) {
 		this.board = BoardGenerator.generate(GEN_STYLE);
+		
+		//since player is initiated with the original board, the player's board must be edited every time a board is altered
 		player.setBoard(this.board);
 		hasUpdated = false;
 		
