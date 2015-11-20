@@ -167,7 +167,7 @@ public class Main extends Application {
 			}
 			
 			//resets after a spawn monster event was triggered, this is temporary
-			if(e.getCode() == KeyCode.ENTER){
+			if (e.getCode() == KeyCode.ENTER){
 				stage.setScene(boardScene);
 			}
 			
@@ -176,8 +176,13 @@ public class Main extends Application {
 //				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
 //			}
 			
-			if(e.getCode() == KeyCode.M){
+			if (e.getCode() == KeyCode.M){
 				showMenu(player);
+			}
+			
+			//R for refresh
+			if (e.getCode() == KeyCode.R){
+				updateBoard(Direction.NO_MOVE, player, g);
 			}
 			
 			
@@ -257,12 +262,8 @@ public class Main extends Application {
 		grid.getRowConstraints().add(new RowConstraints(100));
 		grid.getRowConstraints().add(new RowConstraints(400));
 
-		
 		Scene encounter = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 		encounter.getStylesheets().add("/stylesheets/EncounterStyle.css");
-		
-		
-		
 		
 //		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		Creature c = spawn.getCreature();
