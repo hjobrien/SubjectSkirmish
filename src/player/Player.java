@@ -105,4 +105,8 @@ public class Player {
 	public static ImageView getImage() {
 		return icon;
 	}
+	
+	public void setBoard(Board b){
+		this.board = b;
+	}
 }

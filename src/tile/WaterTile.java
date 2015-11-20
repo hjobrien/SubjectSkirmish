@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 
 public class WaterTile extends Tile implements Stepable{
 
-	private static double chanceOfItemEncounter = 0.2;
-	private static double chanceOfCreatureEncounter = 0.1;
+	private static double chanceOfItemEncounter = 0.0;//0.2;
+	private static double chanceOfCreatureEncounter = 1.0;//0.1;
 	private static Color defaultColor = Color.DARKORANGE;//Color.BLUE;
 	
 	
@@ -23,6 +23,7 @@ public class WaterTile extends Tile implements Stepable{
 
 	@Override
 	public Event onStep() {
+		System.out.println("Water tile");
 		Random r = new Random();
 		double chance = r.nextDouble();
 		if (chance <= chanceOfItemEncounter){

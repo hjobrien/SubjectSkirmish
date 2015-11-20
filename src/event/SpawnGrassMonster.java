@@ -24,7 +24,7 @@ public class SpawnGrassMonster extends SpawnMonster {
 	@Override
 	public Creature getCreature() {
 		Random rand = new Random();
-		int i = rand.nextInt(3);
+		int i = rand.nextInt(4);
 		if(i==0){
 			return new Tanimonster();
 		} else if (i == 1){

@@ -304,6 +304,7 @@ public class Main extends Application {
 	//had entered the door they moved through
 	private void updateBoard(Direction d, Player player, GraphicsContext g) {
 		this.board = BoardGenerator.generate(GEN_STYLE);
+		player.setBoard(this.board);
 		hasUpdated = false;
 		
 		if (d.equals(Direction.WEST)){
