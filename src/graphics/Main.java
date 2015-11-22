@@ -198,7 +198,7 @@ public class Main extends Application {
 				//I really like this format, it seems to work well with what we are doing
 				
 				if(onAdvance instanceof SpawnMonster){
-					SpawnMonster newSpawn  = (SpawnMonster) onAdvance;
+					SpawnMonster newSpawn = (SpawnMonster) onAdvance;
 //					System.out.println(newSpawn.toString());
 		
 					//this part still bugs for me, java 8u65
@@ -236,11 +236,9 @@ public class Main extends Application {
 				//though they could/should be handled more gracefully
 			}
 			location = player.getLocation();
-			update(player,g,moveDirection);
+			update(player, g, moveDirection);
 		});
 		root.getChildren().add(canvas);
-//		grid.add(canvas, 0, 0); 
-
 		
 		stage.show();
 
@@ -259,14 +257,6 @@ public class Main extends Application {
 
 	public Scene handle(SpawnMonster spawn, Player p){
 		GridPane grid = new GridPane();
-		
-//		grid.getColumnConstraints().add(new ColumnConstraints(200));
-//		grid.getColumnConstraints().add(new ColumnConstraints(600));
-//		grid.getColumnConstraints().add(new ColumnConstraints(200));
-//		grid.getRowConstraints().add(new RowConstraints(0));
-//		grid.getRowConstraints().add(new RowConstraints(350));
-//		grid.getRowConstraints().add(new RowConstraints(100));
-//		grid.getRowConstraints().add(new RowConstraints(400));
 
 		//adding constraints builds on to the last restraint added so i isn't necessary in the placing of the
 		//constraints, only in the deciphering of how many are necessary
@@ -318,8 +308,6 @@ public class Main extends Application {
 				grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 2, 2, 1);
 			}
 		}
-		
-
 		
 		return encounter;
 	}
