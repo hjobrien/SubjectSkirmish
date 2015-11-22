@@ -106,7 +106,10 @@ public class Main extends Application {
 			if(e.getCode() == KeyCode.ESCAPE)
 				System.exit(0);
 		});  
-		//full screen looks nicer but it doesn't work with multiple stages, so when we change that then we can uncomment this
+		
+		//full screen looks nicer but it doesn't work with multiple stages, so when we change that then we can 
+		//uncomment this
+		
 //		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		
@@ -120,9 +123,10 @@ public class Main extends Application {
 			 * when one of the arrow keys is pressed, the player.advance returns a new event, 
 			 * which is the event created by whatever tile it steps onto, though this can change later
 			 * then, the event is (attempted) to be passed to a generic method that handles all kinds of events
-			 * though in the future, we could overload (<-- more polymorphism) the method so that if the event was a spawn event, it did
-			 * one thing, but if it was an item event, it would do another.
-			 * I choose to put it as the first action to be taken, because i figured the event handling could affect the graphics (for example) so it should be the highest precedence
+			 * though in the future, we could overload (<-- more polymorphism) the method so that if the event was a 
+			 * spawn event, it did one thing, but if it was an item event, it would do another.
+			 * I choose to put it as the first action to be taken, because i figured the event handling could affect 
+			 * the graphics (for example) so it should be the highest precedence
 			 */
 			Event onAdvance = null;
 			if(e.getCode() == KeyCode.LEFT){
@@ -198,7 +202,7 @@ public class Main extends Application {
 //					System.out.println(newSpawn.toString());
 		
 					//this part still bugs for me, java 8u65
-					Scene monsterEncounter = handle(newSpawn);
+					Scene monsterEncounter = handle(newSpawn, player);
 					boolean battleEnded = false;
 					stage.setScene(monsterEncounter);
 					
@@ -228,7 +232,8 @@ public class Main extends Application {
 				}
 				
 			}catch(NullPointerException NPException){
-				//means a button other than an arrow key was pressed, probably no big deal, though they could/should be handled more gracefully
+				//means a button other than an arrow key was pressed, probably no big deal, 
+				//though they could/should be handled more gracefully
 			}
 			location = player.getLocation();
 			update(player,g,moveDirection);
@@ -252,50 +257,69 @@ public class Main extends Application {
 //		return false;
 //	}
 
-	public Scene handle(SpawnMonster spawn){
+	public Scene handle(SpawnMonster spawn, Player p){
 		GridPane grid = new GridPane();
-		grid.getColumnConstraints().add(new ColumnConstraints(200));
-		grid.getColumnConstraints().add(new ColumnConstraints(600));
-		grid.getColumnConstraints().add(new ColumnConstraints(200));
-		grid.getRowConstraints().add(new RowConstraints(0));
-		grid.getRowConstraints().add(new RowConstraints(350));
-		grid.getRowConstraints().add(new RowConstraints(100));
-		grid.getRowConstraints().add(new RowConstraints(400));
+		
+//		grid.getColumnConstraints().add(new ColumnConstraints(200));
+//		grid.getColumnConstraints().add(new ColumnConstraints(600));
+//		grid.getColumnConstraints().add(new ColumnConstraints(200));
+//		grid.getRowConstraints().add(new RowConstraints(0));
+//		grid.getRowConstraints().add(new RowConstraints(350));
+//		grid.getRowConstraints().add(new RowConstraints(100));
+//		grid.getRowConstraints().add(new RowConstraints(400));
+
+		//adding constraints builds on to the last restraint added so i isn't necessary in the placing of the
+		//constraints, only in the deciphering of how many are necessary
+		for (int i = 0; i < X_MAX; i++){
+			grid.getColumnConstraints().add(new ColumnConstraints(SCREEN_WIDTH / X_MAX));
+		}
+		for (int i = 0; i < Y_MAX; i ++){
+			grid.getRowConstraints().add(new RowConstraints(SCREEN_HEIGHT / Y_MAX));
+		}
 
 		Scene encounter = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 		encounter.getStylesheets().add("/stylesheets/EncounterStyle.css");
 		
-//		Canvas encounterCanvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 		Creature c = spawn.getCreature();
-		grid.add(c.getImage(), 3, 2);
 		
+		//very helpful for debugging purposes
+		grid.setGridLinesVisible(true);
+		
+		//drawing creature
+		grid.add(c.getImage(), X_MAX - 5, 4);
 		Text enemyName = new Text(c.getName());
 		enemyName.setId("fancytext");
-		grid.add(enemyName, 2, 1, 2, 1);
+		grid.add(enemyName, X_MAX - 12, 1/*, 5, 1*/);
 
-		grid.add(Player.getImage(), 1, 3);
+		//drawing player
+		grid.add(Player.getImage(), 2, Y_MAX - 3);
+		Text playerName = new Text(p.getName());
+		playerName.setId("fancytext");
+		grid.add(playerName, 2, Y_MAX - 6);
 		
-//		for(int i = 0; i < c.getMoves().length; i++){
-//			Button move = new Button();
-//			move.setMaxWidth(menuWidth);
-//			move.setMinWidth(menuWidth);
-//
-//			if (c.getMoves()[i] == null){
-//				move.setText("move " + i);
-//			} else {
-//				move.setText(c.getMoves()[i].toString());
-//			}
-//			
-//			//not the right formula
-//			grid.add(move, i % 2 + 1, i + 1 % 2 + 2, 1, 1);
-//		}
+		//drawing and creating move buttons
+		for(int i = 0; i < c.getMoves().length; i++){
+			Button move = new Button();
+			move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+			move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+			move.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+			move.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+
+			if (c.getMoves()[i] == null){
+				move.setText("move " + i);
+			} else {
+				move.setText(c.getMoves()[i].toString());
+			}
+			
+			//couldnt figure out how a formla that encapsulated this
+			if (i == 0 || i == 1){
+				grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 3, 2, 1);
+			} else if (i == 2 || i == 3){
+				grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 2, 2, 1);
+			}
+		}
 		
 
-//		GraphicsContext monsterG = encounterCanvas.getGraphicsContext2D();
-//		monsterG.scale(50,50);
-//		monsterG.drawImage(spawn.getEnemy().getImage(), 20,5,5,5);
-//		monsterG.drawImage(Player.getImage(), 5,10,5,5);
-//		root.getChildren().add(encounterCanvas);
 		
 		return encounter;
 	}
@@ -306,7 +330,8 @@ public class Main extends Application {
 	private void updateBoard(Direction d, Player player, GraphicsContext g) {
 		this.board = BoardGenerator.generate(GEN_STYLE);
 		
-		//since player is initiated with the original board, the player's board must be edited every time a board is altered
+		//since player is initiated with the original board, the player's board 
+		//must be edited every time a board is altered
 		player.setBoard(this.board);
 		hasUpdated = false;
 		
@@ -329,7 +354,8 @@ public class Main extends Application {
 		//we can change this if we want but i think its easy and intuitive
 		//these buttons should be reserved for these two uses to avoid confusion
 		
-		//this will make a new window that is the menu, so it is different from what some programs do, but idk a good way of doing it another way
+		//this will make a new window that is the menu, so it is different from what some programs do, but idk 
+		//a good way of doing it another way
 		
 		Stage menuStage = new Stage();
 		menuStage.setTitle("Main Menu");
@@ -517,7 +543,8 @@ public class Main extends Application {
 	/*
 	 * this is the generic method for all events, should make more specific examples
 	 * right now it just does the toString of the events
-	 * I changed the objects that implemented event from printing in their constructor to producing the same output in toString, its cleaner
+	 * I changed the objects that implemented event from printing in their constructor to producing 
+	 * the same output in toString, its cleaner
 	 */
 	public void handle(Event e){
 		System.out.println(e.toString());
@@ -538,16 +565,20 @@ public class Main extends Application {
 		//clears old player
 		switch(moveDirection){
 		case NORTH:
-			g.drawImage(new Image(board.getBoard().get(x).get(y+TILE_SIZE).getImagePath()), x, y+TILE_SIZE,TILE_SIZE,TILE_SIZE);
+			g.drawImage(new Image(board.getBoard().get(x).get(y+TILE_SIZE).getImagePath()), 
+					x, y+TILE_SIZE,TILE_SIZE,TILE_SIZE);
 			break;
 		case SOUTH:
-			g.drawImage(new Image(board.getBoard().get(x).get(y-TILE_SIZE).getImagePath()), x, y-TILE_SIZE,TILE_SIZE,TILE_SIZE);
+			g.drawImage(new Image(board.getBoard().get(x).get(y-TILE_SIZE).getImagePath()), 
+					x, y-TILE_SIZE,TILE_SIZE,TILE_SIZE);
 			break;
 		case EAST:
-			g.drawImage(new Image(board.getBoard().get(x-TILE_SIZE).get(y).getImagePath()), x-TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
+			g.drawImage(new Image(board.getBoard().get(x-TILE_SIZE).get(y).getImagePath()), 
+					x-TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
 			break;
 		case WEST:
-			g.drawImage(new Image(board.getBoard().get(x+TILE_SIZE).get(y).getImagePath()), x+TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
+			g.drawImage(new Image(board.getBoard().get(x+TILE_SIZE).get(y).getImagePath()), 
+					x+TILE_SIZE, y,TILE_SIZE,TILE_SIZE);
 			break;
 		default:
 			break;
