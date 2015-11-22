@@ -203,9 +203,9 @@ public class Main extends Application {
 		
 					//this part still bugs for me, java 8u65
 					Scene monsterEncounter = handle(newSpawn, player);
-					boolean battleEnded = false;
 					stage.setScene(monsterEncounter);
 					
+//					boolean battleEnded = false;
 //					while (!battleEnded){
 //						battleEnded = battle(stage, monsterEncounter);
 //					}
@@ -311,7 +311,7 @@ public class Main extends Application {
 				move.setText(c.getMoves()[i].toString());
 			}
 			
-			//couldnt figure out how a formla that encapsulated this
+			//couldn't figure out how a formula that encapsulated this
 			if (i == 0 || i == 1){
 				grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 3, 2, 1);
 			} else if (i == 2 || i == 3){
