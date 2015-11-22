@@ -16,6 +16,7 @@ public abstract class Creature {
 	private String name;
 	private Attack[] moves = new Attack[4];
 	private ArrayList<Item> possibleDrops;
+	private boolean isAlive = true;
 	private boolean isCaptive = false;
 	
 	public static final double[][] ATTACK_WEIGHT_MATRIX = AttackWeightMatrix.ATTACK_WEIGHT_MATRIX;
@@ -29,25 +30,31 @@ public abstract class Creature {
 		this.name = name;
 	}
 	
-	protected void takeDamage(double damage) {
-		health -= damage;
-		if(health <= 0){
+	//why did you make this proteceted? i changed it to public
+	public void takeDamage(double damage) {
+ 		this.health -= damage;
+		if(this.health <= 0){
+			isAlive = false;
 			onDeath();
 		}
 		
 	}
+	
+	public boolean getAlive(){
+		return this.isAlive;
+	}
 
 	public void setCaptivity(boolean b) {
-		isCaptive = b;
+		this.isCaptive = b;
 	}
 
 
 	public Attack[] getMoves() {
-		return moves;
+		return this.moves;
 	}
 
 	public ArrayList<Item> getPossibleDrops() {
-		return possibleDrops;
+		return this.possibleDrops;
 	}
 
 	public void giveReward() {
@@ -56,11 +63,27 @@ public abstract class Creature {
 	}
 	
 	public ImageView getImage(){
-		return icon;
+		return this.icon;
 	}
 	
 	public String getName(){
-		return name;
+		return this.name;
+	}
+	
+	public int getHealth(){
+		return this.health;
+	}
+	
+	//for debugging, probably wont use this in the real game
+	public void setMoves(ArrayList<Attack> m){
+		for (int i = 0; i < m.size(); i++){
+			moves[i % 4] = m.get(i);				//mod 4 in case the arrayList has more than 4 values
+		}
+	}
+	
+	//for debugging, probably wont use this in the real game
+	public void setHealth(int health){
+		this.health = health;
 	}
 
 }

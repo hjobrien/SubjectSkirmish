@@ -3,6 +3,7 @@ package graphics;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
+import battle.Attack;
 import creature.Creature;
 import event.Event;
 import event.FindItem;
@@ -271,7 +272,7 @@ public class Main extends Application {
 		encounter.getStylesheets().add("/stylesheets/EncounterStyle.css");
 		
 		Creature c = spawn.getCreature();
-		
+				
 		//very helpful for debugging purposes
 		grid.setGridLinesVisible(true);
 		
@@ -280,6 +281,9 @@ public class Main extends Application {
 		Text enemyName = new Text(c.getName());
 		enemyName.setId("fancytext");
 		grid.add(enemyName, X_MAX - 12, 1/*, 5, 1*/);
+		c.setHealth(100);
+		Text enemyHealth = new Text("Health = " + c.getHealth());
+		grid.add(enemyHealth, X_MAX - 10, 4);
 
 		//drawing player
 		grid.add(Player.getImage(), 2, Y_MAX - 3);
@@ -287,27 +291,124 @@ public class Main extends Application {
 		playerName.setId("fancytext");
 		grid.add(playerName, 2, Y_MAX - 6);
 		
-		//drawing and creating move buttons
-		for(int i = 0; i < c.getMoves().length; i++){
-			Button move = new Button();
-			move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-			move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-			move.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-			move.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+		//*******************drawing and creating move buttons**********************
+		Attack[] moves = p.getMonsters().get(0).getMoves();
+		
+		//move 1
+		Button move1 = new Button();
+		move1.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+		move1.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+		move1.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+		move1.setMinHeight(SCREEN_HEIGHT / Y_MAX);
 
-			if (c.getMoves()[i] == null){
-				move.setText("move " + i);
-			} else {
-				move.setText(c.getMoves()[i].toString());
-			}
-			
-			//couldn't figure out how a formula that encapsulated this
-			if (i == 0 || i == 1){
-				grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 3, 2, 1);
-			} else if (i == 2 || i == 3){
-				grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 2, 2, 1);
-			}
+		if (moves[0] == null){
+			move1.setText("move 1");
+		} else {
+			move1.setText(moves[0].toString());
 		}
+		
+		move1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+					c.takeDamage(moves[0].getBaseDamage());
+					enemyHealth.equals(new Text("Health = " + c.getHealth()));
+					//currently no way to edit the grid's enemyHealth
+			}
+		});
+		
+		grid.add(move1, 6, Y_MAX - 3, 2, 1);
+		
+		//move 2
+		Button move2 = new Button();
+		move2.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+		move2.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+		move2.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+		move2.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+
+		if (moves[1] == null){
+			move2.setText("move 2");
+		} else {
+			move2.setText(moves[1].toString());
+		}
+		
+		move2.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+					c.takeDamage(moves[1].getBaseDamage());
+					enemyHealth.equals(new Text("Health = " + c.getHealth()));
+			}
+		});
+		
+		grid.add(move2, 8, Y_MAX - 3, 2, 1);
+		
+		//move 3
+		Button move3 = new Button();
+		move3.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+		move3.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+		move3.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+		move3.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+
+		if (moves[2] == null){
+			move3.setText("move 3");
+		} else {
+			move3.setText(moves[2].toString());
+		}
+		
+		move3.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+					c.takeDamage(moves[2].getBaseDamage());
+					enemyHealth.equals(new Text("Health = " + c.getHealth()));
+			}
+		});
+		
+		grid.add(move3, 6, Y_MAX - 2, 2, 1);
+		
+		//move 4
+		Button move4 = new Button();
+		move4.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+		move4.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+		move4.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+		move4.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+
+		if (moves[3] == null){
+			move4.setText("move 4");
+		} else {
+			move4.setText(moves[3].toString());
+		}
+		
+		move4.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+					c.takeDamage(moves[3].getBaseDamage());
+					enemyHealth.equals(new Text("Health = " + c.getHealth()));
+			}
+		});
+		
+		grid.add(move4, 8, Y_MAX - 2, 2, 1);
+		
+		//I wanted this to work in a for loop but it wouldn't let me use action listeners
+//		Button move = new Button();
+//		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+//		move.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+//
+//		if (moves[i] == null){
+//			move.setText("move " + (i + 1));
+//		} else {
+//			move.setText(moves[i].toString());
+//		}
+//		
+//		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+//					c.takeDamage(moves[0].getBaseDamage());
+//					enemyHealth.equals(new Text("Health = " + c.getHealth()));
+//			}
+//		});
+//		
+//		//couldn't figure out how a formula that encapsulated this
+//		if (i == 0 || i == 1){
+//			grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 3, 2, 1);
+//		} else if (i == 2 || i == 3){
+//			grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 2, 2, 1);
+//		}
 		
 		return encounter;
 	}

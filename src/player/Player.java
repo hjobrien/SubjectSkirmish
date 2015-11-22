@@ -2,6 +2,8 @@ package player;
 
 import java.util.ArrayList;
 
+import battle.*;
+import creature.Bunny;
 import creature.Creature;
 import event.Event;
 import graphics.Board;
@@ -30,6 +32,20 @@ public class Player {
 		this.color = color;
 		this.board = board;
 		icon = new ImageView(iconFilePath);
+		
+		//Testing things out
+		Creature c = new Bunny();
+		Attack a1 = new Attack("Attack 1", 20, AttackType.COMPUTER_SCIENCE, Effect.NONE);
+		Attack a2 = new Attack("Attack 2", 30, AttackType.COMPUTER_SCIENCE, Effect.NONE);
+		Attack a3 = new Attack("Attack 3", 40, AttackType.COMPUTER_SCIENCE, Effect.NONE);
+		Attack a4 = new Attack("Attack 4", 50, AttackType.COMPUTER_SCIENCE, Effect.NONE);
+		ArrayList<Attack> m = new ArrayList<Attack>();
+		m.add(a1);
+		m.add(a2);
+		m.add(a3);
+		m.add(a4);
+		c.setMoves(m);
+		addFriendlyCreature(c);
 	}
 	
 	public Event advance(int deltaX, int deltaY){
@@ -67,6 +83,10 @@ public class Player {
 			//we can actually deal with this case later
 			System.err.println("Player bag of creatures is full");
 		}
+	}
+	
+	public ArrayList<Creature> getMonsters(){
+		return this.monsters;
 	}
 
 	public ArrayList<Item> getBag(){
