@@ -33,7 +33,7 @@ public class Player {
 		this.board = board;
 		icon = new ImageView(iconFilePath);
 		
-		//Testing things out
+		//Testing things out. Initializes player with their own bunny creature
 		Creature c = new Bunny();
 		Attack a1 = new Attack("Attack 1", 20, AttackType.COMPUTER_SCIENCE, Effect.NONE);
 		Attack a2 = new Attack("Attack 2", 30, AttackType.COMPUTER_SCIENCE, Effect.NONE);

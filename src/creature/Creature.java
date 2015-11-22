@@ -16,7 +16,7 @@ public abstract class Creature {
 	private String name;
 	private Attack[] moves = new Attack[4];
 	private ArrayList<Item> possibleDrops;
-	private boolean isAlive = true;
+	private boolean alive = true;
 	private boolean isCaptive = false;
 	
 	public static final double[][] ATTACK_WEIGHT_MATRIX = AttackWeightMatrix.ATTACK_WEIGHT_MATRIX;
@@ -30,18 +30,18 @@ public abstract class Creature {
 		this.name = name;
 	}
 	
-	//why did you make this proteceted? i changed it to public
+	//why did you make this protected? i changed it to public
 	public void takeDamage(double damage) {
  		this.health -= damage;
 		if(this.health <= 0){
-			isAlive = false;
+			alive = false;
 			onDeath();
 		}
 		
 	}
 	
-	public boolean getAlive(){
-		return this.isAlive;
+	public boolean isAlive(){
+		return this.alive;
 	}
 
 	public void setCaptivity(boolean b) {
