@@ -310,8 +310,7 @@ public class Main extends Application {
 		move1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[0].getBaseDamage());
-					enemyHealth.equals(new Text("Health = " + c.getHealth()));
-					//currently no way to edit the grid's enemyHealth
+					enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
 		
@@ -333,8 +332,7 @@ public class Main extends Application {
 		move2.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[1].getBaseDamage());
-					enemyHealth.equals(new Text("Health = " + c.getHealth()));
-			}
+					enemyHealth.setText("Health = " + c.getHealth());			}
 		});
 		
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
@@ -355,8 +353,7 @@ public class Main extends Application {
 		move3.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[2].getBaseDamage());
-					enemyHealth.equals(new Text("Health = " + c.getHealth()));
-			}
+					enemyHealth.setText("Health = " + c.getHealth());			}
 		});
 		
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
@@ -377,8 +374,7 @@ public class Main extends Application {
 		move4.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[3].getBaseDamage());
-					enemyHealth.equals(new Text("Health = " + c.getHealth()));
-			}
+					enemyHealth.setText("Health = " + c.getHealth());			}
 		});
 		
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
@@ -398,7 +394,7 @@ public class Main extends Application {
 //		
 //		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 //			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-//					c.takeDamage(moves[0].getBaseDamage());
+//					c.takeDamage(moves[i].getBaseDamage());
 //					enemyHealth.equals(new Text("Health = " + c.getHealth()));
 //			}
 //		});
