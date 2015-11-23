@@ -200,10 +200,10 @@ public class Main extends Application {
 				
 				if(onAdvance instanceof SpawnMonster){
 					SpawnMonster newSpawn = (SpawnMonster) onAdvance;
-//					System.out.println(newSpawn.toString());
-		
+					Creature c = newSpawn.getCreature();
+
 					//this part still bugs for me, java 8u65
-					Scene monsterEncounter = handle(newSpawn, player);
+					Scene monsterEncounter = handle(c, player, boardScene);
 					stage.setScene(monsterEncounter);
 					
 //					boolean battleEnded = false;
@@ -222,8 +222,13 @@ public class Main extends Application {
 								}
 							});
 						}
+						if (m.getCode() == KeyCode.SPACE || m.getCode() == KeyCode.ENTER){
+							if (!c.isAlive()){
+								stage.setScene(boardScene);
+							}
+						}
 					});
-					
+										
 				}
 				else if(onAdvance instanceof FindItem){
 					Item newItem = ((FindItem) onAdvance).getItem();
@@ -256,7 +261,7 @@ public class Main extends Application {
 //		return false;
 //	}
 
-	public Scene handle(SpawnMonster spawn, Player p){
+	public Scene handle(Creature c, Player p, Scene boardScene){
 		GridPane grid = new GridPane();
 
 		//adding constraints builds on to the last restraint added so i isn't necessary in the placing of the
@@ -271,8 +276,6 @@ public class Main extends Application {
 		Scene encounter = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 		encounter.getStylesheets().add("/stylesheets/EncounterStyle.css");
 		
-		Creature c = spawn.getCreature();
-				
 		//very helpful for debugging purposes
 		grid.setGridLinesVisible(true);
 		
@@ -310,6 +313,9 @@ public class Main extends Application {
 		move1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[0].getBaseDamage());
+					if (!c.isAlive()){
+						encounter.setUserData(boardScene);
+					}
 					enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
@@ -332,6 +338,9 @@ public class Main extends Application {
 		move2.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[1].getBaseDamage());
+					if (!c.isAlive()){
+						encounter.setUserData(boardScene);
+					}
 					enemyHealth.setText("Health = " + c.getHealth());			}
 		});
 		
@@ -353,6 +362,9 @@ public class Main extends Application {
 		move3.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[2].getBaseDamage());
+					if (!c.isAlive()){
+						encounter.setUserData(boardScene);
+					}
 					enemyHealth.setText("Health = " + c.getHealth());			}
 		});
 		
@@ -374,6 +386,9 @@ public class Main extends Application {
 		move4.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[3].getBaseDamage());
+					if (!c.isAlive()){
+						encounter.setUserData(boardScene);
+					}
 					enemyHealth.setText("Health = " + c.getHealth());			}
 		});
 		
