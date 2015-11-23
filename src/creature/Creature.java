@@ -32,10 +32,12 @@ public abstract class Creature {
 	
 	//why did you make this protected? i changed it to public
 	public void takeDamage(double damage) {
- 		this.health -= damage;
-		if(this.health <= 0){
+		if (this.health - damage <= 0){
+			this.health = 0;
 			alive = false;
 			onDeath();
+		} else {
+			this.health -= damage;
 		}
 		
 	}
