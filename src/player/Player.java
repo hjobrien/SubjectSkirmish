@@ -31,21 +31,22 @@ public class Player {
 		this.y = startY;
 		this.color = color;
 		this.board = board;
-		icon = new ImageView(iconFilePath);
 		
 		//Testing things out. Initializes player with their own bunny creature
 		Creature c = new Bunny();
-		Attack a1 = new Attack("Attack 1", 20, AttackType.COMPUTER_SCIENCE, Effect.NONE);
-		Attack a2 = new Attack("Attack 2", 30, AttackType.COMPUTER_SCIENCE, Effect.NONE);
-		Attack a3 = new Attack("Attack 3", 40, AttackType.COMPUTER_SCIENCE, Effect.NONE);
-		Attack a4 = new Attack("Attack 4", 50, AttackType.COMPUTER_SCIENCE, Effect.NONE);
 		ArrayList<Attack> m = new ArrayList<Attack>();
-		m.add(a1);
-		m.add(a2);
-		m.add(a3);
-		m.add(a4);
+		for (int i = 0; i < 4; i++){
+			Attack a = new Attack("Attack " + (i + 1), 50 - 10 * i, AttackType.COMPUTER_SCIENCE, Effect.NONE);
+			m.add(a);
+		}
 		c.setMoves(m);
 		addFriendlyCreature(c);
+		
+		//this would show a different image depending on which creature the 
+		//player is fighting with
+		icon = c.getImage();
+		//this would show a standard picture for the player
+//		icon = new ImageView(iconFilePath);
 	}
 	
 	public Event advance(int deltaX, int deltaY){

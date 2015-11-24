@@ -71,7 +71,6 @@ public class Main extends Application {
 	private static final BoardStyle GEN_STYLE = BoardStyle.LARGER_GROUPS;
 	private static final String PLAYER_ICON_PATH = "/creatureImages/ImageNotFound.png"; 
 	
-
 	public static void main(String[] args) {	
 		launch(args);
 	}
@@ -171,11 +170,9 @@ public class Main extends Application {
 				}
 			}
 			
-			//resets after a spawn monster event was triggered, this is temporary
-			if (e.getCode() == KeyCode.ENTER){
-				stage.setScene(boardScene);
-			}
-			
+			//Im keeping this because our textbox right now still cant scroll
+			//so there is no way to see all the items except with this
+			//when we make a scroll bar, we can get rid of this
 //			//I for items
 //			if(e.getCode() == KeyCode.I){
 //				System.out.println(player.printBag()); //this will (hopefully) nicely print the array in neat columns
@@ -190,27 +187,15 @@ public class Main extends Application {
 				updateBoard(Direction.NO_MOVE, player, g);
 			}
 			
-			
-//			if(e.getCode() == KeyCode.DIGIT4){
-//				System.out.println(player.getName() + " has $" + player.getMoney());
-//			}
-			
 			try{
 				//I really like this format, it seems to work well with what we are doing
 				
 				if(onAdvance instanceof SpawnMonster){
-					SpawnMonster newSpawn = (SpawnMonster) onAdvance;
-					Creature c = newSpawn.getCreature();
+					Creature c = ((SpawnMonster) onAdvance).getCreature();
 
 					//this part still bugs for me, java 8u65
 					Scene monsterEncounter = handle(c, player, boardScene);
 					stage.setScene(monsterEncounter);
-					
-//					boolean battleEnded = false;
-//					while (!battleEnded){
-//						battleEnded = battle(stage, monsterEncounter);
-//					}
-//					stage.setScene(boardScene);
 					
 					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
 						if(m.getCode() == KeyCode.A){
@@ -223,8 +208,15 @@ public class Main extends Application {
 							});
 						}
 						if (m.getCode() == KeyCode.SPACE || m.getCode() == KeyCode.ENTER){
+							//would be nice to get some printing going on that tells the user whats happening
+							//this is where a text box that displays strings would come in really nicely
+							//maybe it would work best if we built that object in this try {if part
+							//and then passed it to the handle method?
 							if (!c.isAlive()){
 								stage.setScene(boardScene);
+							} else {
+								//TO-DO
+								//implement the creature's attack
 							}
 						}
 					});
@@ -249,17 +241,6 @@ public class Main extends Application {
 		stage.show();
 
 	}
-	
-//	private boolean battle(Stage stage, Scene monsterEncounter) {
-//		monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
-//			if(m.getCode() == KeyCode.A){
-//				return true;
-//			}
-//
-//		});
-//		
-//		return false;
-//	}
 
 	public Scene handle(Creature c, Player p, Scene boardScene){
 		GridPane grid = new GridPane();

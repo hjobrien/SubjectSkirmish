@@ -77,6 +77,8 @@ public abstract class Creature {
 	}
 	
 	//for debugging, probably wont use this in the real game
+	//it would be better if the creature was implemented with a move set
+	//or maybe even a move set that is generated based on its level (if we assign creatures levels)?
 	public void setMoves(ArrayList<Attack> m){
 		for (int i = 0; i < m.size(); i++){
 			moves[i % 4] = m.get(i);				//mod 4 in case the arrayList has more than 4 values
