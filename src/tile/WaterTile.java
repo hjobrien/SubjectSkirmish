@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public class WaterTile extends Tile implements Stepable{
 
 	private static double chanceOfItemEncounter = 0.2; //0.0;
-	private static double chanceOfCreatureEncounter = 0.1; //1.0;
+	private static double chanceOfCreatureEncounter = 0.05;//0.1; //1.0;
 	private static Color defaultColor = Color.BLUE;//Color.DARKORANGE;
 	
 	
