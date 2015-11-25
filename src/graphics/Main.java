@@ -279,79 +279,19 @@ public class Main extends Application {
 		Attack[] moves = p.getMonsters().get(0).getMoves();
 		
 		//move 1
-		Button move1 = getMove(moves, c, enemyHealth);
+		Button move1 = getMove(moves, 0, c, enemyHealth);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = getMove(moves, c, enemyHealth);
-//		move2.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move2.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move2.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-//		move2.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-//
-//		if (moves[1] == null){
-//			move2.setText("move 2");
-//		} else {
-//			move2.setText(moves[1].toString());
-//		}
-//		
-//		move2.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-//					c.takeDamage(moves[1].getBaseDamage());
-//					if (!c.isAlive()){
-//						encounter.setUserData(boardScene);
-//					}
-//					enemyHealth.setText("Health = " + c.getHealth());			}
-//		});
-//		
+		Button move2 = getMove(moves, 1, c, enemyHealth);
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = getMove(moves, c, enemyHealth);
-//		move3.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move3.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move3.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-//		move3.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-//
-//		if (moves[2] == null){
-//			move3.setText("move 3");
-//		} else {
-//			move3.setText(moves[2].toString());
-//		}
-//		
-//		move3.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-//					c.takeDamage(moves[2].getBaseDamage());
-//					if (!c.isAlive()){
-//						encounter.setUserData(boardScene);
-//					}
-//					enemyHealth.setText("Health = " + c.getHealth());			}
-//		});
-//		
+		Button move3 = getMove(moves, 2, c, enemyHealth);
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = getMove(moves, c, enemyHealth);
-//		move4.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move4.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move4.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-//		move4.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-//
-//		if (moves[3] == null){
-//			move4.setText("move 4");
-//		} else {
-//			move4.setText(moves[3].toString());
-//		}
-//		
-//		move4.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-//					c.takeDamage(moves[3].getBaseDamage());
-//					if (!c.isAlive()){
-//						encounter.setUserData(boardScene);
-//					}
-//					enemyHealth.setText("Health = " + c.getHealth());			}
-//		});
-		
+		Button move4 = getMove(moves, 3, c, enemyHealth);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
 		//I wanted this to work in a for loop but it wouldn't let me use action listeners
@@ -384,29 +324,31 @@ public class Main extends Application {
 		return encounter;
 	}
 	
-	public Button getMove(Attack[] moves, Creature c, Text enemyHealth){
-		Button move1 = new Button();
-		move1.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-		move1.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-		move1.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-		move1.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+	//this works by passing a textn ode and changin its values
+	//not the best style but is better than before
+	public Button getMove(Attack[] moves, int moveNum, Creature c, Text enemyHealth){
+		Button move = new Button();
+		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+		move.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+		move.setMinHeight(SCREEN_HEIGHT / Y_MAX);
 
-		if (moves[0] == null){
-			move1.setText("move 1");
+		if (moves[moveNum] == null){
+			move.setText("move 1");
 		} else {
-			move1.setText(moves[0].toString());
+			move.setText(moves[moveNum].toString());
 		}
 		
-		move1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-					c.takeDamage(moves[0].getBaseDamage());
+					c.takeDamage(moves[moveNum].getBaseDamage());
 //					if (!c.isAlive()){
 //						encounter.setUserData(boardScene);
 //					}
 					enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
-		return move1;
+		return move;
 	}
  	
 	
