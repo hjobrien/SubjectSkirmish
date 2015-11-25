@@ -279,99 +279,78 @@ public class Main extends Application {
 		Attack[] moves = p.getMonsters().get(0).getMoves();
 		
 		//move 1
-		Button move1 = new Button();
-		move1.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-		move1.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-		move1.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-		move1.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-
-		if (moves[0] == null){
-			move1.setText("move 1");
-		} else {
-			move1.setText(moves[0].toString());
-		}
-		
-		move1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-					c.takeDamage(moves[0].getBaseDamage());
-					if (!c.isAlive()){
-						encounter.setUserData(boardScene);
-					}
-					enemyHealth.setText("Health = " + c.getHealth());
-			}
-		});
-		
+		Button move1 = getMove(moves, c, enemyHealth);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = new Button();
-		move2.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-		move2.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-		move2.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-		move2.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-
-		if (moves[1] == null){
-			move2.setText("move 2");
-		} else {
-			move2.setText(moves[1].toString());
-		}
-		
-		move2.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-					c.takeDamage(moves[1].getBaseDamage());
-					if (!c.isAlive()){
-						encounter.setUserData(boardScene);
-					}
-					enemyHealth.setText("Health = " + c.getHealth());			}
-		});
-		
+		Button move2 = getMove(moves, c, enemyHealth);
+//		move2.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move2.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move2.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+//		move2.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+//
+//		if (moves[1] == null){
+//			move2.setText("move 2");
+//		} else {
+//			move2.setText(moves[1].toString());
+//		}
+//		
+//		move2.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+//					c.takeDamage(moves[1].getBaseDamage());
+//					if (!c.isAlive()){
+//						encounter.setUserData(boardScene);
+//					}
+//					enemyHealth.setText("Health = " + c.getHealth());			}
+//		});
+//		
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = new Button();
-		move3.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-		move3.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-		move3.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-		move3.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-
-		if (moves[2] == null){
-			move3.setText("move 3");
-		} else {
-			move3.setText(moves[2].toString());
-		}
-		
-		move3.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-					c.takeDamage(moves[2].getBaseDamage());
-					if (!c.isAlive()){
-						encounter.setUserData(boardScene);
-					}
-					enemyHealth.setText("Health = " + c.getHealth());			}
-		});
-		
+		Button move3 = getMove(moves, c, enemyHealth);
+//		move3.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move3.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move3.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+//		move3.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+//
+//		if (moves[2] == null){
+//			move3.setText("move 3");
+//		} else {
+//			move3.setText(moves[2].toString());
+//		}
+//		
+//		move3.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+//					c.takeDamage(moves[2].getBaseDamage());
+//					if (!c.isAlive()){
+//						encounter.setUserData(boardScene);
+//					}
+//					enemyHealth.setText("Health = " + c.getHealth());			}
+//		});
+//		
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = new Button();
-		move4.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-		move4.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-		move4.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-		move4.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-
-		if (moves[3] == null){
-			move4.setText("move 4");
-		} else {
-			move4.setText(moves[3].toString());
-		}
-		
-		move4.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-					c.takeDamage(moves[3].getBaseDamage());
-					if (!c.isAlive()){
-						encounter.setUserData(boardScene);
-					}
-					enemyHealth.setText("Health = " + c.getHealth());			}
-		});
+		Button move4 = getMove(moves, c, enemyHealth);
+//		move4.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move4.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+//		move4.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+//		move4.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+//
+//		if (moves[3] == null){
+//			move4.setText("move 4");
+//		} else {
+//			move4.setText(moves[3].toString());
+//		}
+//		
+//		move4.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+//					c.takeDamage(moves[3].getBaseDamage());
+//					if (!c.isAlive()){
+//						encounter.setUserData(boardScene);
+//					}
+//					enemyHealth.setText("Health = " + c.getHealth());			}
+//		});
 		
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
@@ -405,6 +384,31 @@ public class Main extends Application {
 		return encounter;
 	}
 	
+	public Button getMove(Attack[] moves, Creature c, Text enemyHealth){
+		Button move1 = new Button();
+		move1.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
+		move1.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
+		move1.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
+		move1.setMinHeight(SCREEN_HEIGHT / Y_MAX);
+
+		if (moves[0] == null){
+			move1.setText("move 1");
+		} else {
+			move1.setText(moves[0].toString());
+		}
+		
+		move1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
+					c.takeDamage(moves[0].getBaseDamage());
+//					if (!c.isAlive()){
+//						encounter.setUserData(boardScene);
+//					}
+					enemyHealth.setText("Health = " + c.getHealth());
+			}
+		});
+		return move1;
+	}
+ 	
 	
 	//creates a new random board and moves the player to where they would appear if they 
 	//had entered the door they moved through
