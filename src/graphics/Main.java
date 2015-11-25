@@ -294,37 +294,10 @@ public class Main extends Application {
 		Button move4 = getMove(moves, 3, c, enemyHealth);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
-		//I wanted this to work in a for loop but it wouldn't let me use action listeners
-//		Button move = new Button();
-//		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
-//		move.setMaxHeight(SCREEN_HEIGHT / Y_MAX);
-//		move.setMinHeight(SCREEN_HEIGHT / Y_MAX);
-//
-//		if (moves[i] == null){
-//			move.setText("move " + (i + 1));
-//		} else {
-//			move.setText(moves[i].toString());
-//		}
-//		
-//		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-//			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-//					c.takeDamage(moves[i].getBaseDamage());
-//					enemyHealth.equals(new Text("Health = " + c.getHealth()));
-//			}
-//		});
-//		
-//		//couldn't figure out how a formula that encapsulated this
-//		if (i == 0 || i == 1){
-//			grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 3, 2, 1);
-//		} else if (i == 2 || i == 3){
-//			grid.add(move, 6 + ((i % 2) * 2), Y_MAX - 2, 2, 1);
-//		}
-		
 		return encounter;
 	}
 	
-	//this works by passing a textn ode and changin its values
+	//this works by passing a text node and changing its values
 	//not the best style but is better than before
 	public Button getMove(Attack[] moves, int moveNum, Creature c, Text enemyHealth){
 		Button move = new Button();
@@ -342,9 +315,6 @@ public class Main extends Application {
 		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[moveNum].getBaseDamage());
-//					if (!c.isAlive()){
-//						encounter.setUserData(boardScene);
-//					}
 					enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
