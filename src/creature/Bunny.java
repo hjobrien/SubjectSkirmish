@@ -6,7 +6,7 @@ package creature;
 
 public class Bunny extends Creature implements Friend {
 
-	public static final String ICON_FILE = "/creatureImages/BunnyImage.jpeg";
+	public static final String ICON_FILE = "/creatureImages/BunnyImage.png";
 	public static final String NAME = "Bunny";
 
 	
