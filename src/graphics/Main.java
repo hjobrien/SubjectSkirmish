@@ -266,8 +266,13 @@ public class Main extends Application {
 		enemyName.setId("fancytext");
 		grid.add(enemyName, X_MAX - 12, 1/*, 5, 1*/);
 		c.setHealth(100);
-		Text enemyHealth = new Text("Health = " + c.getHealth());
-		grid.add(enemyHealth, X_MAX - 10, 4);
+		Canvas healthBar = new Canvas();
+		GraphicsContext g = healthBar.getGraphicsContext2D();
+		g.setFill(Color.RED);
+//		g.clearRect(0, 0, 1000, 1000);
+		grid.add(healthBar, 0, 0);
+//		Text enemyHealth = new Text("Health = " + c.getHealth());
+//		grid.add(enemyHealth, X_MAX - 10, 4);
 
 		//drawing player
 		grid.add(Player.getImage(), 2, Y_MAX - 3);
@@ -279,19 +284,19 @@ public class Main extends Application {
 		Attack[] moves = p.getMonsters().get(0).getMoves();
 		
 		//move 1
-		Button move1 = getMove(moves, 0, c, enemyHealth);
+		Button move1 = getMove(moves, 0, c, g);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = getMove(moves, 1, c, enemyHealth);
+		Button move2 = getMove(moves, 1, c, g);
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = getMove(moves, 2, c, enemyHealth);
+		Button move3 = getMove(moves, 2, c, g);
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = getMove(moves, 3, c, enemyHealth);
+		Button move4 = getMove(moves, 3, c, g);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
 		return encounter;
@@ -299,7 +304,7 @@ public class Main extends Application {
 	
 	//this works by passing a text node and changing its values
 	//not the best style but is better than before
-	public Button getMove(Attack[] moves, int moveNum, Creature c, Text enemyHealth){
+	public Button getMove(Attack[] moves, int moveNum, Creature c, GraphicsContext g){
 		Button move = new Button();
 		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
 		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
@@ -315,7 +320,10 @@ public class Main extends Application {
 		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
 					c.takeDamage(moves[moveNum].getBaseDamage());
-					enemyHealth.setText("Health = " + c.getHealth());
+					if(c.getHealth() > 0){
+						g.fillRect(0,0,100/c.getHealth(),20);
+					}
+//					enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
 		return move;
