@@ -2,7 +2,6 @@ package graphics;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
-
 import battle.Attack;
 import creature.Creature;
 import event.Event;
@@ -29,7 +28,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
-//import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import player.Item;
 import player.Player;
@@ -55,8 +53,9 @@ public class Main extends Application {
 	private static int menuWidth = 250;
 	private static int menuButtonWidth = 225;
 	private static boolean hasUpdated = false;
-
-
+	
+	private static int tbX = 10; //text box x value to make it look nice
+	private static int tbY = 20; //text box y value to make it look nice
 	
 	private int[] location = new int[]{X_MAX / 2,Y_MAX / 2}; //x and y coordinate 
 	private Board board;
@@ -264,7 +263,7 @@ public class Main extends Application {
 		grid.add(c.getImage(), X_MAX - 5, 4);
 		Text enemyName = new Text(c.getName());
 		enemyName.setId("fancytext");
-		grid.add(enemyName, X_MAX - 12, 1/*, 5, 1*/);
+		grid.add(enemyName, X_MAX - 12, 1);
 		
 		//drawing creature's health bar
 		c.setHealth(100);
@@ -273,7 +272,9 @@ public class Main extends Application {
 		g.setFill(Color.RED);
 		g.fillRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
 		grid.add(healthBar, X_MAX - 10, 4);
-		Text enemyHealth = new Text("Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
+		Text enemyHealth = new Text("  Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
+		//enemyHealth.setId("healthText"); TODO make a health text thing in css
+		//could maybe also be used to fashion a better health bar
 		grid.add(enemyHealth, X_MAX - 10, 4);
 
 		//drawing player
@@ -282,31 +283,40 @@ public class Main extends Application {
 		playerName.setId("fancytext");
 		grid.add(playerName, 2, Y_MAX - 6);
 		
-		//*******************drawing and creating move buttons**********************
-		Attack[] moves = p.getMonsters().get(0).getMoves();
+		//drawing text box that narrates to user
+		Canvas textBox = new Canvas(450, 300);
+		GraphicsContext textBoxG = textBox.getGraphicsContext2D();
+		clearTextBox(textBox, textBoxG);
+		textBoxG.fillText(p.getName() + " encountered a wild " + c.getName(), tbX, tbY);
+		grid.add(textBox, X_MAX - 10, Y_MAX - 4);
 		
+		//*******************drawing and creating move buttons**********************
 		//move 1
-		Button move1 = getMove(moves, 0, c, g, healthBar, enemyHealth);
+		Button move1 = getMove(p, 0, c, g, healthBar, enemyHealth, textBoxG, textBox);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = getMove(moves, 1, c, g, healthBar, enemyHealth);
+		Button move2 = getMove(p, 1, c, g, healthBar, enemyHealth, textBoxG, textBox);
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = getMove(moves, 2, c, g, healthBar, enemyHealth);
+		Button move3 = getMove(p, 2, c, g, healthBar, enemyHealth, textBoxG, textBox);
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = getMove(moves, 3, c, g, healthBar, enemyHealth);
+		Button move4 = getMove(p, 3, c, g, healthBar, enemyHealth, textBoxG, textBox);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
 		return encounter;
 	}
 	
-	//this works by passing a text node and changing its values
+	//this works by passing a bunch of nodes and changing their values
 	//not the best style but is better than before
-	public Button getMove(Attack[] moves, int moveNum, Creature c, GraphicsContext g, Canvas healthBar, Text enemyHealth){
+	public Button getMove(Player p, int moveNum, Creature c, GraphicsContext g, 
+			Canvas healthBar, Text enemyHealth, GraphicsContext textBoxG, Canvas textBox){
+		
+		Attack[] moves = p.getMonsters().get(0).getMoves();
+		
 		Button move = new Button();
 		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
 		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
@@ -329,16 +339,28 @@ public class Main extends Application {
 				g.clearRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
 				g.strokeRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
 				c.takeDamage(moves[moveNum].getBaseDamage());
-				enemyHealth.setText("Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
+				enemyHealth.setText("  Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
 				if(c.isAlive()){
+					clearTextBox(textBox, textBoxG);
+					textBoxG.fillText(p.getName() + " used " + moves[moveNum].toString(), tbX, tbY);
 					g.fillRect(0, 0, (c.getCurrentHealth() * 1.0) / c.getOriginalHealth() * 
 							healthBar.getWidth(), healthBar.getHeight());
 				} else {
 					//print some kind of victory text?
+					clearTextBox(textBox, textBoxG);
+					textBoxG.fillText(p.getName() + " used " + moves[moveNum].toString(), tbX, tbY);
+					textBoxG.fillText(p.getName() + " defeated " + c.getName(), tbX, 2 * tbY);
 				}
 			}
 		});
 		return move;
+	}
+	
+	public static void clearTextBox(Canvas c, GraphicsContext g){
+		g.clearRect(0, 0, c.getWidth(), c.getHeight());
+		g.setFill(Color.WHITE);
+		g.fillRect(0, 0, c.getWidth(), c.getHeight());
+		g.setFill(Color.BLACK);
 	}
  	
 	
@@ -616,44 +638,6 @@ public class Main extends Application {
 
 		
 	}
-	
-	
-	
-
-	
-//	public Item handle(FindItem item){
-//		return new Item(item.getName(), item.getRarity());
-//	}	
-	
-//	//tried to implement these two methods to make everything nicer but failed
-//	public Stage makeStage(String title){
-//		Stage menuStage = new Stage();
-//		menuStage.setTitle(title);
-//		
-//		//forces you to deal with the menu instead of going back to the game
-//		menuStage.initModality(Modality.APPLICATION_MODAL);
-//		menuStage.setHeight(menuHeight);
-//		menuStage.setWidth(menuWidth);
-//		
-//		return menuStage;
-//	}
-//	
-//	public Scene makeScene(ArrayList<Button> buttons){
-//		VBox mainObjs = new VBox();
-//		Scene mainScene = new Scene(mainObjs, menuHeight, menuWidth);
-//		
-//		mainObjs.setAlignment(Pos.CENTER);
-//		//empty region that forces components below it to the bottom of the stage
-//		Region midSpring = new Region();
-//		VBox.setVgrow(midSpring, Priority.ALWAYS);
-//		
-//		mainObjs.getChildren().add(midSpring);
-//		for (Button b: buttons){
-//			mainObjs.getChildren().add(b);
-//		}
-//		
-//		return mainScene;
-//	}
 	
 	
 //	private void initConstants(){
