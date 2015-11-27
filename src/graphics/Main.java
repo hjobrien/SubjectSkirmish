@@ -327,6 +327,7 @@ public class Main extends Application {
 				 * is already wiped. 
 				 */
 				g.clearRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
+				g.strokeRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
 				c.takeDamage(moves[moveNum].getBaseDamage());
 				enemyHealth.setText("Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
 				if(c.isAlive()){
