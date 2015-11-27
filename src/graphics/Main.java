@@ -268,14 +268,13 @@ public class Main extends Application {
 		
 		//drawing creature's health bar
 		c.setHealth(100);
-		Canvas healthBar = new Canvas(100, 50);
+		Canvas healthBar = new Canvas(120, 50);
 		GraphicsContext g = healthBar.getGraphicsContext2D();
 		g.setFill(Color.RED);
 		g.fillRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
 		grid.add(healthBar, X_MAX - 10, 4);
-		
-//		Text enemyHealth = new Text("Health = " + c.getHealth());
-//		grid.add(enemyHealth, X_MAX - 10, 4);
+		Text enemyHealth = new Text("Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
+		grid.add(enemyHealth, X_MAX - 10, 4);
 
 		//drawing player
 		grid.add(Player.getImage(), 2, Y_MAX - 3);
@@ -287,19 +286,19 @@ public class Main extends Application {
 		Attack[] moves = p.getMonsters().get(0).getMoves();
 		
 		//move 1
-		Button move1 = getMove(moves, 0, c, g, healthBar);
+		Button move1 = getMove(moves, 0, c, g, healthBar, enemyHealth);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = getMove(moves, 1, c, g, healthBar);
+		Button move2 = getMove(moves, 1, c, g, healthBar, enemyHealth);
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = getMove(moves, 2, c, g, healthBar);
+		Button move3 = getMove(moves, 2, c, g, healthBar, enemyHealth);
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = getMove(moves, 3, c, g, healthBar);
+		Button move4 = getMove(moves, 3, c, g, healthBar, enemyHealth);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
 		return encounter;
@@ -307,7 +306,7 @@ public class Main extends Application {
 	
 	//this works by passing a text node and changing its values
 	//not the best style but is better than before
-	public Button getMove(Attack[] moves, int moveNum, Creature c, GraphicsContext g, Canvas healthBar){
+	public Button getMove(Attack[] moves, int moveNum, Creature c, GraphicsContext g, Canvas healthBar, Text enemyHealth){
 		Button move = new Button();
 		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
 		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
@@ -329,11 +328,13 @@ public class Main extends Application {
 				 */
 				g.clearRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
 				c.takeDamage(moves[moveNum].getBaseDamage());
+				enemyHealth.setText("Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
 				if(c.isAlive()){
 					g.fillRect(0, 0, (c.getCurrentHealth() * 1.0) / c.getOriginalHealth() * 
 							healthBar.getWidth(), healthBar.getHeight());
+				} else {
+					//print some kind of victory text?
 				}
-//				enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
 		return move;
