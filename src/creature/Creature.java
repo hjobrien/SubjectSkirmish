@@ -12,7 +12,9 @@ import player.Item;
 public abstract class Creature {
 	
 	private ImageView icon; //should set to a default 'img. not found' picture
-	private int health;
+	private int currentHealth;
+	private int originalHealth;
+
 	private String name;
 	private Attack[] moves = new Attack[4];
 	private ArrayList<Item> possibleDrops;
@@ -32,12 +34,12 @@ public abstract class Creature {
 	
 	//why did you make this protected? i changed it to public
 	public void takeDamage(double damage) {
-		if (this.health - damage <= 0){
-			this.health = 0;
+		if (this.currentHealth - damage <= 0){
+			this.currentHealth = 0;
 			alive = false;
 			onDeath();
 		} else {
-			this.health -= damage;
+			this.currentHealth -= damage;
 		}
 		
 	}
@@ -72,8 +74,12 @@ public abstract class Creature {
 		return this.name;
 	}
 	
-	public int getHealth(){
-		return this.health;
+	public int getCurrentHealth(){
+		return this.currentHealth;
+	}
+	
+	public int getOriginalHealth(){
+		return this.originalHealth;
 	}
 	
 	//for debugging, probably wont use this in the real game
@@ -87,7 +93,8 @@ public abstract class Creature {
 	
 	//for debugging, probably wont use this in the real game
 	public void setHealth(int health){
-		this.health = health;
+		this.originalHealth = health;
+		this.currentHealth = health;
 	}
 
 }

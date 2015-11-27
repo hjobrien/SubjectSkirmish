@@ -265,12 +265,15 @@ public class Main extends Application {
 		Text enemyName = new Text(c.getName());
 		enemyName.setId("fancytext");
 		grid.add(enemyName, X_MAX - 12, 1/*, 5, 1*/);
+		
+		//drawing creature's health bar
 		c.setHealth(100);
-		Canvas healthBar = new Canvas();
+		Canvas healthBar = new Canvas(100, 50);
 		GraphicsContext g = healthBar.getGraphicsContext2D();
 		g.setFill(Color.RED);
-//		g.clearRect(0, 0, 1000, 1000);
-		grid.add(healthBar, 0, 0);
+		g.fillRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
+		grid.add(healthBar, X_MAX - 10, 4);
+		
 //		Text enemyHealth = new Text("Health = " + c.getHealth());
 //		grid.add(enemyHealth, X_MAX - 10, 4);
 
@@ -284,19 +287,19 @@ public class Main extends Application {
 		Attack[] moves = p.getMonsters().get(0).getMoves();
 		
 		//move 1
-		Button move1 = getMove(moves, 0, c, g);
+		Button move1 = getMove(moves, 0, c, g, healthBar);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = getMove(moves, 1, c, g);
+		Button move2 = getMove(moves, 1, c, g, healthBar);
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = getMove(moves, 2, c, g);
+		Button move3 = getMove(moves, 2, c, g, healthBar);
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = getMove(moves, 3, c, g);
+		Button move4 = getMove(moves, 3, c, g, healthBar);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
 		return encounter;
@@ -304,7 +307,7 @@ public class Main extends Application {
 	
 	//this works by passing a text node and changing its values
 	//not the best style but is better than before
-	public Button getMove(Attack[] moves, int moveNum, Creature c, GraphicsContext g){
+	public Button getMove(Attack[] moves, int moveNum, Creature c, GraphicsContext g, Canvas healthBar){
 		Button move = new Button();
 		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
 		move.setMinWidth(2 * SCREEN_WIDTH / X_MAX);
@@ -319,11 +322,18 @@ public class Main extends Application {
 		
 		move.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 			if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE){
-					c.takeDamage(moves[moveNum].getBaseDamage());
-					if(c.getHealth() > 0){
-						g.fillRect(0,0,100/c.getHealth(),20);
-					}
-//					enemyHealth.setText("Health = " + c.getHealth());
+				/* any time a move is chosen, the health bar will first be cleared
+				 * if the creature is alive, the health will be corrected according to the move's damage
+				 * if the creature is not alive, nothing needs to happen because the health bar 
+				 * is already wiped. 
+				 */
+				g.clearRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
+				c.takeDamage(moves[moveNum].getBaseDamage());
+				if(c.isAlive()){
+					g.fillRect(0, 0, (c.getCurrentHealth() * 1.0) / c.getOriginalHealth() * 
+							healthBar.getWidth(), healthBar.getHeight());
+				}
+//				enemyHealth.setText("Health = " + c.getHealth());
 			}
 		});
 		return move;
