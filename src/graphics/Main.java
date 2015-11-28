@@ -2,6 +2,8 @@ package graphics;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import battle.Attack;
 import creature.Creature;
 import event.Event;
@@ -169,7 +171,7 @@ public class Main extends Application {
 				}
 			}
 			
-			//Im keeping this because our textbox right now still cant scroll
+			//Im keeping this because our items textbox right now still cant scroll
 			//so there is no way to see all the items except with this
 			//when we make a scroll bar, we can get rid of this
 //			//I for items
