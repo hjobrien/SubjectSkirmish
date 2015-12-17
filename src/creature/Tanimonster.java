@@ -32,9 +32,11 @@ public class Tanimonster extends Creature implements Enemy{
 	@Override
 	public void performAttack() {
 		// TODO make an AI
-		//simple case should be random moves
-		//complex case should play based on you effects, i.e. if you have some effect a, and it has a move good against a, it should use that one
-		//challenge case should plan move combo's
+		//1) simple case should be random moves
+		//1.5) half the time random, half the time complex?
+		//2) complex case should play based on you effects, i.e. if you have some effect a, 
+		//and it has a move good against a, it should use that one
+		//3) challenge case should plan move combo's
 		//maybe a predictive algorithm based on probability of what the opponent has? could run in background
 		
 	}
