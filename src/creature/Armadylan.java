@@ -13,7 +13,8 @@ public class Armadylan extends Creature implements Enemy {
 	}
 
 	@Override
-	public void performAttack() {
+	public Attack performAttack() {
+		return null;
 		// TODO Auto-generated method stub
 
 	}

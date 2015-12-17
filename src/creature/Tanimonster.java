@@ -1,5 +1,7 @@
 package creature;
 
+import java.util.Random;
+
 import battle.Attack;
 import battle.Type;
 import javafx.scene.image.ImageView;
@@ -30,9 +32,11 @@ public class Tanimonster extends Creature implements Enemy{
 	}
 
 	@Override
-	public void performAttack() {
-		// TODO make an AI
+	public Attack performAttack() {
+		
+		// TODO make an AI, maybe change based on level?
 		//1) simple case should be random moves
+		return randomMove();
 		//1.5) half the time random, half the time complex?
 		//2) complex case should play based on you effects, i.e. if you have some effect a, 
 		//and it has a move good against a, it should use that one
@@ -40,6 +44,13 @@ public class Tanimonster extends Creature implements Enemy{
 		//maybe a predictive algorithm based on probability of what the opponent has? could run in background
 		
 	}
+
+	private Attack randomMove() {
+		Random r = new Random();
+		int n = r.nextInt(4);
+		return super.getMoves()[n];
+	}
+
 
 	@Override
 	public void onAddToBag() {
