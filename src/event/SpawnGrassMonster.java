@@ -25,6 +25,7 @@ public class SpawnGrassMonster extends SpawnMonster {
 	public Creature getCreature() {
 		Random rand = new Random();
 		int i = rand.nextInt(3); //at 3, bunnies won't be generated
+		i = 0; //for testing purposes
 		if(i==0){
 			return new Tanimonster();
 		} else if (i == 1){

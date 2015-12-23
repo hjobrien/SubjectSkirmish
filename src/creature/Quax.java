@@ -13,13 +13,6 @@ public class Quax extends Creature implements Enemy {
 	}
 
 	@Override
-	public Attack performAttack() {
-		return null;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void onAttack(Attack a) {
 		// TODO Auto-generated method stub
 

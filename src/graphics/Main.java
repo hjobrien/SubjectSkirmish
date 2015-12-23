@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import battle.Attack;
+import battle.AttackType;
+import battle.Effect;
 import creature.Creature;
 import event.Event;
 import event.FindItem;
@@ -86,6 +88,7 @@ public class Main extends Application {
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
 		Player player = new Player(location[0],location[1],PLAYER_COLOR, this.board, PLAYER_ICON_PATH);
+		Creature friend = player.getMonsters().get(0);
 		
 		//prompts the user to enter their name, can be commented out if you don't like it
 		//commenting to make running program faster --Hank
@@ -193,13 +196,19 @@ public class Main extends Application {
 				
 				if(onAdvance instanceof SpawnMonster){
 					Creature c = ((SpawnMonster) onAdvance).getCreature();
-
+					ArrayList<Attack> m = new ArrayList<Attack>();
+					for (int i = 0; i < 4; i++){
+						Attack a = new Attack("Attack " + (i + 1), 50 - 10 * i, AttackType.COMPUTER_SCIENCE, Effect.NONE);
+						m.add(a);
+					}
+					c.setMoves(m);
+					
 					//this part still bugs for me, java 8u65
 					Scene monsterEncounter = handle(c, player, boardScene);
 					stage.setScene(monsterEncounter);
 					
-					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, m -> {
-						if(m.getCode() == KeyCode.A){
+					monsterEncounter.addEventFilter(KeyEvent.KEY_PRESSED, action -> {
+						if(action.getCode() == KeyCode.A){
 							//this should just be the stage.setScene line, but the other stuff is to tame the JVM bug
 							Platform.runLater(new Runnable(){
 								@Override
@@ -208,12 +217,15 @@ public class Main extends Application {
 								}
 							});
 						}
-						if (m.getCode() == KeyCode.SPACE || m.getCode() == KeyCode.ENTER){
+						if (action.getCode() == KeyCode.SPACE || action.getCode() == KeyCode.ENTER){
 							//would be nice to get some printing going on that tells the user whats happening
 							//this is where a text box that displays strings would come in really nicely
 							//maybe it would work best if we built that object in this try {if part
 							//and then passed it to the handle method?
-							if (!c.isAlive()){
+							if (!c.isAlive() || !friend.isAlive()){ 			
+								//resets the health of your creature after each battle
+								friend.setHealth(friend.getOriginalHealth());
+								friend.setAlive();
 								stage.setScene(boardScene);
 							} else {
 								//TO-DO
@@ -268,12 +280,12 @@ public class Main extends Application {
 		grid.add(enemyName, X_MAX - 12, 1);
 		
 		//drawing creature's health bar
-		c.setHealth(100);
-		Canvas healthBar = new Canvas(120, 50);
-		GraphicsContext g = healthBar.getGraphicsContext2D();
-		g.setFill(Color.RED);
-		g.fillRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
-		grid.add(healthBar, X_MAX - 10, 4);
+		c.setHealth(100); //arbitrary
+		Canvas enemyHealthBar = new Canvas(120, 50);
+		GraphicsContext enemyHealthBarG = enemyHealthBar.getGraphicsContext2D();
+		enemyHealthBarG.setFill(Color.RED);
+		enemyHealthBarG.fillRect(0, 0, enemyHealthBar.getWidth(), enemyHealthBar.getHeight());
+		grid.add(enemyHealthBar, X_MAX - 10, 4);
 		Text enemyHealth = new Text("  Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
 		//enemyHealth.setId("healthText"); TODO make a health text thing in css
 		//could maybe also be used to fashion a better health bar
@@ -285,6 +297,19 @@ public class Main extends Application {
 		playerName.setId("fancytext");
 		grid.add(playerName, 2, Y_MAX - 6);
 		
+		//drawing player's health bar
+		Creature playerC = p.getMonsters().get(0);
+		playerC.setHealth(100);
+		Canvas playerHealthBar = new Canvas(120, 50);
+		GraphicsContext playerHealthBarG = playerHealthBar.getGraphicsContext2D();
+		playerHealthBarG.setFill(Color.RED);
+		playerHealthBarG.fillRect(0, 0, playerHealthBar.getWidth(), playerHealthBar.getHeight());
+		grid.add(playerHealthBar, 6, Y_MAX - 4);
+		Text playerHealth = new Text("  Health = " + playerC.getCurrentHealth() + " / " + playerC.getOriginalHealth());
+		//playerHealth.setId("healthText"); TODO make a health text thing in css
+		//could maybe also be used to fashion a better health bar
+		grid.add(playerHealth, 6, Y_MAX - 4);
+		
 		//drawing text box that narrates to user
 		Canvas textBox = new Canvas(450, 300);
 		GraphicsContext textBoxG = textBox.getGraphicsContext2D();
@@ -294,19 +319,23 @@ public class Main extends Application {
 		
 		//*******************drawing and creating move buttons**********************
 		//move 1
-		Button move1 = getMove(p, 0, c, g, healthBar, enemyHealth, textBoxG, textBox);
+		Button move1 = getMove(p, 0, c, enemyHealthBarG, enemyHealthBar, enemyHealth, textBoxG, textBox,
+										playerHealthBarG, playerHealthBar, playerHealth);
 		grid.add(move1, 6, Y_MAX - 3, 2, 1);
 		
 		//move 2
-		Button move2 = getMove(p, 1, c, g, healthBar, enemyHealth, textBoxG, textBox);
+		Button move2 = getMove(p, 1, c, enemyHealthBarG, enemyHealthBar, enemyHealth, textBoxG, textBox,
+										playerHealthBarG, playerHealthBar, playerHealth);
 		grid.add(move2, 8, Y_MAX - 3, 2, 1);
 		
 		//move 3
-		Button move3 = getMove(p, 2, c, g, healthBar, enemyHealth, textBoxG, textBox);
+		Button move3 = getMove(p, 2, c, enemyHealthBarG, enemyHealthBar, enemyHealth, textBoxG, textBox,
+										playerHealthBarG, playerHealthBar, playerHealth);
 		grid.add(move3, 6, Y_MAX - 2, 2, 1);
 		
 		//move 4
-		Button move4 = getMove(p, 3, c, g, healthBar, enemyHealth, textBoxG, textBox);
+		Button move4 = getMove(p, 3, c, enemyHealthBarG, enemyHealthBar, enemyHealth, textBoxG, textBox,
+										playerHealthBarG, playerHealthBar, playerHealth);
 		grid.add(move4, 8, Y_MAX - 2, 2, 1);
 		
 		return encounter;
@@ -314,10 +343,12 @@ public class Main extends Application {
 	
 	//this works by passing a bunch of nodes and changing their values
 	//not the best style but is better than before
-	public Button getMove(Player p, int moveNum, Creature c, GraphicsContext g, 
-			Canvas healthBar, Text enemyHealth, GraphicsContext textBoxG, Canvas textBox){
+	public Button getMove(Player p, int moveNum, Creature enemy, GraphicsContext enemyHealthBarG, 
+			Canvas enemyHealthBar, Text enemyHealth, GraphicsContext textBoxG, Canvas textBox, 
+			GraphicsContext playerHealthBarG, Canvas playerHealthBar, Text playerHealth){
 		
-		Attack[] moves = p.getMonsters().get(0).getMoves();
+		Creature friend = p.getMonsters().get(0);
+		Attack[] moves = friend.getMoves();
 		
 		Button move = new Button();
 		move.setMaxWidth(2 * SCREEN_WIDTH / X_MAX);
@@ -338,20 +369,34 @@ public class Main extends Application {
 				 * if the creature is not alive, nothing needs to happen because the health bar 
 				 * is already wiped. 
 				 */
-				g.clearRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
-				g.strokeRect(0, 0, healthBar.getWidth(), healthBar.getHeight());
-				c.takeDamage(moves[moveNum].getBaseDamage());
-				enemyHealth.setText("  Health = " + c.getCurrentHealth() + " / " + c.getOriginalHealth());
-				if(c.isAlive()){
+				enemyHealthBarG.clearRect(0, 0, enemyHealthBar.getWidth(), enemyHealthBar.getHeight());
+				enemyHealthBarG.strokeRect(0, 0, enemyHealthBar.getWidth(), enemyHealthBar.getHeight());
+				enemy.takeDamage(moves[moveNum].getBaseDamage());
+				enemyHealth.setText("  Health = " + enemy.getCurrentHealth() + " / " + enemy.getOriginalHealth());
+				if(enemy.isAlive()){
 					clearTextBox(textBox, textBoxG);
 					textBoxG.fillText(p.getName() + " used " + moves[moveNum].toString(), tbX, tbY);
-					g.fillRect(0, 0, (c.getCurrentHealth() * 1.0) / c.getOriginalHealth() * 
-							healthBar.getWidth(), healthBar.getHeight());
+					enemyHealthBarG.fillRect(0, 0, (enemy.getCurrentHealth() * 1.0) / enemy.getOriginalHealth() * 
+							enemyHealthBar.getWidth(), enemyHealthBar.getHeight());
+					Attack a = enemy.performAttack();
+					friend.takeDamage(a.getBaseDamage());
+					playerHealth.setText("  Health = " + friend.getCurrentHealth() + " / " + friend.getOriginalHealth());
+					textBoxG.fillText(enemy.getName() + " used " + a.toString(), tbX, 2 * tbY);
+					playerHealthBarG.clearRect(0, 0, playerHealthBar.getWidth(), playerHealthBar.getHeight());
+					playerHealthBarG.strokeRect(0, 0, playerHealthBar.getWidth(), playerHealthBar.getHeight());
+
+					if (friend.isAlive()){
+						playerHealthBarG.fillRect(0, 0, (friend.getCurrentHealth() * 1.0) / friend.getOriginalHealth() * 
+								playerHealthBar.getWidth(), playerHealthBar.getHeight());
+					} else {
+						textBoxG.fillText(p.getName() + " fainted!", tbX, 3 * tbY);
+					}
 				} else {
 					//print some kind of victory text?
 					clearTextBox(textBox, textBoxG);
 					textBoxG.fillText(p.getName() + " used " + moves[moveNum].toString(), tbX, tbY);
-					textBoxG.fillText(p.getName() + " defeated " + c.getName(), tbX, 2 * tbY);
+					textBoxG.fillText(p.getName() + " defeated " + enemy.getName(), tbX, 2 * tbY);
+					friend.setHealth(friend.getOriginalHealth());
 				}
 			}
 		});
